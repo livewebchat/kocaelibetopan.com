@@ -161,7 +161,7 @@
 
 @media (max-width: 991px) {
 	.banner {
-		padding-top: 140px;
+		padding-top: 0;
 		padding-bottom: 140px;
 	}
 }
