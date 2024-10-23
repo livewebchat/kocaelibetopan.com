@@ -3,7 +3,7 @@ const express = require("express")
 const multer = require("multer")
 const mysql = require("mysql2")
 const cors = require("cors")
-const path = require("path") // Import path module
+const path = require("path")
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -43,6 +43,7 @@ const corsOptions = {
     const allowedOrigins = [
       "https://yonetim.kocaelibetopan.com",
       "https://kocaelibetopan.com",
+      "localhost"
     ]
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
