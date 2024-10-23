@@ -45,7 +45,7 @@ function App() {
           }
         />
         <Route
-          path="/ana-sayfa-slaytlari"
+          path="/slaytlar"
           element={
             <>
               <PageTitle title="Ana Sayfa Slaytları | Kocaeli Betopan" />
