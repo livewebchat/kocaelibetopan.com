@@ -14,7 +14,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Yönetim Hesabı
+            Yönetici
           </span>
           <span className="hidden text-xs"></span>
         </span>
