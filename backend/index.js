@@ -48,14 +48,26 @@ app.get("/", (req, res) => {
 
 // Fetch data from MySQL
 app.get("/hero_sliders", (req, res) => {
-  const query = "SELECT * FROM hero_sliders"
-  db.query(query, (err, results) => {
-    if (err) {
-      res.status(500).json({ error: err.message })
-    } else {
-      res.json(results)
-    }
-  })
+  const allowedOrigins = [
+    "https://yonetim.kocaelibetopan.com",
+    "https://kocaelibetopan.com",
+  ]
+  const origin = req.get("origin") || req.get("referer")
+
+  if (allowedOrigins.includes(origin)) {
+    // Proceed with the request
+    const query = "SELECT * FROM sliders" // Assuming you're fetching sliders
+    db.query(query, (err, results) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.json(results)
+      }
+    })
+  } else {
+    // If the origin is not allowed, block the request
+    res.status(403).json({ message: "Access denied" })
+  }
 })
 
 app.listen(port, () => {
