@@ -67,32 +67,16 @@ app.options("*", cors(corsOptions))
 // Serve the uploaded files statically
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
-// Basic route
-app.get("/", (req, res) => {
-  res.send("Hello World!")
-})
-
 // GET route for hero sliders
 app.get("/hero_sliders", (req, res) => {
-  const allowedOrigins = [
-    "https://yonetim.kocaelibetopan.com",
-    "https://kocaelibetopan.com",
-    "http://localhost:5173"
-  ]
-  const origin = req.get("origin") || req.get("referer")
-
-  if (allowedOrigins.includes(origin)) {
-    const query = "SELECT * FROM sliders"
-    db.query(query, (err, results) => {
-      if (err) {
-        res.status(500).json({ error: err.message })
-      } else {
-        res.json(results)
-      }
-    })
-  } else {
-    res.status(403).json({ message: "Access denied" })
-  }
+  const query = "SELECT * FROM sliders"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      res.json(results)
+    }
+  })
 })
 
 // POST route to add a new slider with file upload
