@@ -2,6 +2,7 @@ require("dotenv").config()
 
 const express = require("express")
 const mysql = require("mysql2")
+const cors = require("cors")
 const app = express()
 const port = process.env.PORT
 
@@ -22,14 +23,32 @@ db.connect((err) => {
   console.log("Connected to MySQL")
 })
 
+// CORS options
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://yonetim.kocaelibetopan.com",
+      "https://kocaelibetopan.com",
+    ]
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+}
+
+// Use CORS with specific domains
+app.use(cors(corsOptions))
+
 // Basic route
 app.get("/", (req, res) => {
   res.send("Hello World!")
 })
 
 // Fetch data from MySQL
-app.get("/users", (req, res) => {
-  const query = "SELECT * FROM users" // Assume you have a users table
+app.get("/hero_sliders", (req, res) => {
+  const query = "SELECT * FROM hero_sliders"
   db.query(query, (err, results) => {
     if (err) {
       res.status(500).json({ error: err.message })
