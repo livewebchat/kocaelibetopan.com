@@ -56,7 +56,7 @@ app.get("/hero_sliders", (req, res) => {
 
   if (allowedOrigins.includes(origin)) {
     // Proceed with the request
-    const query = "SELECT * FROM sliders" // Assuming you're fetching sliders
+    const query = "SELECT * FROM sliders"
     db.query(query, (err, results) => {
       if (err) {
         res.status(500).json({ error: err.message })
@@ -69,6 +69,42 @@ app.get("/hero_sliders", (req, res) => {
     res.status(403).json({ message: "Access denied" })
   }
 })
+
+app.post("/hero_sliders", (req, res) => {
+  const allowedOrigins = [
+    "https://yonetim.kocaelibetopan.com",
+    "https://kocaelibetopan.com",
+  ]
+  const origin = req.get("origin") || req.get("referer")
+
+  if (allowedOrigins.includes(origin)) {
+    // Extract data from the request body
+    const { title, description, path, image } = req.body
+
+    if (!title || !path || !image) {
+      return res.status(400).json({ message: "Title, path, and image are required" })
+    }
+
+    // Insert data into the sliders table
+    const query = `
+      INSERT INTO sliders (title, description, path, image)
+      VALUES (?, ?, ?, ?)
+    `
+    const values = [title, description, path, image]
+
+    db.query(query, values, (err, results) => {
+      if (err) {
+        res.status(500).json({ error: err.message })
+      } else {
+        res.status(201).json({ message: "Slider added successfully", id: results.insertId })
+      }
+    })
+  } else {
+    // If the origin is not allowed, block the request
+    res.status(403).json({ message: "Access denied" })
+  }
+})
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
