@@ -79,12 +79,19 @@ app.get("/hero_sliders", (req, res) => {
   })
 })
 
-// POST route to add a new slider with file upload
 app.post("/hero_sliders", upload.single("image"), (req, res) => {
+  console.log("Request body:", req.body) // Log the request body
+  console.log("Uploaded file:", req.file) // Log the uploaded file information
+
   const { title, description } = req.body
   const imagePath = `/uploads/hero_sliders${req.file.filename}`
 
   if (!title || !description || !req.file) {
+    console.error("Missing required fields:", {
+      title,
+      description,
+      file: req.file,
+    })
     return res.status(400).json({ message: "Missing required fields" })
   }
 
@@ -96,8 +103,10 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
 
   db.query(query, values, (err, result) => {
     if (err) {
+      console.error("Error inserting slider:", err) // Log the database error
       return res.status(500).json({ error: err.message })
     }
+    console.log("Slider added successfully:", result) // Log the successful result
     res
       .status(201)
       .json({ message: "Slider added successfully", id: result.insertId })
