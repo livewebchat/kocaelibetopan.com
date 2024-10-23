@@ -74,6 +74,7 @@ app.post("/hero_sliders", (req, res) => {
   const allowedOrigins = [
     "https://yonetim.kocaelibetopan.com",
     "https://kocaelibetopan.com",
+    "localhost"
   ]
   const origin = req.get("origin") || req.get("referer")
 
@@ -82,7 +83,9 @@ app.post("/hero_sliders", (req, res) => {
     const { title, description, path, image } = req.body
 
     if (!title || !path || !image) {
-      return res.status(400).json({ message: "Title, path, and image are required" })
+      return res
+        .status(400)
+        .json({ message: "Title, path, and image are required" })
     }
 
     // Insert data into the sliders table
@@ -96,7 +99,9 @@ app.post("/hero_sliders", (req, res) => {
       if (err) {
         res.status(500).json({ error: err.message })
       } else {
-        res.status(201).json({ message: "Slider added successfully", id: results.insertId })
+        res
+          .status(201)
+          .json({ message: "Slider added successfully", id: results.insertId })
       }
     })
   } else {
@@ -104,7 +109,6 @@ app.post("/hero_sliders", (req, res) => {
     res.status(403).json({ message: "Access denied" })
   }
 })
-
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
