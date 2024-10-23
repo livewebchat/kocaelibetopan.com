@@ -6,7 +6,7 @@ const cors = require("cors")
 const path = require("path")
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 // Middleware to parse JSON data from POST requests
 app.use(express.json())
@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "uploads")) // Save uploaded files to 'uploads/' folder
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)) // Unique filename
+    cb(null, Date.now() + path.extname(file.originalname))
   },
 })
 
@@ -82,7 +82,7 @@ app.get("/hero_sliders", (req, res) => {
 // POST route to add a new slider with file upload
 app.post("/hero_sliders", upload.single("image"), (req, res) => {
   const { title, description } = req.body
-  const imagePath = `/uploads/${req.file.filename}` // File path to save in DB
+  const imagePath = `/uploads/hero_sliders${req.file.filename}`
 
   if (!title || !description || !req.file) {
     return res.status(400).json({ message: "Missing required fields" })
@@ -92,7 +92,7 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
     INSERT INTO sliders (title, description, path, image)
     VALUES (?, ?, ?, ?)
   `
-  const values = [title, description, "", imagePath] // Path column is unused
+  const values = [title, description, "", imagePath]
 
   db.query(query, values, (err, result) => {
     if (err) {
