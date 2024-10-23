@@ -43,7 +43,7 @@ const corsOptions = {
     const allowedOrigins = [
       "https://yonetim.kocaelibetopan.com",
       "https://kocaelibetopan.com",
-      "localhost"
+      "localhost",
     ]
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true)
