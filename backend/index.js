@@ -8,6 +8,9 @@ const path = require("path")
 const app = express()
 const port = process.env.PORT || 3000
 
+// Middleware to parse JSON data from POST requests
+app.use(express.json())
+
 // MySQL connection
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -28,7 +31,7 @@ db.connect((err) => {
 // Set up file storage using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/") // Save uploaded files to 'uploads/' folder
+    cb(null, path.join(__dirname, "uploads")) // Save uploaded files to 'uploads/' folder
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)) // Unique filename
@@ -45,16 +48,24 @@ const corsOptions = {
       "https://kocaelibetopan.com",
       "http://localhost:5173",
     ]
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true)
     } else {
       callback(new Error("Not allowed by CORS"))
     }
   },
+  methods: ["GET", "POST", "OPTIONS"], // Allow methods for preflight checks
+  credentials: true, // If credentials like cookies are required
 }
 
-// Use CORS with specific domains
+// Apply CORS middleware globally
 app.use(cors(corsOptions))
+
+// Handle preflight requests
+app.options("*", cors(corsOptions))
+
+// Serve the uploaded files statically
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 // Basic route
 app.get("/", (req, res) => {
@@ -66,6 +77,7 @@ app.get("/hero_sliders", (req, res) => {
   const allowedOrigins = [
     "https://yonetim.kocaelibetopan.com",
     "https://kocaelibetopan.com",
+    "http://localhost:5173"
   ]
   const origin = req.get("origin") || req.get("referer")
 
@@ -107,9 +119,6 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
       .json({ message: "Slider added successfully", id: result.insertId })
   })
 })
-
-// Serve the uploaded files statically
-app.use("/uploads", express.static("uploads"))
 
 // Start the server
 app.listen(port, () => {
