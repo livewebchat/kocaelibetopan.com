@@ -5,6 +5,7 @@ const DarkModeSwitcher = () => {
 
   return (
     <li>
+      Webhook Test1
       <label
         className={`relative m-0 block h-7.5 w-14 rounded-full ${
           colorMode === 'dark' ? 'bg-primary' : 'bg-stroke'
