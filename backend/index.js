@@ -96,7 +96,7 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
   }
 
   const query = `
-    INSERT INTO sliders (title, description, path, image)
+    INSERT INTO hero_sliders (title, description, path, image)
     VALUES (?, ?, ?, ?)
   `
   const values = [title, description, "", imagePath]
