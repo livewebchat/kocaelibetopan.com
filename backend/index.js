@@ -69,7 +69,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 // GET route for hero sliders
 app.get("/hero_sliders", (req, res) => {
-  const query = "SELECT * FROM sliders"
+  const query = "SELECT * FROM hero_sliders"
   db.query(query, (err, results) => {
     if (err) {
       res.status(500).json({ error: err.message })
@@ -115,5 +115,5 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`)
+  console.log(`Server running on https://localhost:${port}`)
 })
