@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
+import HeroSlider from './pages/HeroSlider/HeroSlider';
+
 import SignIn from './pages/Authentication/SignIn';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
@@ -39,6 +41,15 @@ function App() {
             <>
               <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
               <Dashboard />
+            </>
+          }
+        />
+        <Route
+          path="/ana-sayfa-slaytlari"
+          element={
+            <>
+              <PageTitle title="Ana Sayfa Slaytları | Kocaeli Betopan" />
+              <HeroSlider />
             </>
           }
         />
