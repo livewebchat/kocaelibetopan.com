@@ -13,6 +13,14 @@ const HeroSlider = () => {
   const [image, setImage] = useState<File | null>(null);
   const [currentSliders, setCurrentSliders] = useState<Sliders>([]);
 
+  const fetchSliders = async () => {
+    const restSliders = await fetch(
+      'https://api.kocaelibetopan.com/hero_sliders',
+    ).then((res) => res.json());
+
+    setCurrentSliders(restSliders);
+  };
+
   const handleAddSliderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -44,14 +52,6 @@ const HeroSlider = () => {
     } catch (error) {
       console.error('Error uploading slider:', error);
     }
-  };
-
-  const fetchSliders = async () => {
-    const restSliders = await fetch(
-      'https://api.kocaelibetopan.com/hero_sliders',
-    ).then((res) => res.json());
-
-    setCurrentSliders(restSliders);
   };
 
   useEffect(() => {
@@ -126,7 +126,10 @@ const HeroSlider = () => {
           <div className="flex flex-col gap-9">
             {currentSliders.map((slider, i) => (
               <div key={i}>
-                {slider.image}
+                <img
+                  src={`https://kocaelibetopan.com${slider.image}`}
+                  alt={slider.title}
+                />
                 {slider.title}
                 {slider.description}
               </div>

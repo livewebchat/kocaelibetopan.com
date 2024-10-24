@@ -31,7 +31,7 @@ db.connect((err) => {
 // Set up file storage using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "uploads")) // Save uploaded files to 'uploads/' folder
+    cb(null, path.join(__dirname, "uploads", routePath))
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname))
@@ -79,11 +79,8 @@ app.get("/hero_sliders", (req, res) => {
 })
 
 app.post("/hero_sliders", upload.single("image"), (req, res) => {
-  console.log("Request body:", req.body) // Log the request body
-  console.log("Uploaded file:", req.file) // Log the uploaded file information
-
   const { title, description } = req.body
-  const imagePath = `/uploads/hero_sliders/${req.file.filename}`
+  const imagePath = `https://kocaelibetopan.com/uploads/${req.file.filename}`
 
   if (!title || !description || !req.file) {
     console.error("Missing required fields:", {
@@ -102,10 +99,9 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
 
   db.query(query, values, (err, result) => {
     if (err) {
-      console.error("Error inserting slider:", err) // Log the database error
+      console.error("Error inserting slider:", err)
       return res.status(500).json({ error: err.message })
     }
-    console.log("Slider added successfully:", result) // Log the successful result
     res
       .status(201)
       .json({ message: "Slider added successfully", id: result.insertId })
