@@ -4,7 +4,7 @@ const multer = require("multer")
 const mysql = require("mysql2")
 const cors = require("cors")
 const path = require("path")
-const fs = require("fs") // fs modülünü ekleyin
+const fs = require("fs")
 
 const app = express()
 const port = process.env.PORT
@@ -32,8 +32,7 @@ db.connect((err) => {
 // Set up file storage using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const routePath = req.path.split("/")[1]
-    const uploadPath = path.join(__dirname, "uploads", routePath)
+    const uploadPath = path.join(__dirname, "uploads")
     cb(null, uploadPath)
   },
   filename: (req, file, cb) => {
@@ -126,7 +125,7 @@ app.delete("/hero_sliders/:id", (req, res) => {
     }
 
     const imagePath = result[0].image
-    const filePath = path.join(__dirname, "uploads", "hero_sliders", imagePath)
+    const filePath = path.join(__dirname, "uploads", imagePath)
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error("Error deleting slider image:", err)
