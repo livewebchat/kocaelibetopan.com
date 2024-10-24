@@ -108,6 +108,41 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
   })
 })
 
+app.delete("/hero_sliders/:id", (req, res) => {
+  const sliderId = req.params.id
+
+  const getFilePathQuery = `SELECT image FROM hero_sliders WHERE id = ?`
+  db.query(getFilePathQuery, [sliderId], (err, result) => {
+    if (err) {
+      console.error("Error fetching slider image path:", err)
+      return res.status(500).json({ error: err.message })
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Slider not found" })
+    }
+
+    const fileName = imagePath.split("/").pop()
+    const filePath = path.join(__dirname, "uploads", fileName)
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Error deleting slider image:", err)
+      }
+
+      const deleteQuery = `DELETE FROM hero_sliders WHERE id = ?`
+      db.query(deleteQuery, [sliderId], (err, result) => {
+        if (err) {
+          console.error("Error deleting slider:", err)
+          return res.status(500).json({ error: err.message })
+        }
+
+        res.json({ message: "Slider deleted successfully" })
+      })
+    })
+  })
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on https://localhost:${port}`)
