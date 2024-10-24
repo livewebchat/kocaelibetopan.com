@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
 type Sliders = {
+  id: number;
   image: string;
   title: string;
   description: string;
@@ -51,6 +52,28 @@ const HeroSlider = () => {
       }
     } catch (error) {
       console.error('Error uploading slider:', error);
+    }
+  };
+
+  const handleDeleteSlider = async (sliderId: number) => {
+    try {
+      const response = await fetch(
+        `https://api.kocaelibetopan.com/hero_sliders/${sliderId}`,
+        {
+          method: 'DELETE',
+        },
+      );
+
+      if (response.ok) {
+        alert('Slider deleted successfully!');
+        fetchSliders();
+      } else {
+        const data = await response.json();
+        alert(`Error deleting slider: ${data.message}`);
+      }
+    } catch (error) {
+      console.error('Error deleting slider:', error);
+      alert('An error occurred while deleting the slider.');
     }
   };
 
@@ -132,6 +155,9 @@ const HeroSlider = () => {
                 />
                 {slider.title}
                 {slider.description}
+                <button onClick={() => handleDeleteSlider(slider.id)}>
+                  &times;
+                </button>
               </div>
             ))}
           </div>
