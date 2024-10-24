@@ -12,6 +12,8 @@ const HeroSlider = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
+
+  const [loadingSliders, setLoadingSliders] = useState<boolean>(true);
   const [currentSliders, setCurrentSliders] = useState<Sliders>([]);
 
   const fetchSliders = async () => {
@@ -20,6 +22,7 @@ const HeroSlider = () => {
     ).then((res) => res.json());
 
     setCurrentSliders(restSliders);
+    setLoadingSliders(false);
   };
 
   const handleAddSliderSubmit = async (e: React.FormEvent) => {
@@ -146,7 +149,9 @@ const HeroSlider = () => {
           </div>
         </div>
 
-        {currentSliders.length ? (
+        {loadingSliders ? (
+          'loading'
+        ) : currentSliders.length ? (
           <div className="flex flex-col gap-9">
             {currentSliders.map((slider, i) => (
               <div key={i}>

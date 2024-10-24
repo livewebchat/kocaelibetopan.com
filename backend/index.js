@@ -4,6 +4,7 @@ const multer = require("multer")
 const mysql = require("mysql2")
 const cors = require("cors")
 const path = require("path")
+const fs = require("fs") // fs modülünü ekleyin
 
 const app = express()
 const port = process.env.PORT
@@ -31,7 +32,9 @@ db.connect((err) => {
 // Set up file storage using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "uploads", routePath))
+    const routePath = req.path.split("/")[1]
+    const uploadPath = path.join(__dirname, "uploads", routePath)
+    cb(null, uploadPath)
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname))
@@ -80,7 +83,7 @@ app.get("/hero_sliders", (req, res) => {
 
 app.post("/hero_sliders", upload.single("image"), (req, res) => {
   const { title, description } = req.body
-  const imagePath = `https://kocaelibetopan.com/uploads/${req.file.filename}`
+  const imagePath = `${req.file.filename}`
 
   if (!title || !description || !req.file) {
     console.error("Missing required fields:", {
@@ -122,9 +125,8 @@ app.delete("/hero_sliders/:id", (req, res) => {
       return res.status(404).json({ message: "Slider not found" })
     }
 
-    const fileName = imagePath.split("/").pop()
-    const filePath = path.join(__dirname, "uploads", fileName)
-
+    const imagePath = result[0].image
+    const filePath = path.join(__dirname, "uploads", "hero_sliders", imagePath)
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error("Error deleting slider image:", err)
