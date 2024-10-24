@@ -64,9 +64,6 @@ app.use(cors(corsOptions))
 // Handle preflight requests
 app.options("*", cors(corsOptions))
 
-// Serve the uploaded files statically
-app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-
 // GET route for hero sliders
 app.get("/hero_sliders", (req, res) => {
   const query = "SELECT * FROM hero_sliders"
@@ -84,7 +81,7 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
   console.log("Uploaded file:", req.file) // Log the uploaded file information
 
   const { title, description } = req.body
-  const imagePath = `/uploads/hero_sliders${req.file.filename}`
+  const imagePath = `/uploads/hero_sliders/${req.file.filename}`
 
   if (!title || !description || !req.file) {
     console.error("Missing required fields:", {

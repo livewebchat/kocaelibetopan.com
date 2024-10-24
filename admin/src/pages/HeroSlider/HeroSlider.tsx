@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+
+type Sliders = {
+  image: string;
+  title: string;
+  description: string;
+}[];
 
 const HeroSlider = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [currentSliders, setCurrentSliders] = useState<Sliders>([]);
 
   const handleAddSliderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +45,19 @@ const HeroSlider = () => {
       console.error('Error uploading slider:', error);
     }
   };
+
+  const fetchSliders = async () => {
+    const restSliders = await fetch(
+      'https://api.kocaelibetopan.com/hero_sliders',
+    ).then((res) => res.json());
+
+    setCurrentSliders(restSliders);
+  };
+
+  useEffect(() => {
+    fetchSliders();
+  }, []);
+
   return (
     <>
       <Breadcrumb pageName="Ana Sayfa Slaytları" />
@@ -101,6 +121,20 @@ const HeroSlider = () => {
             </form>
           </div>
         </div>
+
+        {currentSliders.length ? (
+          <div className="flex flex-col gap-9">
+            {currentSliders.map((slider, i) => (
+              <div key={i}>
+                {slider.image}
+                {slider.title}
+                {slider.description}
+              </div>
+            ))}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </>
   );
