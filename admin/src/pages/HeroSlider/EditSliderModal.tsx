@@ -27,13 +27,14 @@ export const EditSliderModal: React.FC<Props> = ({
     formData.append('image', image);
 
     const addSliderPromise = fetch(
-      `https://api.kocaelibetopan.com/hero_sliders/${sliderId.toString()}`,
+      `https://api.kocaelibetopan.com/hero_sliders/${sliderId}`,
       {
         method: 'PUT',
         body: formData,
       },
     ).then(async (response) => {
       if (response.ok) {
+        setSliderForEdit(undefined);
         fetchSliders();
         return 'Slayt eklendi';
       } else {
@@ -51,7 +52,7 @@ export const EditSliderModal: React.FC<Props> = ({
 
   return (
     <>
-      <div className="flex flex-col gap-9 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10000] max-h-100">
+      <div className="flex flex-col gap-9 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10000] w-[90%] max-w-[500px] max-h-[90vh] overflow-y-auto">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
             <div className="flex justify-between">

@@ -306,6 +306,7 @@ const HeroSlider = () => {
         <EditSliderModal
           sliderForEdit={sliderForEdit}
           setSliderForEdit={setSliderForEdit}
+          fetchSliders={fetchSliders}
         />
       )}
     </>
