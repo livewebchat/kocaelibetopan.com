@@ -48,14 +48,16 @@ const corsOptions = {
       "https://kocaelibetopan.com",
       "http://localhost:5173",
     ]
+
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true)
     } else {
+      console.log("CORS error:", origin)
       callback(new Error("Not allowed by CORS"))
     }
   },
-  methods: ["GET", "POST", "OPTIONS"], // Allow methods for preflight checks
-  credentials: true, // If credentials like cookies are required
+  methods: ["GET", "POST", "OPTIONS"],
+  credentials: true,
 }
 
 // Apply CORS middleware globally
