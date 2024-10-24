@@ -2885,6 +2885,13 @@
     <script>
       const { createApp, ref } = Vue
 
+      const fetchHeroSliders = async () => {
+        await fetch("https://api.kocaelibetopan.com/hero_sliders")
+          .then((res) => res.json())
+          .then((res) => console.log(res))
+      }
+      fetchHeroSliders()
+
       createApp({
         setup() {
           const message = ref("Hello vue!")

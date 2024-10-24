@@ -49,6 +49,7 @@ const corsOptions = {
       "https://yonetim.kocaelibetopan.com",
       "https://kocaelibetopan.com",
       "http://localhost:5173",
+      "http://127.0.0.1:5500",
     ]
 
     if (allowedOrigins.includes(origin) || !origin) {
@@ -107,6 +108,46 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
     res
       .status(201)
       .json({ message: "Slider added successfully", id: result.insertId })
+  })
+})
+
+app.put("/hero_sliders/:id", upload.single("image"), (req, res) => {
+  const sliderId = req.params.id
+  const { title, description } = req.body
+  let imagePath = ""
+
+  if (req.file) {
+    imagePath = req.file.filename
+
+    const getOldImagePathQuery = `SELECT image FROM hero_sliders WHERE id = ?`
+    db.query(getOldImagePathQuery, [sliderId], (err, result) => {
+      if (err) {
+        console.error("Error fetching old image path:", err)
+      } else if (result.length > 0) {
+        const oldImagePath = result[0].image
+        const oldFilePath = path.join(__dirname, "uploads", oldImagePath)
+        fs.unlink(oldFilePath, (err) => {
+          if (err) {
+            console.error("Error deleting old image:", err)
+          }
+        })
+      }
+    })
+  }
+
+  const updateQuery = `
+    UPDATE hero_sliders 
+    SET title = ?, description = ?, image = IFNULL(?, image) 
+    WHERE id = ?
+  `
+  const values = [title, description, imagePath, sliderId]
+
+  db.query(updateQuery, values, (err, result) => {
+    if (err) {
+      console.error("Error updating slider:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res.json({ message: "Slider updated successfully" })
   })
 })
 
