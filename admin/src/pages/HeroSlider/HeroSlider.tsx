@@ -47,6 +47,7 @@ const HeroSlider = () => {
       const data = await response.json();
       if (response.ok) {
         alert('Slider added successfully!');
+        fetchSliders();
       } else {
         alert(`Error: ${data.message}`);
       }
