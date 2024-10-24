@@ -2,16 +2,10 @@ import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
-
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import toast from 'react-hot-toast';
 
-type Sliders = {
-  id: number;
-  image: string;
-  title: string;
-  description: string;
-}[];
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { EditSliderModal } from './EditSliderModal';
 
 const HeroSlider = () => {
   const [title, setTitle] = useState('');
@@ -19,7 +13,8 @@ const HeroSlider = () => {
   const [image, setImage] = useState<File | null>(null);
 
   const [loadingSliders, setLoadingSliders] = useState<boolean>(true);
-  const [currentSliders, setCurrentSliders] = useState<Sliders>([]);
+  const [currentSliders, setCurrentSliders] = useState<Slider[]>([]);
+  const [sliderForEdit, setSliderForEdit] = useState<Slider>();
 
   const fetchSliders = async () => {
     await fetch('https://api.kocaelibetopan.com/hero_sliders')
@@ -35,7 +30,6 @@ const HeroSlider = () => {
     e.preventDefault();
 
     if (!image) {
-      alert('Please select an image.');
       return;
     }
 
@@ -65,29 +59,6 @@ const HeroSlider = () => {
       success: (msg) => msg,
       error: 'Slayt eklenirken bir hata oluştu',
     });
-  };
-
-  const handleEditSlider = async (sliderId: string, formData: FormData) => {
-    try {
-      const response = await fetch(
-        `https://api.kocaelibetopan.com/hero_sliders/${sliderId}`,
-        {
-          method: 'PUT',
-          body: formData,
-        },
-      );
-
-      if (response.ok) {
-        alert('Slider updated successfully!');
-        fetchSliders();
-      } else {
-        const data = await response.json();
-        alert(`Error updating slider: ${data.message}`);
-      }
-    } catch (error) {
-      console.error('Error updating slider:', error);
-      alert('An error occurred while updating the slider.');
-    }
   };
 
   const handleDeleteSlider = async (sliderId: number) => {
@@ -138,7 +109,7 @@ const HeroSlider = () => {
             {currentSliders.map((slider) => (
               <SwiperSlide className="cursor-grab active:cursor-grabbing group">
                 <button
-                  onClick={() => handleDeleteSlider(slider.id)}
+                  onClick={() => setSliderForEdit(slider)}
                   className="cursor-pointer opacity-0 group-hover:opacity-100 absolute top-[5px] left-[7px] z-1 text-white bg-gray-700 rounded-full p-2"
                 >
                   <svg
@@ -330,6 +301,13 @@ const HeroSlider = () => {
           </div>
         </div>
       </div>
+
+      {sliderForEdit && (
+        <EditSliderModal
+          sliderForEdit={sliderForEdit}
+          setSliderForEdit={setSliderForEdit}
+        />
+      )}
     </>
   );
 };

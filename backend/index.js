@@ -59,7 +59,7 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"))
     }
   },
-  methods: ["GET", "POST", "OPTIONS", "DELETE"],
+  methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE"],
   credentials: true,
 }
 
