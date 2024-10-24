@@ -114,7 +114,7 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
 app.put("/hero_sliders/:id", upload.single("image"), (req, res) => {
   const sliderId = req.params.id
   const { title, description } = req.body
-  let imagePath = ""
+  let imagePath = null
 
   if (req.file) {
     imagePath = req.file.filename
