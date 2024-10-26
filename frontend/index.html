@@ -15,6 +15,10 @@
       rel="stylesheet"
       href="./assets/vendors/liquid-icon/lqd-essentials/lqd-essentials.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="./assets/vendors/swiperjs/swiper-bundle.min.css"
+    />
     <link rel="stylesheet" href="./assets/css/theme.css" />
     <link rel="stylesheet" href="./assets/css/utility.css" />
     <link rel="stylesheet" href="./assets/css/demo/classic.css" />
@@ -380,28 +384,20 @@
           <div id="lqd-contents-wrap">
             <!-- start Banner -->
             <section
-              class="lqd-section banner bg-no-repeat bg-center bg-cover"
+              class="swiper lqd-section banner bg-no-repeat bg-center bg-cover"
               id="banner"
-              >
-              <div
-                class="carousel-container carousel-nav-left carousel-nav-mobile-centercarousel-nav-md carousel-dots-mobile-center carousel-dots-sm carousel-dots-style1 carousel-dots-mobile-inside"
-              >
+            >
+              <div class="swiper-wrapper">
                 <div
-                  class="carousel-items"
-                  data-lqd-flickity='{"cellAlign": "left", "prevNextButtons": true, "pageDots": true, "groupCells": true, "wrapAround": true, "pauseAutoPlayOnHover": false, "buttonsAppendTo": "self", "addSlideNumbersToArrows": false, "dotsIndicator": "dots", "numbersStyle": "circle", "dotsAppendTo": "self"}'
-                >
-                <div
-                  class="carousel-item w-full py-150 md:px-0"
+                  class="swiper-slide w-full py-150 md:px-0"
                   v-for="slider in sliders"
                   :key="slider.id"
                   :style="{ backgroundImage: `url(https://kocaelibetopan.com/uploads/${slider.image})` }"
-                > 
+                >
                   <div class="carousel-item-inner">
                     <div class="carousel-item-content container">
                       <div class="row">
-                        <div
-                          class="col col-12 col-lg-7 col-xl-5"
-                        >
+                        <div class="col col-12 col-lg-7 col-xl-5">
                           <div class="ld-fancy-heading">
                             <h1
                               class="ld-fh-element mb-0/35em lqd-split-lines"
@@ -428,18 +424,28 @@
                                   class="btn font-bold text-13 btn-solid text-white bg-primary uppercase border-thin btn-hover-swp leading-1/5em px-0/6em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
                                   data-localscroll="true"
                                 >
-                                  <span class="inline-flex py-1/15em px-2/1em items-center">
-                                    <span class="btn-txt" data-text="İncele">İncele</span>
+                                  <span
+                                    class="inline-flex py-1/15em px-2/1em items-center"
+                                  >
+                                    <span class="btn-txt" data-text="İncele"
+                                      >İncele</span
+                                    >
                                     <span class="btn-icon">
-                                      <i class="lqd-icn-ess icon-md-arrow-forward"></i>
+                                      <i
+                                        class="lqd-icn-ess icon-md-arrow-forward"
+                                      ></i>
                                     </span>
                                     <span class="btn-icon">
-                                      <i class="lqd-icn-ess icon-md-arrow-forward"></i>
+                                      <i
+                                        class="lqd-icn-ess icon-md-arrow-forward"
+                                      ></i>
                                     </span>
                                   </span>
                                 </a>
                               </div>
-                              <p class="d-flex flex-col m-0 relative font-bold text-nowrap">
+                              <p
+                                class="d-flex flex-col m-0 relative font-bold text-nowrap"
+                              >
                                 Bizi Arayın:
                                 <span class="text-16 text-primary text-nowrap">
                                   +90 (538) 782 41 65
@@ -453,6 +459,10 @@
                   </div>
                 </div>
               </div>
+
+              <div class="banner-next-button"></div>
+              <div class="banner-prev-button"></div>
+              <div class="banner-pagination"></div>
             </section>
             <!-- End Banner -->
 
@@ -465,21 +475,8 @@
                 <div class="row">
                   <div class="col col-12 text-center mb-60 mx-auto">
                     <div class="ld-fancy-heading">
-                      <h2
-                        class="ld-fh-element mb-0/4em"
-                        data-text-rotator="true"
-                      >
-                        <span class="txt-rotate-keywords">
-                          <span class="txt-rotate-keyword active">
-                            <span>Referanslarımız</span>
-                          </span>
-                          <span class="txt-rotate-keyword">
-                            <span>Geçmiş Projelerimiz</span>
-                          </span>
-                          <span class="txt-rotate-keyword">
-                            <span>Müşteri Memnuniyeti</span>
-                          </span>
-                        </span>
+                      <h2 class="ld-fh-element mb-0/4em">
+                        Geçmiş Projelerimiz
                       </h2>
                     </div>
                     <div class="ld-fancy-heading">
@@ -2486,6 +2483,7 @@
     <script src="./assets/js/theme.js"></script>
     <script src="./assets/js/liquid-ajax-contact-form.min.js"></script>
 
+    <script src="./assets/vendors/swiperjs/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./assets/js/vue/requests.js"></script>
     <script src="./assets/js/vue/vue.js"></script>
