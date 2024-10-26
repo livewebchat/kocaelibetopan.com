@@ -1,0 +1,111 @@
+#app {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#main-preloader {
+  opacity: 1;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #fff;
+  color: var(--lqd-color-primary);
+  z-index: 2147483647;
+  transition: opacity 0.15s ease-out;
+}
+
+#whatsapp_button {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+  z-index: 2147483646;
+}
+
+#whatsapp_button svg {
+  height: 55px;
+  width: 55px;
+}
+
+.banner .carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  padding: 0 15px;
+  justify-content: space-between;
+}
+
+.banner .carousel-nav svg {
+  display: none;
+}
+
+.banner .carousel-nav .flickity-prev-next-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: var(--lqd-color-primary);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+}
+
+.banner .carousel-nav .flickity-prev-next-button.previous {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M20 10v4h-9l3.5 3.5l-2.42 2.42L4.16 12l7.92-7.92L14.5 6.5L11 10z'/%3E%3C/svg%3E");
+}
+
+.banner .carousel-nav .flickity-prev-next-button.next {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M4 10v4h9l-3.5 3.5l2.42 2.42L19.84 12l-7.92-7.92L9.5 6.5L13 10z'/%3E%3C/svg%3E");
+}
+
+.banner .carousel-item {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: calc(100vh - 171px);
+}
+
+.banner .carousel-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.banner .carousel-item h1 {
+  color: #fff;
+}
+
+.banner .carousel-item p {
+  color: #ccc;
+}
+
+.home-reference-image,
+.our-services-image {
+  aspect-ratio: 1.43 / 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.link-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  top: 0;
+  left: 0;
+}
+
+#case-studies .carousel-item:hover h5 {
+  color: var(--lqd-color-link-hover);
+}
+#case-studies .carousel-item:hover {
+  transform: translateY(-5px);
+}

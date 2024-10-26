@@ -1,0 +1,79 @@
+<!-- start Banner -->
+<section
+class="lqd-section banner bg-no-repeat bg-center bg-cover"
+id="banner"
+>
+<div
+  class="carousel-container carousel-nav-left carousel-nav-mobile-centercarousel-nav-md carousel-dots-mobile-center carousel-dots-sm carousel-dots-style1 carousel-dots-mobile-inside"
+>
+  <div
+    class="carousel-items"
+    data-lqd-flickity='{"cellAlign": "left", "prevNextButtons": true, "pageDots": true, "groupCells": true, "wrapAround": true, "pauseAutoPlayOnHover": false, "buttonsAppendTo": "self", "addSlideNumbersToArrows": false, "dotsIndicator": "dots", "numbersStyle": "circle", "dotsAppendTo": "self"}'
+  >
+  <div
+  class="carousel-item w-full py-150 md:px-0"
+  v-for="slider in sliders"
+  :key="slider.id"
+  :style="{ backgroundImage: `url(https://kocaelibetopan.com/uploads/${slider.image})` }"
+>
+  <div class="carousel-item-inner">
+    <div class="carousel-item-content container">
+      <div class="row">
+        <div
+          class="col col-12 col-lg-7 col-xl-5"
+          data-custom-animations="true"
+          data-ca-options='{"triggerHandler": "inview", "animationTarget": "all-childs", "duration": "1800", "delay": "180", "ease": "power4.out", "direction": "forward", "initValues": {"y" : 45 , "transformOriginX" : 50 , "transformOriginY" : 50 , "transformOriginZ": "0px", "opacity" : 0} , "animations": {"y" : 0 , "transformOriginX" : 50 , "transformOriginY" : 50 , "transformOriginZ": "0px", "opacity" : 1}}'
+        >
+          <div class="ld-fancy-heading">
+            <h1
+              class="ld-fh-element mb-0/35em lqd-split-lines"
+              data-split-text="true"
+              data-split-options='{"type": "lines"}'
+            >
+              {{ slider.title }}
+            </h1>
+          </div>
+          <div class="ld-fancy-heading">
+            <p
+              class="ld-fh-element mb-2em lqd-split-lines leading-30 text-17"
+              data-split-text="true"
+              data-split-options='{"type": "lines"}'
+            >
+              {{ slider.description }}
+            </p>
+          </div>
+          <div class="container-fluid p-0">
+            <div class="d-flex gap-15 items-center">
+              <div class="lg:pr-0">
+                <a
+                  href="service-detail.html"
+                  class="btn font-bold text-13 btn-solid text-white bg-primary uppercase border-thin btn-hover-swp leading-1/5em px-0/6em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
+                  data-localscroll="true"
+                >
+                  <span class="inline-flex py-1/15em px-2/1em items-center">
+                    <span class="btn-txt" data-text="İncele">İncele</span>
+                    <span class="btn-icon">
+                      <i class="lqd-icn-ess icon-md-arrow-forward"></i>
+                    </span>
+                    <span class="btn-icon">
+                      <i class="lqd-icn-ess icon-md-arrow-forward"></i>
+                    </span>
+                  </span>
+                </a>
+              </div>
+              <p class="d-flex flex-col m-0 relative font-bold text-nowrap">
+                Bizi Arayın:
+                <span class="text-16 text-primary text-nowrap">
+                  +90 (538) 782 41 65
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</section>
+<!-- End Banner -->

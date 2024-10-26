@@ -17547,5 +17547,3 @@ jQuery(document).ready(function ($) {
 jQuery(document).ready(function ($) {
   $("[data-lqd-scroll-indicator]").liquidScrollIndicator()
 })
-
-//# sourceMappingURL=theme.js.map
