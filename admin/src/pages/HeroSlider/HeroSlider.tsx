@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useEffect, useRef, useState } from 'react';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import toast from 'react-hot-toast';
@@ -17,6 +17,8 @@ const HeroSlider = () => {
   const [loadingSliders, setLoadingSliders] = useState<boolean>(true);
   const [currentSliders, setCurrentSliders] = useState<Slider[]>([]);
   const [sliderForEdit, setSliderForEdit] = useState<Slider>();
+
+  const currentSlidersRef = useRef<SwiperRef>(null);
 
   const fetchSliders = async () => {
     setCurrentSliders(await getAllSliders());
@@ -43,8 +45,14 @@ const HeroSlider = () => {
       error: (err) => err.message,
     });
 
-    fetchSliders();
     clearAddSliderForm();
+    await fetchSliders();
+
+    setTimeout(() => {
+      currentSlidersRef.current?.swiper.slideTo(
+        currentSlidersRef.current?.swiper.slides.length,
+      );
+    }, 200);
   };
 
   const handleDeleteSlider = async (sliderId: string) => {
@@ -80,6 +88,7 @@ const HeroSlider = () => {
             className="w-full p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
             modules={[Navigation, Pagination]}
             pagination={true}
+            ref={currentSlidersRef}
           >
             {currentSliders.map((slider) => (
               <SwiperSlide
