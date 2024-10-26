@@ -9,7 +9,6 @@ const fs = require("fs")
 const app = express()
 const port = process.env.PORT
 
-// Middleware to parse JSON data from POST requests
 app.use(express.json())
 
 // MySQL connection
@@ -23,11 +22,10 @@ function handleMySQLDisconnect() {
     database: process.env.DB_NAME,
   })
 
-  // Connect to MySQL
   db.connect((err) => {
     if (err) {
       console.error("Error connecting to MySQL:", err.stack)
-      setTimeout(handleMySQLDisconnect, 2000) // Retry after 2 seconds if connection fails
+      setTimeout(handleMySQLDisconnect, 2000)
     } else {
       console.log("Connected to MySQL")
     }
@@ -37,18 +35,16 @@ function handleMySQLDisconnect() {
   db.on("error", (err) => {
     if (err.code === "PROTOCOL_CONNECTION_LOST") {
       console.warn("MySQL connection lost. Reconnecting...")
-      handleMySQLDisconnect() // Reconnect on connection loss
+      handleMySQLDisconnect()
     } else {
       console.error("MySQL error:", err)
-      throw err // Handle other errors as needed
+      throw err
     }
   })
 }
 
-// Initialize connection
 handleMySQLDisconnect()
 
-// Set up file storage using Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadPath = path.join(__dirname, "uploads")
@@ -61,7 +57,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-// CORS options
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
@@ -82,7 +77,6 @@ const corsOptions = {
   credentials: true,
 }
 
-// Apply CORS middleware globally
 app.use(cors(corsOptions))
 app.options("*", cors(corsOptions))
 
@@ -220,37 +214,30 @@ app.get("/contacts", (req, res) => {
   })
 })
 
-app.post("/contacts", (req, res) => {
+app.put("/contacts", (req, res) => {
   const { phoneNumber, whatsappNumber, emailAddress, instagramLink } = req.body
 
   if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink) {
-    console.error("Missing required fields:", {
-      phoneNumber,
-      whatsappNumber,
-      mailAddress,
-      instagramLink,
-    })
-    return res.status(400).json({ message: "Missing required fields" })
+    return res.status(400).json({ error: "All fields are required." })
   }
 
-  const query = `
-    INSERT INTO contacts (phoneNumber, whatsappNumber, emailAddress, instagramLink)
-    VALUES (?, ?, ?, ?)
+  const updateQuery = `
+    UPDATE contacts 
+    SET phoneNumber = ?, whatsappNumber = ?, emailAddress = ?, instagramLink = ?
+    WHERE id = ?
   `
-  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink]
+  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink, 1]
 
-  db.query(query, values, (err, result) => {
+  db.query(updateQuery, values, (err, result) => {
     if (err) {
-      console.error("Error inserting contacts:", err)
+      console.error("Error updating contacts:", err)
       return res.status(500).json({ error: err.message })
     }
-    res
-      .status(201)
-      .json({ message: "Contacts added successfully", id: result.insertId })
+
+    res.json({ message: "Contacts updated successfully" })
   })
 })
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on https://localhost:${port}`)
 })
