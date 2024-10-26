@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { EditSliderModal } from './EditSliderModal';
 import { addNewSlider, getAllSliders } from './_requests';
+import { removeSliderById } from '../Settings/_requests';
 
 const HeroSlider = () => {
   const [title, setTitle] = useState('');
@@ -53,27 +54,14 @@ const HeroSlider = () => {
     clearAddSliderForm();
   };
 
-  const handleDeleteSlider = async (sliderId: string) => {
-    const removeSliderPromise = fetch(
-      `https://api.kocaelibetopan.com/hero_sliders/${sliderId}`,
-      {
-        method: 'DELETE',
-      },
-    ).then(async (response) => {
-      if (response.ok) {
-        fetchSliders();
-        return 'Slayt silindi';
-      } else {
-        const data = await response.json();
-        throw new Error(data.message);
-      }
-    });
-
-    toast.promise(removeSliderPromise, {
+  const handleDeleteSlider = async (sliderId: number) => {
+    await toast.promise(removeSliderById(sliderId), {
       loading: 'Slayt siliniyor...',
       success: (msg) => msg,
-      error: 'Slayt silinirken bir hata oluştu',
+      error: (err) => err.message,
     });
+
+    fetchSliders();
   };
 
   useEffect(() => {
@@ -139,7 +127,7 @@ const HeroSlider = () => {
                             <button
                               className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
                               onClick={() => {
-                                handleDeleteSlider(slider.id);
+                                handleDeleteSlider(Number(slider.id));
                                 toast.dismiss(t.id);
                               }}
                             >
