@@ -5,3 +5,11 @@ const fetchSliders = async (sliders, error) => {
     error.value = err.message
   }
 }
+
+const fetchContacts = async (contacts, error) => {
+  try {
+    contacts.value = await getContacts()
+  } catch (err) {
+    error.value = err.message
+  }
+}

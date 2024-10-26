@@ -13,3 +13,17 @@ const getAllSliders = async () => {
     throw error
   }
 }
+
+const getContacts = async () => {
+  try {
+    const response = await fetch(API_URL + "/contacts")
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+    return data[0]
+  } catch (error) {
+    console.error("Error fetching contacts:", error)
+    throw error
+  }
+}

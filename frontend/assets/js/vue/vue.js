@@ -7,12 +7,16 @@ fetchesScript.src = "./assets/js/vue/fetches.js"
 const initializeSwipersScript = document.createElement("script")
 initializeSwipersScript.src = "./assets/js/vue/initializeSwipers.js"
 
+const methodsScript = document.createElement("script")
+methodsScript.src = "./assets/js/vue/methods.js"
+
 const vueGlobalScript = document.createElement("script")
 vueGlobalScript.src = "./assets/js/vue/vue.global.js"
 
 document.head.appendChild(requestsScript)
 document.head.appendChild(fetchesScript)
 document.head.appendChild(initializeSwipersScript)
+document.head.appendChild(methodsScript)
 document.head.appendChild(vueGlobalScript)
 
 vueGlobalScript.onload = () => {
@@ -21,6 +25,7 @@ vueGlobalScript.onload = () => {
   createApp({
     setup() {
       const sliders = ref([])
+      const contacts = ref({})
       const loading = ref(true)
       const error = ref(null)
 
@@ -39,7 +44,11 @@ vueGlobalScript.onload = () => {
 
       onMounted(async () => {
         try {
-          await Promise.all([fetchSliders(sliders, error), imagesLoaded()])
+          await Promise.all([
+            fetchSliders(sliders, error),
+            fetchContacts(contacts, error),
+            imagesLoaded(),
+          ])
           initializeSwipers()
         } catch (err) {
           error.value = err.message
@@ -48,7 +57,7 @@ vueGlobalScript.onload = () => {
         }
       })
 
-      return { sliders, loading, error }
+      return { sliders, contacts, loading, error, formatPhoneNumber }
     },
     mounted() {
       const mainPreloader = document.getElementById("main-preloader")

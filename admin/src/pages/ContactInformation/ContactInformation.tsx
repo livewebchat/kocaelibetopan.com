@@ -5,6 +5,12 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { getContactInformation, updateContacts } from './_requests';
 
 const ContactInformation = () => {
+  const [initialContacts, setInitialContacts] = useState<Contacts>({
+    phoneNumber: '',
+    whatsappNumber: '',
+    emailAddress: '',
+    instagramLink: '',
+  });
   const [currentContacts, setCurrentContacts] = useState<Contacts>({
     phoneNumber: '',
     whatsappNumber: '',
@@ -12,6 +18,12 @@ const ContactInformation = () => {
     instagramLink: '',
   });
   const [loadingContacts, setLoadingContacts] = useState(true);
+  const [changedBackend, setChangedBackend] = useState(false);
+
+  const fetchContactsAsInitials = async () => {
+    const restContacts = await getContactInformation();
+    setInitialContacts(restContacts[0]);
+  };
 
   const fetchContacts = async () => {
     const restContacts = await getContactInformation();
@@ -19,19 +31,37 @@ const ContactInformation = () => {
     setLoadingContacts(false);
   };
 
+  const revertChanges = async () => {
+    setCurrentContacts(initialContacts);
+
+    if (changedBackend) {
+      await toast.promise(updateContacts(initialContacts), {
+        loading: 'Değişiklikler geri alınıyor...',
+        success: () => 'Değişiklikler geri alındı',
+        error: () => 'Değişiklikler geri alınırken bir hata oluştu',
+      });
+
+      setChangedBackend(false);
+    }
+  };
+
   const handleUpdateContacts = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await toast.promise(updateContacts(currentContacts), {
-      loading: 'Bilgiler güncelleniyor...',
-      success: (msg) => msg,
-      error: (err) => err.message,
-    });
+    if (JSON.stringify(currentContacts) != JSON.stringify(initialContacts)) {
+      await toast.promise(updateContacts(currentContacts), {
+        loading: 'Bilgiler güncelleniyor...',
+        success: (msg) => msg,
+        error: (err) => err.message,
+      });
 
-    fetchContacts();
+      setChangedBackend(true);
+      fetchContacts();
+    }
   };
 
   useEffect(() => {
+    fetchContactsAsInitials();
     fetchContacts();
   }, []);
 
@@ -221,16 +251,24 @@ const ContactInformation = () => {
                 </div>
 
                 <div className="flex justify-end gap-4.5">
+                  {JSON.stringify(currentContacts) !==
+                    JSON.stringify(initialContacts) &&
+                    changedBackend && (
+                      <button
+                        className="flex justify-center rounded bg-gray-700 py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                        type="button"
+                        onClick={revertChanges}
+                      >
+                        Geri Al
+                      </button>
+                    )}
                   <button
-                    className="flex justify-center rounded bg-gray-700 py-2 px-6 font-medium text-gray hover:bg-opacity-90"
-                    type="button"
-                    onClick={() => fetchContacts()}
-                  >
-                    Değişiklikleri Geri Al
-                  </button>
-                  <button
-                    className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90"
+                    className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-90 disabled:bg-gray-700"
                     type="submit"
+                    disabled={
+                      JSON.stringify(currentContacts) ===
+                      JSON.stringify(initialContacts)
+                    }
                   >
                     Güncelle
                   </button>

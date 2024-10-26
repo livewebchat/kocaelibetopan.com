@@ -114,7 +114,11 @@
                     <h3 class="text-13 font-normal text-gray-500">
                       <span>Telefon: </span>
                       <span class="text-black">
-                        <a href="tel:905387824165">+90 (538) 782 41 65</a>
+                        <a
+                          v-if="contacts.phoneNumber"
+                          :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                          >{{ contacts.phoneNumber }}</a
+                        >
                       </span>
                     </h3>
                   </div>
@@ -138,8 +142,8 @@
                     <h3 class="text-13 font-normal text-gray-500">
                       <span>E-posta: </span>
                       <span class="text-black">
-                        <a href="mailto:info@kocaelibetopan.com"
-                          >info@kocaelibetopan.com</a
+                        <a :href="'mailto:' + contacts.emailAddress"
+                          >{{ contacts.emailAddress }}</a
                         >
                       </span>
                     </h3>
@@ -152,7 +156,12 @@
                 >
                   <ul class="social-icon text-16">
                     <li>
-                      <a class="text-gray-500" href="#" target="_blank">
+                      <a
+                        class="text-gray-500"
+                        v-if="contacts.instagramLink"
+                        :href="contacts.instagramLink"
+                        target="_blank"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
@@ -2181,7 +2190,12 @@
       </div>
 
       <!-- Start Floating WhatsApp Contact Button -->
-      <a href="https://wa.me/905387824165" target="_blank" id="whatsapp_button">
+      <a
+        v-if="contacts.whatsappNumber"
+        :href="'https://wa.me/' + formatPhoneNumber(contacts.whatsappNumber)"
+        target="_blank"
+        id="whatsapp_button"
+      >
         <svg
           viewBox="0 0 189 189"
           fill="none"
