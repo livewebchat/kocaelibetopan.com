@@ -1,8 +1,8 @@
 const API_URL = import.meta.env.VITE_APP_API_URL + '/hero_sliders';
 
-export const getAllSliders = async () => {
+export const updateContactInformation = async () => {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(API_URL + '/contacts');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }

@@ -13,9 +13,9 @@ const ContactInformation = () => {
                 <div className="w-full sm:w-1/2">
                   <label
                     className="mb-3 block text-sm font-medium text-black dark:text-white"
-                    htmlFor="phone"
+                    htmlFor="phoneNumber"
                   >
-                    Telefon Numarası
+                    Telefon Numarası <span className="text-danger">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4.5 top-4">
@@ -34,10 +34,11 @@ const ContactInformation = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                       type="phone"
-                      name="phone"
-                      id="phone"
+                      name="phoneNumber"
+                      id="phoneNumber"
                       placeholder="Telefon Numarası"
                       defaultValue=""
+                      required
                     />
                   </div>
                 </div>
@@ -47,7 +48,7 @@ const ContactInformation = () => {
                     className="mb-3 block text-sm font-medium text-black dark:text-white"
                     htmlFor="whatsappNumber"
                   >
-                    WhatsApp Hattı
+                    WhatsApp Hattı <span className="text-danger">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4.5 top-4">
@@ -70,6 +71,7 @@ const ContactInformation = () => {
                       id="whatsappNumber"
                       placeholder="WhatsApp Hattı"
                       defaultValue=""
+                      required
                     />
                   </div>
                 </div>
@@ -79,9 +81,9 @@ const ContactInformation = () => {
                 <div className="w-full sm:w-1/2">
                   <label
                     className="mb-3 block text-sm font-medium text-black dark:text-white"
-                    htmlFor="email"
+                    htmlFor="emailAddress"
                   >
-                    E-posta Adresi
+                    E-posta Adresi <span className="text-danger">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4.5 top-4">
@@ -112,10 +114,11 @@ const ContactInformation = () => {
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                       type="email"
-                      name="email"
-                      id="email"
+                      name="emailAddress"
+                      id="emailAddress"
                       placeholder="E-posta Adresi"
                       defaultValue=""
+                      required
                     />
                   </div>
                 </div>
@@ -123,43 +126,32 @@ const ContactInformation = () => {
                 <div className="w-full sm:w-1/2">
                   <label
                     className="mb-3 block text-sm font-medium text-black dark:text-white"
-                    htmlFor="email"
+                    htmlFor="instagramLink"
                   >
-                    E-posta Adresi
+                    Instagram Linki <span className="text-danger">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4.5 top-4">
                       <svg
-                        className="fill-current"
+                        xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 256 256"
                       >
-                        <g opacity="0.8">
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M3.33301 4.16667C2.87658 4.16667 2.49967 4.54357 2.49967 5V15C2.49967 15.4564 2.87658 15.8333 3.33301 15.8333H16.6663C17.1228 15.8333 17.4997 15.4564 17.4997 15V5C17.4997 4.54357 17.1228 4.16667 16.6663 4.16667H3.33301ZM0.833008 5C0.833008 3.6231 1.9561 2.5 3.33301 2.5H16.6663C18.0432 2.5 19.1663 3.6231 19.1663 5V15C19.1663 16.3769 18.0432 17.5 16.6663 17.5H3.33301C1.9561 17.5 0.833008 16.3769 0.833008 15V5Z"
-                            fill=""
-                          />
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M0.983719 4.52215C1.24765 4.1451 1.76726 4.05341 2.1443 4.31734L9.99975 9.81615L17.8552 4.31734C18.2322 4.05341 18.7518 4.1451 19.0158 4.52215C19.2797 4.89919 19.188 5.4188 18.811 5.68272L10.4776 11.5161C10.1907 11.7169 9.80879 11.7169 9.52186 11.5161L1.18853 5.68272C0.811486 5.4188 0.719791 4.89919 0.983719 4.52215Z"
-                            fill=""
-                          />
-                        </g>
+                        <path
+                          fill="currentColor"
+                          d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48m0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32m48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56m40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12"
+                        />
                       </svg>
                     </span>
                     <input
                       className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="E-posta Adresi"
+                      type="text"
+                      name="instagramLink"
+                      id="instagramLink"
+                      placeholder="Instagram Linki"
                       defaultValue=""
+                      required
                     />
                   </div>
                 </div>

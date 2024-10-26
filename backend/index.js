@@ -84,11 +84,12 @@ const corsOptions = {
 
 // Apply CORS middleware globally
 app.use(cors(corsOptions))
-
-// Handle preflight requests
 app.options("*", cors(corsOptions))
 
-// GET route for hero sliders
+//////////////////////
+//// hero_sliders ////
+//////////////////////
+
 app.get("/hero_sliders", (req, res) => {
   const query = "SELECT * FROM hero_sliders"
   db.query(query, (err, results) => {
@@ -201,6 +202,51 @@ app.delete("/hero_sliders/:id", (req, res) => {
         res.json({ message: "Slider deleted successfully" })
       })
     })
+  })
+})
+
+//////////////////
+//// contacts ////
+//////////////////
+
+app.get("/contacts", (req, res) => {
+  const query = "SELECT * FROM contacts"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      res.json(results)
+    }
+  })
+})
+
+app.post("/contacts", (req, res) => {
+  const { phoneNumber, whatsappNumber, emailAddress, instagramLink } = req.body
+
+  if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink) {
+    console.error("Missing required fields:", {
+      phoneNumber,
+      whatsappNumber,
+      mailAddress,
+      instagramLink,
+    })
+    return res.status(400).json({ message: "Missing required fields" })
+  }
+
+  const query = `
+    INSERT INTO contacts (phoneNumber, whatsappNumber, emailAddress, instagramLink)
+    VALUES (?, ?, ?, ?)
+  `
+  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink]
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting contacts:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res
+      .status(201)
+      .json({ message: "Contacts added successfully", id: result.insertId })
   })
 })
 
