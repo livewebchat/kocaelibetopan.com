@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { EditSliderModal } from './EditSliderModal';
+import { addNewSlider, getAllSliders } from './_requests';
 
 const HeroSlider = () => {
   const [title, setTitle] = useState('');
@@ -17,51 +18,42 @@ const HeroSlider = () => {
   const [sliderForEdit, setSliderForEdit] = useState<Slider>();
 
   const fetchSliders = async () => {
-    await fetch('https://api.kocaelibetopan.com/hero_sliders')
-      .then((res) => res.json())
-      .then((restSliders) => {
-        setCurrentSliders(restSliders);
-        setLoadingSliders(false);
-      })
-      .catch((err) => console.log(err));
+    setCurrentSliders(await getAllSliders());
+    setLoadingSliders(false);
+  };
+
+  const clearAddSliderForm = () => {
+    setTitle('');
+    setDescription('');
+    setImage(null);
   };
 
   const handleAddSliderSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!image) {
+      toast.error('Lütfen geçerli bir görsel seçin');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('image', image);
-
-    const addSliderPromise = fetch(
-      'https://api.kocaelibetopan.com/hero_sliders',
+    await toast.promise(
+      addNewSlider({
+        title,
+        description,
+        image,
+      }),
       {
-        method: 'POST',
-        body: formData,
+        loading: 'Slayt ekleniyor...',
+        success: (msg) => msg,
+        error: (err) => err.message,
       },
-    ).then(async (response) => {
-      if (response.ok) {
-        fetchSliders();
-        return 'Slayt eklendi';
-      } else {
-        const data = await response.json();
-        throw new Error(data.message);
-      }
-    });
+    );
 
-    toast.promise(addSliderPromise, {
-      loading: 'Slayt ekleniyor...',
-      success: (msg) => msg,
-      error: 'Slayt eklenirken bir hata oluştu',
-    });
+    fetchSliders();
+    clearAddSliderForm();
   };
 
-  const handleDeleteSlider = async (sliderId: number) => {
+  const handleDeleteSlider = async (sliderId: string) => {
     const removeSliderPromise = fetch(
       `https://api.kocaelibetopan.com/hero_sliders/${sliderId}`,
       {
@@ -97,19 +89,22 @@ const HeroSlider = () => {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
         {loadingSliders ? (
-          <div className="flex justify-center py-10">
+          <div className="flex justify-center p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit">
             <div className="h-10 w-10 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
           </div>
         ) : currentSliders.length ? (
           <Swiper
             spaceBetween={10}
             slidesPerView={2}
-            className="w-full h-fit"
+            className="w-full p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
             modules={[Navigation, Pagination]}
             pagination={true}
           >
             {currentSliders.map((slider) => (
-              <SwiperSlide className="cursor-grab active:cursor-grabbing group">
+              <SwiperSlide
+                className="cursor-grab active:cursor-grabbing group"
+                key={slider.id}
+              >
                 <button
                   onClick={() => setSliderForEdit(slider)}
                   className="cursor-pointer opacity-0 group-hover:opacity-100 absolute top-[5px] left-[7px] z-1 text-white bg-gray-700 rounded-full p-2"
@@ -132,24 +127,23 @@ const HeroSlider = () => {
                       (t) => (
                         <div className="flex flex-col gap-4">
                           <span>
-                            <b>{slider.title}</b> başlıklı slaytı silmek
-                            istediğinize emin misiniz?
+                            <b>{slider.title}</b> başlıklı slayt silinsin mi?
                           </span>
                           <div className="flex gap-2 justify-end">
                             <button
-                              className="p-2 bg-danger text-white rounded"
+                              className="p-2 bg-gray-600 text-white text-[15px] rounded min-w-25"
+                              onClick={() => toast.dismiss(t.id)}
+                            >
+                              Vazgeç
+                            </button>
+                            <button
+                              className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
                               onClick={() => {
                                 handleDeleteSlider(slider.id);
                                 toast.dismiss(t.id);
                               }}
                             >
-                              Evet
-                            </button>
-                            <button
-                              className="p-2 bg-gray-600 text-white rounded"
-                              onClick={() => toast.dismiss(t.id)}
-                            >
-                              Hayır
+                              Sil
                             </button>
                           </div>
                         </div>
@@ -179,12 +173,16 @@ const HeroSlider = () => {
                 <h3 className="text-xl text-black-2 dark:text-white mt-5">
                   {slider.title}
                 </h3>
-                <p className="mt-2">{slider.description}</p>
+                <p className="mt-2 text-ellipsis line-clamp-3">
+                  {slider.description}
+                </p>
               </SwiperSlide>
             ))}
           </Swiper>
         ) : (
-          ''
+          <div className="flex justify-center p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit">
+            Henüz bir slayt eklemediniz. Lütfen slayt ekleyin.
+          </div>
         )}
 
         <div className="flex flex-col gap-9">

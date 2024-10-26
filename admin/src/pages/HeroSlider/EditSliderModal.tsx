@@ -16,7 +16,7 @@ export const EditSliderModal: React.FC<Props> = ({
   const [description, setDescription] = useState(sliderForEdit.description);
   const [image, setImage] = useState<File | null>();
 
-  const handleEditSlider = async (sliderId: number) => {
+  const handleEditSlider = async (sliderId: string) => {
     if (!image && !sliderForEdit.image) {
       toast.error('Bir görsel seçmek zorunludur');
       return;
