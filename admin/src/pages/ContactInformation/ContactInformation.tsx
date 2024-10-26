@@ -77,7 +77,7 @@ const ContactInformation = () => {
         ) : (
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="p-7">
-              <form action="POST" onSubmit={handleUpdateContacts}>
+              <form onSubmit={handleUpdateContacts}>
                 <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
                   <div className="w-full sm:w-1/2">
                     <label

@@ -1804,10 +1804,11 @@ h6,
 *******************************************/
 
 .main-header {
-  max-width: 100vw;
   position: relative;
   top: var(--lqd-top-scroll-ind-height, 0);
   z-index: 99;
+  max-width: 100vw;
+  background-color: #fff;
   transition: background-color 0.3s;
 }
 
@@ -15441,7 +15442,7 @@ MOBULE HEADER
 }
 
 .iconbox-inline .iconbox-icon-wrap {
-  margin-inline-end: 15px;
+  margin-inline-end: 10px;
 }
 
 .iconbox-inline h3 {
@@ -15458,7 +15459,7 @@ MOBULE HEADER
 }
 
 .iconbox-side .iconbox-icon-wrap {
-  margin-inline-end: 15px;
+  margin-inline-end: 10px;
 }
 
 .iconbox-side > h3:last-child {

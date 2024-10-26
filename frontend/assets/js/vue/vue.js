@@ -49,6 +49,7 @@ vueGlobalScript.onload = () => {
             fetchContacts(contacts, error),
             imagesLoaded(),
           ])
+
           initializeSwipers()
         } catch (err) {
           error.value = err.message
