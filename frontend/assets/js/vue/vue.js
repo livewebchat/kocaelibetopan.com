@@ -15,8 +15,7 @@ createApp({
       }
     }
 
-    // Function to wait for images to load
-    const waitForImagesToLoad = () => {
+    const imagesLoaded = () => {
       return new Promise((resolve) => {
         const images = document.querySelectorAll("#app img")
         const imgPromises = Array.from(images).map((img) => {
@@ -25,26 +24,16 @@ createApp({
             img.onerror = resolve
           })
         })
-        Promise.all(imgPromises).then(resolve) // Resolve when all images are loaded
+        Promise.all(imgPromises).then(resolve)
       })
     }
 
     // On component mount
     onMounted(async () => {
       try {
-        await Promise.all([fetchSliders(), waitForImagesToLoad()])
+        await Promise.all([fetchSliders(), imagesLoaded()])
 
-        const heroSlider = new Swiper(".banner", {
-          loop: true,
-          pagination: {
-            el: ".banner-pagination",
-            clickable: true,
-          },
-          navigation: {
-            nextEl: ".banner-next-button",
-            prevEl: ".banner-prev-button",
-          },
-        })
+        initializeSwipers()
       } catch (err) {
         error.value = err.message
       } finally {
