@@ -32,14 +32,63 @@ export const addNewSlider = async (newSlider: NewSlider) => {
 
     if (!response.ok) {
       throw new Error(
-        'Slayt eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin.',
+        'Slayt eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
       );
     }
 
     return 'Slayt eklendi';
   } catch (error) {
     throw new Error(
-      'Slayt eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin.',
+      'Slayt eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
+    );
+  }
+};
+
+export const removeSliderById = async (sliderId: string) => {
+  try {
+    const response = await fetch(API_URL + `/${sliderId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        'Slayt eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
+      );
+    }
+
+    return 'Slayt silindi';
+  } catch (error) {
+    throw new Error(
+      'Slayt silinirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
+    );
+  }
+};
+
+export const editSliderById = async (newSliderData: EditedSlider) => {
+  const formData = new FormData();
+  formData.append('title', newSliderData.title);
+  formData.append('description', newSliderData.description);
+
+  if (newSliderData.image) {
+    formData.append('image', newSliderData.image);
+  }
+
+  try {
+    const response = await fetch(API_URL + `/${newSliderData.id}`, {
+      method: 'PUT',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        'Slayt güncellenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
+      );
+    }
+
+    return 'Slayt güncellendi';
+  } catch (error) {
+    throw new Error(
+      'Slayt güncellenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
     );
   }
 };

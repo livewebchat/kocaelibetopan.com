@@ -4,7 +4,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import HeroSlider from './pages/HeroSlider/HeroSlider';
-import Settings from './pages/Settings/Settings';
+import ContactInformation from './pages/ContactInformation/ContactInformation';
 
 import SignIn from './pages/Authentication/SignIn';
 import Calendar from './pages/Calendar';
@@ -54,11 +54,11 @@ function App() {
           }
         />
         <Route
-          path="/ayarlar"
+          path="/iletisim-bilgileri"
           element={
             <>
-              <PageTitle title="Ayarlar | Kocaeli Betpoan" />
-              <Settings />
+              <PageTitle title="İletişim Bilgileri | Kocaeli Betpoan" />
+              <ContactInformation />
             </>
           }
         />

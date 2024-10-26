@@ -10,3 +10,10 @@ type NewSlider = {
   title: string;
   description: string;
 };
+
+type EditedSlider = {
+  id: string;
+  image: any;
+  title: string;
+  description: string;
+};

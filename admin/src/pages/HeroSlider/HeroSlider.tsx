@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { EditSliderModal } from './EditSliderModal';
 import { addNewSlider, getAllSliders } from './_requests';
-import { removeSliderById } from '../Settings/_requests';
+import { removeSliderById } from './_requests';
 
 const HeroSlider = () => {
   const [title, setTitle] = useState('');
@@ -37,24 +37,17 @@ const HeroSlider = () => {
       return;
     }
 
-    await toast.promise(
-      addNewSlider({
-        title,
-        description,
-        image,
-      }),
-      {
-        loading: 'Slayt ekleniyor...',
-        success: (msg) => msg,
-        error: (err) => err.message,
-      },
-    );
+    await toast.promise(addNewSlider({ title, description, image }), {
+      loading: 'Slayt ekleniyor...',
+      success: (msg) => msg,
+      error: (err) => err.message,
+    });
 
     fetchSliders();
     clearAddSliderForm();
   };
 
-  const handleDeleteSlider = async (sliderId: number) => {
+  const handleDeleteSlider = async (sliderId: string) => {
     await toast.promise(removeSliderById(sliderId), {
       loading: 'Slayt siliniyor...',
       success: (msg) => msg,
@@ -127,7 +120,7 @@ const HeroSlider = () => {
                             <button
                               className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
                               onClick={() => {
-                                handleDeleteSlider(Number(slider.id));
+                                handleDeleteSlider(slider.id);
                                 toast.dismiss(t.id);
                               }}
                             >
@@ -226,7 +219,6 @@ const HeroSlider = () => {
                       className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                       onChange={(e) => {
                         setImage(e.target.files?.[0] || null);
-                        console.log(e.target.files?.[0]);
                       }}
                       required
                     />
