@@ -91,17 +91,19 @@ const HeroSlider = () => {
   return (
     <>
       <Breadcrumb pageName="Ana Sayfa Slaytları" />
-      <h2 className="font-bold text-xl text-white mb-5">Mevcut Slaytlar</h2>
+      <h2 className="font-bold text-xl text-gray-600 dark:text-white mb-5">
+        Mevcut Slaytlar
+      </h2>
 
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
         {loadingSliders ? (
-          'Yükleniyor'
+          <div className="flex justify-center py-10">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
+          </div>
         ) : currentSliders.length ? (
           <Swiper
             spaceBetween={10}
             slidesPerView={2}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
             className="w-full h-fit"
             modules={[Navigation, Pagination]}
             pagination={true}
@@ -174,7 +176,9 @@ const HeroSlider = () => {
                   src={`https://kocaelibetopan.com/uploads/${slider.image}`}
                   alt={slider.title}
                 />
-                <h3 className="text-xl text-white mt-5">{slider.title}</h3>
+                <h3 className="text-xl text-black-2 dark:text-white mt-5">
+                  {slider.title}
+                </h3>
                 <p className="mt-2">{slider.description}</p>
               </SwiperSlide>
             ))}
@@ -249,7 +253,9 @@ const HeroSlider = () => {
                         />
                         <span className="mt-4">
                           Seçilen görsel:{' '}
-                          <span className="text-white">{image.name}</span>
+                          <span className="text-graydark dark:text-white">
+                            {image.name}
+                          </span>
                         </span>
                       </div>
                     ) : (

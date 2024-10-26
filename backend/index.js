@@ -13,21 +13,40 @@ const port = process.env.PORT
 app.use(express.json())
 
 // MySQL connection
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-})
+let db
 
-// Connect to MySQL
-db.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL:", err.stack)
-    return
-  }
-  console.log("Connected to MySQL")
-})
+function handleMySQLDisconnect() {
+  db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+  })
+
+  // Connect to MySQL
+  db.connect((err) => {
+    if (err) {
+      console.error("Error connecting to MySQL:", err.stack)
+      setTimeout(handleMySQLDisconnect, 2000) // Retry after 2 seconds if connection fails
+    } else {
+      console.log("Connected to MySQL")
+    }
+  })
+
+  // Handle errors
+  db.on("error", (err) => {
+    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+      console.warn("MySQL connection lost. Reconnecting...")
+      handleMySQLDisconnect() // Reconnect on connection loss
+    } else {
+      console.error("MySQL error:", err)
+      throw err // Handle other errors as needed
+    }
+  })
+}
+
+// Initialize connection
+handleMySQLDisconnect()
 
 // Set up file storage using Multer
 const storage = multer.diskStorage({

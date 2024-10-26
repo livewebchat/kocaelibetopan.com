@@ -64,7 +64,7 @@ export const EditSliderModal: React.FC<Props> = ({
                 <b>{sliderForEdit.title}</b> başlıklı slaytı düzenle
               </h3>
               <span
-                className="cursor-pointer text-white text-lg"
+                className="cursor-pointer text-black-2 dark:text-white text-lg"
                 onClick={() => setSliderForEdit(undefined)}
               >
                 &times;
@@ -126,7 +126,9 @@ export const EditSliderModal: React.FC<Props> = ({
                       />
                       <span className="mt-4">
                         Seçilen görsel:{' '}
-                        <span className="text-white">{image.name}</span>
+                        <span className="text-graydark dark:text-white">
+                          {image.name}
+                        </span>
                       </span>
                     </div>
                   ) : sliderForEdit.image ? (
@@ -138,7 +140,7 @@ export const EditSliderModal: React.FC<Props> = ({
                       />
                       <span className="mt-4">
                         Seçilen görsel:{' '}
-                        <span className="text-white">
+                        <span className="text-graydark dark:text-white">
                           {sliderForEdit.title}
                         </span>
                       </span>
