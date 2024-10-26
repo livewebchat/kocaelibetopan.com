@@ -32,15 +32,14 @@ createApp({
 
     this.$watch("loading", (isLoading) => {
       if (!isLoading) {
-        mainPreloader.style.opacity = "0"
+        setTimeout(() => {
+          appContainer.style.display = "block"
+          mainPreloader.style.opacity = "0"
 
-        mainPreloader.addEventListener("transitionend", () => {
-          mainPreloader.style.display = "none"
-          appContainer.style.display = "block"; // Set display to block
-          setTimeout(() => {
-            appContainer.style.opacity = "1"; // Fade in effect
-          }, 10); // Delay for the display change to take effect
-        })
+          mainPreloader.addEventListener("transitionend", () => {
+            mainPreloader.style.display = "none"
+          })
+        }, 500)
       }
     })
   },
