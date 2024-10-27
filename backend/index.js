@@ -209,11 +209,7 @@ app.get("/previous_projects", (req, res) => {
     if (err) {
       res.status(500).json({ error: err.message })
     } else {
-      const projects = results.map((project) => ({
-        ...project,
-        images: JSON.parse(project.images),
-      }))
-      res.json(projects)
+      res.json(results)
     }
   })
 })
