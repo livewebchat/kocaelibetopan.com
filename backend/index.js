@@ -80,24 +80,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-app.use((req, res, next) => {
-  const allowedReferers = [
-    "https://kocaelibetopan.com",
-    "https://yonetim.kocaelibetopan.com",
-    "http://localhost:5173",
-    "http://127.0.0.1:5500",
-  ]
-
-  const referer = req.headers.referer
-
-  if (allowedReferers.includes(referer) || !referer) {
-    next()
-  } else {
-    console.log("Invalid Referer:", referer)
-    return res.status(403).json({ error: "Forbidden" })
-  }
-})
-
 //////////////////////
 //// hero_sliders ////
 //////////////////////
