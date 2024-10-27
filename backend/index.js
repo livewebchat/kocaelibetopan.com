@@ -241,48 +241,41 @@ app.post("/previous_projects", upload.array("images", 10), (req, res) => {
 
 app.put("/previous_projects/:id", upload.array("images", 10), (req, res) => {
   const projectId = req.params.id
-  const { title, description, htmlContent } = req.body
+  const { title, description, htmlContent, existingImages } = req.body
   const newImagePaths = req.files.map((file) => file.filename)
 
-  db.query(
-    "SELECT images FROM previous_projects WHERE id = ?",
-    [projectId],
-    (err, results) => {
-      if (err) {
-        console.error("Error fetching project images:", err)
-        return res.status(500).json({ error: err.message })
-      }
-
-      if (results.length === 0) {
-        return res.status(404).json({ message: "Project not found" })
-      }
-
-      let imagePaths = JSON.parse(results[0].images)
-      imagePaths = imagePaths.concat(newImagePaths)
-
-      const query = `
-        UPDATE previous_projects 
-        SET title = ?, description = ?, images = ?, htmlContent = ?
-        WHERE id = ?
-      `
-      const values = [
-        title,
-        description,
-        JSON.stringify(imagePaths),
-        htmlContent,
-        projectId,
-      ]
-
-      db.query(query, values, (updateErr, updateResult) => {
-        if (updateErr) {
-          console.error("Error updating project:", updateErr)
-          return res.status(500).json({ error: updateErr.message })
-        }
-
-        return res.json({ message: "Project updated successfully" })
-      })
+  let imagePaths = []
+  if (existingImages) {
+    try {
+      imagePaths = JSON.parse(existingImages)
+    } catch (error) {
+      return res.status(400).json({ message: "Invalid existing images format" })
     }
-  )
+  }
+
+  imagePaths = imagePaths.concat(newImagePaths)
+
+  const query = `
+    UPDATE previous_projects 
+    SET title = ?, description = ?, images = ?, htmlContent = ?
+    WHERE id = ?
+  `
+  const values = [
+    title,
+    description,
+    JSON.stringify(imagePaths),
+    htmlContent,
+    projectId,
+  ]
+
+  db.query(query, values, (updateErr, updateResult) => {
+    if (updateErr) {
+      console.error("Error updating project:", updateErr)
+      return res.status(500).json({ error: updateErr.message })
+    }
+
+    return res.json({ message: "Project updated successfully" })
+  })
 })
 
 app.delete("/previous_projects/:id", (req, res) => {

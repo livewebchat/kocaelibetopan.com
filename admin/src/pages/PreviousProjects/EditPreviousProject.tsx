@@ -19,7 +19,10 @@ export const EditPreviousProject: React.FC<Props> = ({
   const [description, setDescription] = useState(
     previousProjectForEdit.description,
   );
-  const [images, setImages] = useState<File[]>(previousProjectForEdit.images);
+  const [existingImages, setExistingImages] = useState<string[]>(
+    previousProjectForEdit.images || [],
+  );
+  const [newImages, setNewImages] = useState<File[]>([]);
   const [htmlContent, setHtmlContent] = useState(
     previousProjectForEdit.htmlContent,
   );
@@ -27,13 +30,14 @@ export const EditPreviousProject: React.FC<Props> = ({
   const clearEditPreviousProjectForm = () => {
     setTitle('');
     setDescription('');
-    setImages([]);
+    setExistingImages([]);
+    setNewImages([]);
     setPreviousProjectForEdit(undefined);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
-    setImages([...images, ...files]);
+    setNewImages([...newImages, ...files]);
   };
 
   const handleEditPreviousProject = async (e: React.FormEvent) => {
@@ -42,7 +46,7 @@ export const EditPreviousProject: React.FC<Props> = ({
     await toast.promise(
       editProjectById({
         id: previousProjectForEdit.id,
-        images,
+        images: [...existingImages, ...newImages],
         title,
         description,
         htmlContent,
@@ -142,7 +146,7 @@ export const EditPreviousProject: React.FC<Props> = ({
                     multiple
                     className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                     onChange={handleFileChange}
-                    required={images.length ? false : true}
+                    required={existingImages.length + newImages.length > 0}
                   />
 
                   <div className="flex flex-col items-center justify-center space-y-3">
@@ -183,28 +187,43 @@ export const EditPreviousProject: React.FC<Props> = ({
                   </div>
                 </div>
 
-                {images?.length > 0 ? (
+                {existingImages.length + newImages.length > 0 ? (
                   <div className="flex flex-wrap gap-3 relative z-99">
-                    {images.map((img: any, idx: any) => (
-                      <div className="relative" key={idx}>
-                        <button
-                          type="button"
-                          className="flex justify-center items-center absolute h-full w-full bg-white bg-opacity-0 hover:bg-opacity-50 transition-all group"
-                          onClick={() => {
-                            setImages(images.filter((i: any) => i !== img));
-                          }}
-                        >
-                          <span className="flex justify-center items-center h-5 w-5 bg-danger rounded-full text-white opacity-0 group-hover:opacity-100 transition-all">
-                            &times;
-                          </span>
-                        </button>
-                        <img
-                          className="h-24 w-24 object-cover rounded"
-                          src={`https://kocaelibetopan.com/uploads/${img}`}
-                          alt={img.name}
-                        />
-                      </div>
-                    ))}
+                    {existingImages
+                      .concat(newImages)
+                      .map((img: any, idx: number) => (
+                        <div className="relative" key={idx}>
+                          <button
+                            type="button"
+                            className="flex justify-center items-center absolute h-full w-full bg-white bg-opacity-0 hover:bg-opacity-50 transition-all group"
+                            onClick={() => {
+                              if (typeof img === 'string') {
+                                setExistingImages(
+                                  existingImages.filter((i) => i !== img),
+                                );
+                              } else {
+                                setNewImages(
+                                  newImages.filter((file) => file !== img),
+                                );
+                              }
+                            }}
+                          >
+                            <span className="flex justify-center items-center h-5 w-5 bg-danger rounded-full text-white opacity-0 group-hover:opacity-100 transition-all">
+                              &times;
+                            </span>
+                          </button>
+
+                          <img
+                            className="h-24 w-24 object-cover rounded"
+                            src={
+                              typeof img === 'string'
+                                ? `https://kocaelibetopan.com/uploads/${img}` // Existing image
+                                : URL.createObjectURL(img) // New File object
+                            }
+                            alt={typeof img === 'string' ? img : img.name}
+                          />
+                        </div>
+                      ))}
                   </div>
                 ) : (
                   ''

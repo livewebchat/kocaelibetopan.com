@@ -79,11 +79,18 @@ export const editProjectById = async (
   formData.append('description', updatedProject.description);
   formData.append('htmlContent', updatedProject.htmlContent);
 
-  if (updatedProject.images && updatedProject.images.length > 0) {
-    updatedProject.images.forEach((imageName: any) => {
-      formData.append('images', imageName);
-    });
-  }
+  updatedProject.images.forEach((image: any) => {
+    if (image instanceof File) {
+      formData.append('images', image);
+    }
+  });
+
+  formData.append(
+    'existingImages',
+    JSON.stringify(
+      updatedProject.images.filter((image: any) => typeof image === 'string'),
+    ),
+  );
 
   try {
     const response = await fetch(API_URL + `/${updatedProject.id}`, {
@@ -97,7 +104,7 @@ export const editProjectById = async (
       );
     }
 
-    return 'Project updated';
+    return 'Proje güncellendi';
   } catch (error) {
     throw new Error(
       'Proje güncellenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
