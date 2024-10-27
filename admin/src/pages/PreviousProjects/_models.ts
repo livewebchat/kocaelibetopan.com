@@ -2,14 +2,15 @@ type PreviousProject = {
   id: string;
   title: string;
   description: string;
-  images: string[];
-  htmlContent: HTMLElement;
+  images: any;
+  htmlContent: string;
 };
 
 type NewPreviousProject = {
   title: string;
   description: string;
   images: any;
+  htmlContent: string;
 };
 
 type EditedPreviousProject = {

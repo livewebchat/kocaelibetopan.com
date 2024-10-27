@@ -17,7 +17,7 @@ export const getAllProjects = async () => {
   }
 };
 
-export const addNewProject = async (newProject: PreviousProject) => {
+export const addNewProject = async (newProject: NewPreviousProject) => {
   if (!newProject.images || newProject.images.length === 0) {
     return Promise.reject('At least one image is required.');
   }
@@ -25,12 +25,10 @@ export const addNewProject = async (newProject: PreviousProject) => {
   const formData = new FormData();
   formData.append('title', newProject.title);
   formData.append('description', newProject.description);
+  formData.append('htmlContent', newProject.htmlContent);
 
-  formData.append('htmlContent', newProject.htmlContent.outerHTML);
-
-  newProject.images.forEach((image) => {
-    const blob = new Blob([image], { type: 'image/*' });
-    formData.append('images', blob);
+  newProject.images.forEach((image: any) => {
+    formData.append('images', image);
   });
 
   try {
@@ -77,13 +75,11 @@ export const editProjectById = async (updatedProject: PreviousProject) => {
   const formData = new FormData();
   formData.append('title', updatedProject.title);
   formData.append('description', updatedProject.description);
-
-  formData.append('htmlContent', updatedProject.htmlContent.outerHTML);
+  formData.append('htmlContent', updatedProject.htmlContent);
 
   if (updatedProject.images && updatedProject.images.length > 0) {
-    updatedProject.images.forEach((image) => {
-      const blob = new Blob([image], { type: 'image/*' });
-      formData.append('images', blob);
+    updatedProject.images.forEach((imageName: any) => {
+      formData.append('images', imageName);
     });
   }
 

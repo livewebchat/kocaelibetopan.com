@@ -12,7 +12,8 @@ import { EditPreviousProject } from './EditPreviousProject';
 const PreviousProjects = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [images, setImages] = useState<File[] | null>(null);
+  const [images, setImages] = useState<any>();
+  const [htmlContent, setHtmlContent] = useState('');
 
   const [loadingPreviousProjects, setLoadingPreviousProjects] =
     useState<boolean>(true);
@@ -35,6 +36,11 @@ const PreviousProjects = () => {
     setImages(null);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    setImages(files);
+  };
+
   const handleAddPreviousProjectSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -43,18 +49,21 @@ const PreviousProjects = () => {
       return;
     }
 
-    await toast.promise(addNewProject({ title, description, images }), {
-      loading: 'Proje ekleniyor...',
-      success: (msg) => msg,
-      error: (err) => err.message,
-    });
+    await toast.promise(
+      addNewProject({ title, description, images, htmlContent }),
+      {
+        loading: 'Proje ekleniyor...',
+        success: (msg) => msg,
+        error: (err) => err.message,
+      },
+    );
 
     clearAddPreviousProjectForm();
     await fetchPreviousProjects();
 
     setTimeout(() => {
       currentPreviousProjectsRef.current?.swiper.slideTo(
-        currentPreviousProjectsRef.current?.swiper.slides.length,
+        currentPreviousProjects.length,
       );
     }, 200);
   };
@@ -161,7 +170,7 @@ const PreviousProjects = () => {
                 </button>
                 <img
                   className="w-full aspect-video object-cover"
-                  src={`https://kocaelibetopan.com/uploads/${project.image}`}
+                  src={`https://kocaelibetopan.com/uploads/${project.images[0]}`}
                   alt={project.title}
                 />
                 <h3 className="text-xl text-black-2 dark:text-white mt-5">
@@ -218,6 +227,21 @@ const PreviousProjects = () => {
                   </div>
                 </div>
 
+                <div className="mb-4.5 flex flex-col gap-6">
+                  <div>
+                    <label className="mb-2.5 block text-black dark:text-white">
+                      İçerik <span className="text-meta-1">*</span>
+                    </label>
+                    <div
+                      contentEditable
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      onChange={(e) =>
+                        setHtmlContent((e.target as HTMLElement).innerHTML)
+                      }
+                    ></div>
+                  </div>
+                </div>
+
                 <div className="mb-4.5">
                   <label className="mb-2.5 block text-black dark:text-white">
                     Görsel <span className="text-meta-1">*</span>
@@ -229,25 +253,20 @@ const PreviousProjects = () => {
                     <input
                       type="file"
                       accept="image/*"
-                      className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
-                      onChange={(e) => {
-                        setImages(e.target.files?.[0] || null);
-                      }}
+                      multiple
+                      onChange={handleFileChange}
                       required
                     />
-                    {images ? (
-                      <div className="flex flex-col">
-                        <img
-                          className="h-full w-full aspect-video object-cover rounded"
-                          src={URL.createObjectURL(images)}
-                          alt={images.name}
-                        />
-                        <span className="mt-4">
-                          Seçilen görsel:{' '}
-                          <span className="text-graydark dark:text-white">
-                            {images.name}
-                          </span>
-                        </span>
+                    {images && images.length > 0 ? (
+                      <div className="flex flex-wrap gap-4 mt-4">
+                        {images.map((img: any, idx: any) => (
+                          <img
+                            key={idx}
+                            className="h-24 w-24 object-cover rounded"
+                            src={URL.createObjectURL(img)}
+                            alt={img.name}
+                          />
+                        ))}
                       </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center space-y-3">

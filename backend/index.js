@@ -199,9 +199,24 @@ app.delete("/hero_sliders/:id", (req, res) => {
   })
 })
 
-//////////////////
-//// contacts ////
-//////////////////
+///////////////////////////
+//// previous_projects ////
+///////////////////////////
+
+app.get("/previous_projects", (req, res) => {
+  const query = "SELECT * FROM previous_projects"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      const projects = results.map((project) => ({
+        ...project,
+        images: JSON.parse(project.images),
+      }))
+      res.json(projects)
+    }
+  })
+})
 
 app.post("/previous_projects", upload.array("images", 10), (req, res) => {
   const { title, description, htmlContent } = req.body
@@ -228,47 +243,42 @@ app.post("/previous_projects", upload.array("images", 10), (req, res) => {
   })
 })
 
-app.get("/previous_projects", (req, res) => {
-  const query = "SELECT * FROM previous_projects"
-  db.query(query, (err, results) => {
-    if (err) {
-      res.status(500).json({ error: err.message })
-    } else {
-      // Parse JSON images field
-      const projects = results.map((project) => ({
-        ...project,
-        images: JSON.parse(project.images),
-      }))
-      res.json(projects)
-    }
-  })
-})
-
 app.put("/previous_projects/:id", upload.array("images", 10), (req, res) => {
   const projectId = req.params.id
   const { title, description, htmlContent } = req.body
-  let imagePaths = req.files.map((file) => file.filename)
+  const newImagePaths = req.files.map((file) => file.filename)
 
-  const query = `
-    UPDATE previous_projects 
-    SET title = ?, description = ?, images = IF(? != '', ?, images), htmlContent = ?
-    WHERE id = ?
-  `
-  const values = [
-    title,
-    description,
-    JSON.stringify(imagePaths),
-    htmlContent,
-    projectId,
-  ]
+  db.query(
+    "SELECT images FROM previous_projects WHERE id = ?",
+    [projectId],
+    (err, results) => {
+      if (err) {
+        console.error("Error fetching project images:", err)
+        return res.status(500).json({ error: err.message })
+      }
 
-  db.query(query, values, (err, result) => {
-    if (err) {
-      console.error("Error updating project:", err)
-      return res.status(500).json({ error: err.message })
+      let imagePaths = JSON.parse(results[0].images)
+
+      imagePaths = imagePaths.concat(newImagePaths)
+
+      const query = `
+      UPDATE previous_projects 
+      SET title = ?, description = ?, images = ?, htmlContent = ?
+      WHERE id = ?
+    `
+      const values = [
+        title,
+        description,
+        JSON.stringify(imagePaths),
+        htmlContent,
+        projectId,
+      ]
+
+      db.query(query, values, (err, res) => {
+        res.json({ message: "Project updated successfully" })
+      })
     }
-    res.json({ message: "Project updated successfully" })
-  })
+  )
 })
 
 app.delete("/previous_projects/:id", (req, res) => {
