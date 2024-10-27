@@ -6,10 +6,7 @@ const cors = require("cors")
 const path = require("path")
 const fs = require("fs")
 
-const app = express()
 const port = process.env.PORT
-
-app.use(express.json())
 
 // MySQL connection
 let db
@@ -57,15 +54,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+// App configuration
+const app = express()
+app.use(express.json())
+
+const allowedOrigins = [
+  "https://yonetim.kocaelibetopan.com",
+  "https://kocaelibetopan.com",
+  "http://localhost:5173",
+  "http://127.0.0.1:5500",
+]
+
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      "https://yonetim.kocaelibetopan.com",
-      "https://kocaelibetopan.com",
-      "http://localhost:5173",
-      "http://127.0.0.1:5500",
-    ]
-
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true)
     } else {
@@ -78,7 +79,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.options("*", cors(corsOptions))
 
 //////////////////////
 //// hero_sliders ////
