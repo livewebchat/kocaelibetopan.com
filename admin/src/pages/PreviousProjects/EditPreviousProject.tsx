@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
-import { editSliderById } from './_requests';
+import { editProjectById } from './_requests';
 
 type Props = {
   previousProjectForEdit: PreviousProject;
@@ -32,7 +32,7 @@ export const EditPreviousProject: React.FC<Props> = ({
     e.preventDefault();
 
     await toast.promise(
-      editSliderById({
+      editProjectById({
         id: previousProjectForEdit.id,
         image,
         title,

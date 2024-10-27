@@ -6,6 +6,8 @@ import 'swiper/css';
 import toast from 'react-hot-toast';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import { addNewProject, getAllProjects, removeProjectById } from './_requests';
+import { EditPreviousProject } from './EditPreviousProject';
 
 const PreviousProjects = () => {
   const [title, setTitle] = useState('');
@@ -23,7 +25,7 @@ const PreviousProjects = () => {
   const currentPreviousProjectsRef = useRef<SwiperRef>(null);
 
   const fetchPreviousProjects = async () => {
-    setCurrentPreviousProjects(await getAllPreviousProjects());
+    setCurrentPreviousProjects(await getAllProjects());
     setLoadingPreviousProjects(false);
   };
 
@@ -41,7 +43,7 @@ const PreviousProjects = () => {
       return;
     }
 
-    await toast.promise(addNewPreviousProject({ title, description, images }), {
+    await toast.promise(addNewProject({ title, description, images }), {
       loading: 'Proje ekleniyor...',
       success: (msg) => msg,
       error: (err) => err.message,
@@ -58,7 +60,7 @@ const PreviousProjects = () => {
   };
 
   const handleDeletePreviousProject = async (projectId: string) => {
-    await toast.promise(removePreviousProjectById(projectId), {
+    await toast.promise(removeProjectById(projectId), {
       loading: 'Proje siliniyor...',
       success: (msg) => msg,
       error: (err) => err.message,
@@ -184,7 +186,7 @@ const PreviousProjects = () => {
                 Yeni Proje Ekle
               </h3>
             </div>
-            <form onSubmit={handleAddPreviousProject}>
+            <form onSubmit={handleAddPreviousProjectSubmit}>
               <div className="p-6.5">
                 <div className="mb-4.5 flex flex-col gap-6">
                   <div className="w-full">
@@ -301,7 +303,7 @@ const PreviousProjects = () => {
         <EditPreviousProject
           previousProjectForEdit={previousProjectForEdit}
           setPreviousProjectForEdit={setPreviousProjectForEdit}
-          fetchPreviousProject={fetchPreviousProject}
+          fetchPreviousProjects={fetchPreviousProjects}
         />
       )}
     </>
