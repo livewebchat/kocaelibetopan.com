@@ -203,6 +203,91 @@ app.delete("/hero_sliders/:id", (req, res) => {
 //// contacts ////
 //////////////////
 
+app.post("/previous_projects", upload.array("images", 10), (req, res) => {
+  const { title, description, htmlContent } = req.body
+  const imagePaths = req.files.map((file) => file.filename)
+
+  if (!title || !description || imagePaths.length === 0) {
+    return res.status(400).json({ message: "Missing required fields" })
+  }
+
+  const query = `
+    INSERT INTO previous_projects (title, description, images, htmlContent)
+    VALUES (?, ?, ?, ?)
+  `
+  const values = [title, description, JSON.stringify(imagePaths), htmlContent]
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting project:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res
+      .status(201)
+      .json({ message: "Project added successfully", id: result.insertId })
+  })
+})
+
+app.get("/previous_projects", (req, res) => {
+  const query = "SELECT * FROM previous_projects"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      // Parse JSON images field
+      const projects = results.map((project) => ({
+        ...project,
+        images: JSON.parse(project.images),
+      }))
+      res.json(projects)
+    }
+  })
+})
+
+app.put("/previous_projects/:id", upload.array("images", 10), (req, res) => {
+  const projectId = req.params.id
+  const { title, description, htmlContent } = req.body
+  let imagePaths = req.files.map((file) => file.filename)
+
+  const query = `
+    UPDATE previous_projects 
+    SET title = ?, description = ?, images = IF(? != '', ?, images), htmlContent = ?
+    WHERE id = ?
+  `
+  const values = [
+    title,
+    description,
+    JSON.stringify(imagePaths),
+    htmlContent,
+    projectId,
+  ]
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error updating project:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res.json({ message: "Project updated successfully" })
+  })
+})
+
+app.delete("/previous_projects/:id", (req, res) => {
+  const projectId = req.params.id
+
+  const query = "DELETE FROM previous_projects WHERE id = ?"
+  db.query(query, [projectId], (err, result) => {
+    if (err) {
+      console.error("Error deleting project:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res.json({ message: "Project deleted successfully" })
+  })
+})
+
+//////////////////
+//// contacts ////
+//////////////////
+
 app.get("/contacts", (req, res) => {
   const query = "SELECT * FROM contacts"
   db.query(query, (err, results) => {

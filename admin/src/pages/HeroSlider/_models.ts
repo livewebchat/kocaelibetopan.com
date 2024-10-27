@@ -1,19 +1,19 @@
 type Slider = {
   id: string;
-  image: string;
   title: string;
   description: string;
+  image: string;
 };
 
 type NewSlider = {
-  image: any;
   title: string;
   description: string;
+  image: any;
 };
 
 type EditedSlider = {
   id: string;
-  image: any;
   title: string;
   description: string;
+  image: any;
 };
