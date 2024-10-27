@@ -18,4 +18,5 @@ type EditedPreviousProject = {
   title: string;
   description: string;
   images: any;
+  htmlContent: string;
 };

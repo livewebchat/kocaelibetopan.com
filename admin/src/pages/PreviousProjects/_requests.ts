@@ -19,7 +19,7 @@ export const getAllProjects = async () => {
 
 export const addNewProject = async (newProject: NewPreviousProject) => {
   if (!newProject.images || newProject.images.length === 0) {
-    return Promise.reject('At least one image is required.');
+    return Promise.reject('En az bir görsel yüklemek zorunludur');
   }
 
   const formData = new FormData();
@@ -39,14 +39,14 @@ export const addNewProject = async (newProject: NewPreviousProject) => {
 
     if (!response.ok) {
       throw new Error(
-        'An error occurred while adding the project, please try again later',
+        'Proje eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
       );
     }
 
-    return 'Project added';
+    return 'Proje eklendi';
   } catch (error) {
     throw new Error(
-      'An error occurred while adding the project, please try again later',
+      'Proje eklenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
     );
   }
 };
@@ -59,19 +59,21 @@ export const removeProjectById = async (projectId: string) => {
 
     if (!response.ok) {
       throw new Error(
-        'An error occurred while deleting the project, please try again later',
+        'Proje silinirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
       );
     }
 
     return 'Project deleted';
   } catch (error) {
     throw new Error(
-      'An error occurred while deleting the project, please try again later',
+      'Proje silinirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
     );
   }
 };
 
-export const editProjectById = async (updatedProject: PreviousProject) => {
+export const editProjectById = async (
+  updatedProject: EditedPreviousProject,
+) => {
   const formData = new FormData();
   formData.append('title', updatedProject.title);
   formData.append('description', updatedProject.description);
@@ -91,14 +93,14 @@ export const editProjectById = async (updatedProject: PreviousProject) => {
 
     if (!response.ok) {
       throw new Error(
-        'An error occurred while updating the project, please try again later',
+        'Proje güncellenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
       );
     }
 
     return 'Project updated';
   } catch (error) {
     throw new Error(
-      'An error occurred while updating the project, please try again later',
+      'Proje güncellenirken bir hata oluştu, lütfen daha sonra tekrar deneyin',
     );
   }
 };

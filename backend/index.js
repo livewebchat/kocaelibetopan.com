@@ -253,15 +253,18 @@ app.put("/previous_projects/:id", upload.array("images", 10), (req, res) => {
         return res.status(500).json({ error: err.message })
       }
 
-      let imagePaths = JSON.parse(results[0].images)
+      if (results.length === 0) {
+        return res.status(404).json({ message: "Project not found" })
+      }
 
+      let imagePaths = JSON.parse(results[0].images)
       imagePaths = imagePaths.concat(newImagePaths)
 
       const query = `
-      UPDATE previous_projects 
-      SET title = ?, description = ?, images = ?, htmlContent = ?
-      WHERE id = ?
-    `
+        UPDATE previous_projects 
+        SET title = ?, description = ?, images = ?, htmlContent = ?
+        WHERE id = ?
+      `
       const values = [
         title,
         description,
@@ -270,8 +273,13 @@ app.put("/previous_projects/:id", upload.array("images", 10), (req, res) => {
         projectId,
       ]
 
-      db.query(query, values, (err, res) => {
-        res.json({ message: "Project updated successfully" })
+      db.query(query, values, (updateErr, updateResult) => {
+        if (updateErr) {
+          console.error("Error updating project:", updateErr)
+          return res.status(500).json({ error: updateErr.message })
+        }
+
+        return res.json({ message: "Project updated successfully" })
       })
     }
   )
