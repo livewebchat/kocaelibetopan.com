@@ -94,7 +94,7 @@ app.use((req, res, next) => {
     next()
   } else {
     console.log("Invalid Referer:", referer)
-    res.status(403).json({ error: "Forbidden" })
+    return res.status(403).json({ error: "Forbidden" })
   }
 })
 
