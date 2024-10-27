@@ -149,7 +149,7 @@
 }
 
 #case-studies .swiper-slide h5 {
-  transition: transform 0.15s ease-out;
+  transition: all 0.15s ease-out;
 }
 #case-studies .swiper-slide:hover h5 {
   color: var(--lqd-color-primary);

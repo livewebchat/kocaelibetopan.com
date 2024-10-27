@@ -10,17 +10,14 @@ initializeSwipersScript.src = "./assets/js/vue/initializeSwipers.js"
 const methodsScript = document.createElement("script")
 methodsScript.src = "./assets/js/vue/methods.js"
 
-const vueGlobalScript = document.createElement("script")
-vueGlobalScript.src = "./assets/js/vue/vue.global.js"
-
 document.head.appendChild(requestsScript)
 document.head.appendChild(fetchesScript)
 document.head.appendChild(initializeSwipersScript)
 document.head.appendChild(methodsScript)
-document.head.appendChild(vueGlobalScript)
-
-vueGlobalScript.onload = () => {
-  const { createApp, ref, onMounted } = Vue
+;(async () => {
+  const { createApp, ref, onMounted, watch } = await import(
+    "./vue.esm-browser.prod.js"
+  )
 
   createApp({
     setup() {
@@ -58,13 +55,10 @@ vueGlobalScript.onload = () => {
         }
       })
 
-      return { sliders, contacts, loading, error, formatPhoneNumber }
-    },
-    mounted() {
-      const mainPreloader = document.getElementById("main-preloader")
-      const appContainer = document.getElementById("app")
+      watch(loading, (isLoading) => {
+        const mainPreloader = document.getElementById("main-preloader")
+        const appContainer = document.getElementById("app")
 
-      this.$watch("loading", (isLoading) => {
         if (!isLoading) {
           setTimeout(() => {
             mainPreloader.addEventListener("transitionend", () => {
@@ -77,6 +71,8 @@ vueGlobalScript.onload = () => {
           }, 500)
         }
       })
+
+      return { sliders, contacts, loading, error, formatPhoneNumber }
     },
   }).mount("#app")
-}
+})()
