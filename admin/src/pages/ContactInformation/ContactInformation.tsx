@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { getContactInformation, updateContacts } from './_requests';
 
-const ContactInformation = () => {
+export const ContactInformation = () => {
   const [initialContacts, setInitialContacts] = useState<Contacts>({
     phoneNumber: '',
     whatsappNumber: '',
@@ -281,5 +281,3 @@ const ContactInformation = () => {
     </>
   );
 };
-
-export default ContactInformation;

@@ -292,6 +292,98 @@ app.delete("/previous_projects/:id", (req, res) => {
 })
 
 //////////////////
+//// services ////
+//////////////////
+
+app.get("/services", (req, res) => {
+  const query = "SELECT * FROM services"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      res.json(results)
+    }
+  })
+})
+
+app.post("/services", upload.array("images", 10), (req, res) => {
+  const { title, description, htmlContent } = req.body
+  const imagePaths = req.files.map((file) => file.filename)
+
+  if (!title || !description || imagePaths.length === 0) {
+    return res.status(400).json({ message: "Missing required fields" })
+  }
+
+  const query = `
+    INSERT INTO services (title, description, images, htmlContent)
+    VALUES (?, ?, ?, ?)
+  `
+  const values = [title, description, JSON.stringify(imagePaths), htmlContent]
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting service:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res
+      .status(201)
+      .json({ message: "Service added successfully", id: result.insertId })
+  })
+})
+
+app.put("/services/:id", upload.array("images", 10), (req, res) => {
+  const serviceId = req.params.id
+  const { title, description, htmlContent, existingImages } = req.body
+  const newImagePaths = req.files.map((file) => file.filename)
+
+  let imagePaths = []
+  if (existingImages) {
+    try {
+      imagePaths = JSON.parse(existingImages)
+    } catch (error) {
+      return res.status(400).json({ message: "Invalid existing images format" })
+    }
+  }
+
+  imagePaths = imagePaths.concat(newImagePaths)
+
+  const query = `
+    UPDATE services 
+    SET title = ?, description = ?, images = ?, htmlContent = ?
+    WHERE id = ?
+  `
+  const values = [
+    title,
+    description,
+    JSON.stringify(imagePaths),
+    htmlContent,
+    serviceId,
+  ]
+
+  db.query(query, values, (updateErr, updateResult) => {
+    if (updateErr) {
+      console.error("Error updating service:", updateErr)
+      return res.status(500).json({ error: updateErr.message })
+    }
+
+    return res.json({ message: "Service updated successfully" })
+  })
+})
+
+app.delete("/services/:id", (req, res) => {
+  const serviceId = req.params.id
+
+  const query = "DELETE FROM services WHERE id = ?"
+  db.query(query, [serviceId], (err, result) => {
+    if (err) {
+      console.error("Error deleting service:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res.json({ message: "Service deleted successfully" })
+  })
+})
+
+//////////////////
 //// contacts ////
 //////////////////
 

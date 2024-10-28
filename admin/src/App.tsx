@@ -3,9 +3,10 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
-import HeroSlider from './pages/HeroSlider/HeroSlider';
-import PreviousProjects from './pages/PreviousProjects/PreviousProjects';
-import ContactInformation from './pages/ContactInformation/ContactInformation';
+import { HeroSlider } from './pages/HeroSlider/HeroSlider';
+import { PreviousProjects } from './pages/PreviousProjects/PreviousProjects';
+import { ContactInformation } from './pages/ContactInformation/ContactInformation';
+import { Services } from './pages/Services/Services';
 
 import SignIn from './pages/Authentication/SignIn';
 import Calendar from './pages/Calendar';
@@ -60,6 +61,15 @@ function App() {
             <>
               <PageTitle title="Geçmiş Projeler | Kocaeli Betopan" />
               <PreviousProjects />
+            </>
+          }
+        />
+        <Route
+          path="/hizmetler"
+          element={
+            <>
+              <PageTitle title="Hizmetler | Kocaeli Betopan" />
+              <Services />
             </>
           }
         />

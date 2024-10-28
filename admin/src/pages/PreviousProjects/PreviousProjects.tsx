@@ -12,7 +12,7 @@ import { addNewProject, getAllProjects, removeProjectById } from './_requests';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const PreviousProjects = () => {
+export const PreviousProjects = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
@@ -346,5 +346,3 @@ const PreviousProjects = () => {
     </>
   );
 };
-
-export default PreviousProjects;
