@@ -1,6 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
+
 import { editProjectById } from './_requests';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 type Props = {
   previousProjectForEdit: PreviousProject;
@@ -119,15 +123,12 @@ export const EditPreviousProject: React.FC<Props> = ({
                   <label className="mb-2.5 block text-black dark:text-white">
                     İçerik <span className="text-meta-1">*</span>
                   </label>
-                  <div
-                    contentEditable
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    onChange={(e) =>
-                      setHtmlContent((e.target as HTMLElement).innerHTML)
-                    }
-                  >
-                    {htmlContent}
-                  </div>
+
+                  <ReactQuill
+                    value={htmlContent}
+                    onChange={setHtmlContent}
+                    theme="snow"
+                  />
                 </div>
               </div>
 
@@ -146,7 +147,7 @@ export const EditPreviousProject: React.FC<Props> = ({
                     multiple
                     className="absolute inset-0 z-50 m-0 h-full w-full cursor-pointer p-0 opacity-0 outline-none"
                     onChange={handleFileChange}
-                    required={existingImages.length + newImages.length > 0}
+                    required={existingImages.length + newImages.length < 1}
                   />
 
                   <div className="flex flex-col items-center justify-center space-y-3">
@@ -189,9 +190,9 @@ export const EditPreviousProject: React.FC<Props> = ({
 
                 {existingImages.length + newImages.length > 0 ? (
                   <div className="flex flex-wrap gap-3 relative z-99">
-                    {existingImages
+                    {(existingImages as (string | File)[])
                       .concat(newImages)
-                      .map((img: any, idx: number) => (
+                      .map((img, idx) => (
                         <div className="relative" key={idx}>
                           <button
                             type="button"
@@ -217,8 +218,8 @@ export const EditPreviousProject: React.FC<Props> = ({
                             className="h-24 w-24 object-cover rounded"
                             src={
                               typeof img === 'string'
-                                ? `https://kocaelibetopan.com/uploads/${img}` // Existing image
-                                : URL.createObjectURL(img) // New File object
+                                ? `https://kocaelibetopan.com/uploads/${img}`
+                                : URL.createObjectURL(img)
                             }
                             alt={typeof img === 'string' ? img : img.name}
                           />

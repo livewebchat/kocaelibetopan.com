@@ -6,15 +6,17 @@ import 'swiper/css';
 import toast from 'react-hot-toast';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import { addNewProject, getAllProjects, removeProjectById } from './_requests';
 import { EditPreviousProject } from './EditPreviousProject';
+import { addNewProject, getAllProjects, removeProjectById } from './_requests';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const PreviousProjects = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
   const [htmlContent, setHtmlContent] = useState('');
-
   const [loadingPreviousProjects, setLoadingPreviousProjects] =
     useState<boolean>(true);
   const [currentPreviousProjects, setCurrentPreviousProjects] = useState<
@@ -173,7 +175,7 @@ const PreviousProjects = () => {
                   src={`https://kocaelibetopan.com/uploads/${project.images[0]}`}
                   alt={project.title}
                 />
-                <h3 className="text-xl text-black-2 dark:text-white mt-5">
+                <h3 className="text-xl text-black-2 dark:text-white mt-5 w-full overflow-hidden text-ellipsis line-clamp-1">
                   {project.title}
                 </h3>
                 <p className="mt-2 text-ellipsis line-clamp-3">
@@ -232,13 +234,12 @@ const PreviousProjects = () => {
                     <label className="mb-2.5 block text-black dark:text-white">
                       İçerik <span className="text-meta-1">*</span>
                     </label>
-                    <div
-                      contentEditable
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      onInput={(e) => {
-                        setHtmlContent((e.target as HTMLElement).innerHTML);
-                      }}
-                    ></div>
+
+                    <ReactQuill
+                      value={htmlContent}
+                      onChange={setHtmlContent}
+                      theme="snow"
+                    />
                   </div>
                 </div>
 

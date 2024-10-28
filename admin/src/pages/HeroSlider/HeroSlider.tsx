@@ -160,7 +160,7 @@ const HeroSlider = () => {
                   src={`https://kocaelibetopan.com/uploads/${slider.image}`}
                   alt={slider.title}
                 />
-                <h3 className="text-xl text-black-2 dark:text-white mt-5">
+                <h3 className="text-xl text-black-2 dark:text-white mt-5 w-full overflow-hidden text-ellipsis line-clamp-1">
                   {slider.title}
                 </h3>
                 <p className="mt-2 text-ellipsis line-clamp-3">
