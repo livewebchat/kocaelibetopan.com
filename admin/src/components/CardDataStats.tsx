@@ -1,25 +1,29 @@
 import React, { ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface CardDataStatsProps {
+  to: string;
   title: string;
   total: string;
-  rate: string;
-  levelUp?: boolean;
-  levelDown?: boolean;
   children: ReactNode;
+  className: string;
 }
 
 const CardDataStats: React.FC<CardDataStatsProps> = ({
+  to,
   title,
   total,
-  rate,
-  levelUp,
-  levelDown,
   children,
+  className,
 }) => {
   return (
-    <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+    <NavLink
+      to={to}
+      className="relative rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark hover:border-primary hover:-translate-y-1 transition-all group"
+    >
+      <div
+        className={`flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 ${className}`}
+      >
         {children}
       </div>
 
@@ -30,47 +34,23 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
           </h4>
           <span className="text-sm font-medium">{title}</span>
         </div>
-
-        <span
-          className={`flex items-center gap-1 text-sm font-medium ${
-            levelUp && 'text-meta-3'
-          } ${levelDown && 'text-meta-5'} `}
-        >
-          {rate}
-
-          {levelUp && (
-            <svg
-              className="fill-meta-3"
-              width="10"
-              height="11"
-              viewBox="0 0 10 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z"
-                fill=""
-              />
-            </svg>
-          )}
-          {levelDown && (
-            <svg
-              className="fill-meta-5"
-              width="10"
-              height="11"
-              viewBox="0 0 10 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.64284 7.69237L9.09102 4.33987L10 5.22362L5 10.0849L-8.98488e-07 5.22362L0.908973 4.33987L4.35716 7.69237L4.35716 0.0848701L5.64284 0.0848704L5.64284 7.69237Z"
-                fill=""
-              />
-            </svg>
-          )}
-        </span>
       </div>
-    </div>
+
+      <span className="absolute top-1/2 right-5 -translate-x-2 -translate-y-1/2 opacity-0 flex justify-center items-center h-10 w-10 bg-primary dark:bg-white rounded-full text-white dark:text-primary transition-all group-hover:translate-x-0 group-hover:opacity-100">
+        <svg
+          className="relative translate-x-[1px]"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"
+          />
+        </svg>
+      </span>
+    </NavLink>
   );
 };
 

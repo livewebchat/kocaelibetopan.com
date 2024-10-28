@@ -505,6 +505,8 @@
                       <div class="swiper-wrapper -mr-25 -ml-25">
                         <div
                           class="swiper-slide has-width col-12 col-lg-4 px-25"
+                          v-for="project in projects"
+                          :key="project.id"
                         >
                           <div
                             class="carousel-item-inner w-full relative flex flex-grow-1"
@@ -522,122 +524,14 @@
                                 >
                                   <img
                                     class="max-w-full h-auto vertical-top rounded-inherit home-reference-image"
-                                    src="./assets/images/home/references/reference-kartepe.jpg"
-                                    alt="Kartepe Villa Dış Cephe Projesi"
+                                    :src="'https://kocaelibetopan.com/uploads/' + project.images[0]"
+                                    :alt="project.title"
                                   />
                                 </figure>
                               </div>
-                              <h5 class="mb-0/6em">
-                                Kartepe Villa Dış Cephe Projesi
-                              </h5>
-                              <p class="mb-2em">
-                                Kartepe, Derbent'te bulunan 3 adet villaya
-                                uyguladığımız dış cephe uygulaması.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          class="swiper-slide has-width col-12 col-lg-4 px-25"
-                        >
-                          <div
-                            class="carousel-item-inner w-full relative flex flex-grow-1"
-                          >
-                            <div
-                              class="carousel-item-content w-full relative flex flex-col text-center flex-grow-1"
-                            >
-                              <a
-                                href="project-detail.html"
-                                class="link-overlay"
-                              ></a>
-                              <div class="w-full flex items-center mb-35">
-                                <figure
-                                  class="max-w-full inline-flex justify-center vertical-top m-0 flex-grow-1 rounded-4"
-                                >
-                                  <img
-                                    class="max-w-full h-auto vertical-top rounded-inherit home-reference-image"
-                                    src="./assets/images/home/references/reference-2.jpg"
-                                    alt="Kartepe Villa Dış Cephe Projesi"
-                                  />
-                                </figure>
-                              </div>
-                              <h5 class="mb-0/6em">
-                                Kartepe Villa Dış Cephe Projesi
-                              </h5>
-                              <p class="mb-2em">
-                                Kartepe, Derbent'te bulunan 3 adet villaya
-                                uyguladığımız dış cephe uygulaması.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          class="swiper-slide has-width col-12 col-lg-4 px-25"
-                        >
-                          <div
-                            class="carousel-item-inner w-full relative flex flex-grow-1"
-                          >
-                            <div
-                              class="carousel-item-content w-full relative flex flex-col text-center flex-grow-1"
-                            >
-                              <a
-                                href="project-detail.html"
-                                class="link-overlay"
-                              ></a>
-                              <div class="w-full flex items-center mb-35">
-                                <figure
-                                  class="max-w-full inline-flex justify-center vertical-top m-0 flex-grow-1 rounded-4"
-                                >
-                                  <img
-                                    class="max-w-full h-auto vertical-top rounded-inherit home-reference-image"
-                                    src="./assets/images/home/references/reference-3.jpg"
-                                    alt="Kartepe Villa Dış Cephe Projesi"
-                                  />
-                                </figure>
-                              </div>
-                              <h5 class="mb-0/6em">
-                                Kartepe Villa Dış Cephe Projesi
-                              </h5>
-                              <p class="mb-2em">
-                                Kartepe, Derbent'te bulunan 3 adet villaya
-                                uyguladığımız dış cephe uygulaması.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          class="swiper-slide has-width col-12 col-lg-4 px-25"
-                        >
-                          <div
-                            class="carousel-item-inner w-full relative flex flex-grow-1"
-                          >
-                            <div
-                              class="carousel-item-content w-full relative flex flex-col text-center flex-grow-1"
-                            >
-                              <a
-                                href="project-detail.html"
-                                class="link-overlay"
-                              ></a>
-                              <div class="w-full flex items-center mb-35">
-                                <figure
-                                  class="max-w-full inline-flex justify-center vertical-top m-0 flex-grow-1 rounded-4"
-                                >
-                                  <img
-                                    class="max-w-full h-auto vertical-top rounded-inherit home-reference-image"
-                                    src="./assets/images/home/references/reference-4.jpg"
-                                    alt="Kartepe Villa Dış Cephe Projesi"
-                                  />
-                                </figure>
-                              </div>
-                              <h5 class="mb-0/6em">
-                                Kartepe Villa Dış Cephe Projesi
-                              </h5>
-                              <p class="mb-2em">
-                                Kartepe, Derbent'te bulunan 3 adet villaya
-                                uyguladığımız dış cephe uygulaması.
+                              <h5 class="mb-0/6em">{{ project.title }}</h5>
+                              <p class="mb-2em text-ellipsis line-clamp-1">
+                                {{ project.description }}
                               </p>
                             </div>
                           </div>

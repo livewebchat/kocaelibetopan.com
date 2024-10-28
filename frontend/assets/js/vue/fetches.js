@@ -6,6 +6,14 @@ const fetchSliders = async (sliders, error) => {
   }
 }
 
+const fetchPreviousProjects = async (projects, error) => {
+  try {
+    projects.value = await getAllPreviousProjects()
+  } catch (err) {
+    error.value = err.message
+  }
+}
+
 const fetchContacts = async (contacts, error) => {
   try {
     contacts.value = await getContacts()
