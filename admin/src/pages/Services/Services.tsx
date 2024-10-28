@@ -64,8 +64,8 @@ export const Services = () => {
     }, 200);
   };
 
-  const handleDeleteService = async (projectId: string) => {
-    await toast.promise(removeServiceById(projectId), {
+  const handleDeleteService = async (serviceId: string) => {
+    await toast.promise(removeServiceById(serviceId), {
       loading: 'Hizmet siliniyor...',
       success: (msg) => msg,
       error: (err) => err.message,
@@ -99,13 +99,13 @@ export const Services = () => {
             pagination={true}
             ref={currentServicesRef}
           >
-            {currentServices.map((project) => (
+            {currentServices.map((service) => (
               <SwiperSlide
                 className="cursor-grab active:cursor-grabbing group"
-                key={project.id}
+                key={service.id}
               >
                 <button
-                  onClick={() => setServiceForEdit(project)}
+                  onClick={() => setServiceForEdit(service)}
                   className="cursor-pointer opacity-0 group-hover:opacity-100 absolute top-[5px] left-[7px] z-1 text-white bg-gray-700 rounded-full p-2"
                 >
                   <svg
@@ -126,7 +126,7 @@ export const Services = () => {
                       (t) => (
                         <div className="flex flex-col gap-4">
                           <span>
-                            <b>{project.title}</b> başlıklı proje silinsin mi?
+                            <b>{service.title}</b> başlıklı hizmet silinsin mi?
                           </span>
                           <div className="flex gap-2 justify-end">
                             <button
@@ -138,7 +138,7 @@ export const Services = () => {
                             <button
                               className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
                               onClick={() => {
-                                handleDeleteService(project.id);
+                                handleDeleteService(service.id);
                                 toast.dismiss(t.id);
                               }}
                             >
@@ -166,21 +166,21 @@ export const Services = () => {
                 </button>
                 <img
                   className="w-full aspect-video object-cover"
-                  src={`https://kocaelibetopan.com/uploads/${project.images[0]}`}
-                  alt={project.title}
+                  src={`https://kocaelibetopan.com/uploads/${service.images[0]}`}
+                  alt={service.title}
                 />
                 <h3 className="text-xl text-black-2 dark:text-white mt-5 w-full overflow-hidden text-ellipsis line-clamp-1">
-                  {project.title}
+                  {service.title}
                 </h3>
                 <p className="mt-2 text-ellipsis line-clamp-3">
-                  {project.description}
+                  {service.description}
                 </p>
               </SwiperSlide>
             ))}
           </Swiper>
         ) : (
           <div className="flex justify-center p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit">
-            Henüz bir proje eklemediniz. Lütfen proje ekleyin.
+            Henüz bir hizmet eklemediniz. Lütfen hizmet ekleyin.
           </div>
         )}
 
