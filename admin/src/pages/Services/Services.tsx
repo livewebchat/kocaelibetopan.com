@@ -241,6 +241,9 @@ export const Services = () => {
                     }}
                     required
                   />
+                </div>
+                
+                <div className="mb-4.5 flex flex-col gap6">
                   <label className="mb-2.5 block text-black dark:text-white">
                     İkinci Avantaj <span className="text-meta-1">*</span>
                   </label>

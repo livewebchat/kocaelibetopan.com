@@ -22,10 +22,9 @@ export const EditService: React.FC<Props> = ({
   const [existingImages, setExistingImages] = useState<string[]>(
     serviceForEdit.images || [],
   );
-  const [advantages, setAdvantages] = useState<string[]>([
-    serviceForEdit.advantages[0],
-    serviceForEdit.advantages[1],
-  ]);
+  const [advantages, setAdvantages] = useState<string[]>(
+    serviceForEdit.advantages || [''],
+  );
   const [newImages, setNewImages] = useState<File[]>([]);
   const [htmlContent, setHtmlContent] = useState(serviceForEdit.htmlContent);
 
@@ -124,7 +123,7 @@ export const EditService: React.FC<Props> = ({
                 <input
                   type="text"
                   placeholder="Ör. Yangına dayanıklı ve suya karşı dirençli."
-                  className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 mb-4.5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={advantages[0]}
                   onChange={(e) => {
                     const newAdvantages = [...advantages];
@@ -133,6 +132,9 @@ export const EditService: React.FC<Props> = ({
                   }}
                   required
                 />
+              </div>
+
+              <div className="mb-4.5 flex flex-col gap6">
                 <label className="mb-2.5 block text-black dark:text-white">
                   İkinci Avantaj <span className="text-meta-1">*</span>
                 </label>
