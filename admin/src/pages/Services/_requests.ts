@@ -25,7 +25,7 @@ export const addNewService = async (newService: NewService) => {
   const formData = new FormData();
   formData.append('title', newService.title);
   formData.append('description', newService.description);
-  formData.append('advantages', JSON.stringify(newService.advantages));
+  formData.append('advantages', newService.advantages);
   formData.append('htmlContent', newService.htmlContent);
 
   newService.images.forEach((image: any) => {

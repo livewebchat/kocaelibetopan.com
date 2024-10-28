@@ -321,8 +321,8 @@ app.post("/services", upload.array("images", 10), (req, res) => {
   const values = [
     title,
     description,
-    JSON.stringify(advantages),
     JSON.stringify(imagePaths),
+    JSON.stringify(advantages),
     htmlContent,
   ]
 
