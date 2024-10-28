@@ -63,7 +63,7 @@ export const removeProjectById = async (projectId: string) => {
       );
     }
 
-    return 'Project deleted';
+    return 'Proje silindi';
   } catch (error) {
     throw new Error(
       'Proje silinirken bir hata oluştu, lütfen daha sonra tekrar deneyin',

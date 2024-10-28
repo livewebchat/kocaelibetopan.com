@@ -64,7 +64,7 @@ export const removeServiceById = async (serviceId: string) => {
       );
     }
 
-    return 'Service deleted';
+    return 'Hizmet silindi';
   } catch (error) {
     throw new Error(
       'Hizmet silinirken bir hata oluştu, lütfen daha sonra tekrar deneyin',

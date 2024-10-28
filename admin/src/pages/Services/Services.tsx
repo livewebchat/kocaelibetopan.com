@@ -32,6 +32,7 @@ export const Services = () => {
   const clearAddServiceForm = () => {
     setTitle('');
     setDescription('');
+    setAdvantages(['', '']);
     setImages([]);
   };
 
