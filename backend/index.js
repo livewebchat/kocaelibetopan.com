@@ -322,7 +322,7 @@ app.post("/services", upload.array("images", 10), (req, res) => {
     title,
     description,
     JSON.stringify(imagePaths),
-    JSON.stringify(advantages),
+    advantages,
     htmlContent,
   ]
 
