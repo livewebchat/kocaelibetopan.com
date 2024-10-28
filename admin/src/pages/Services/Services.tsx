@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { EditService } from './EditService';
-import { addNewProject, getAllProjects, removeProjectById } from './_requests';
+import { addNewService, getAllServices, removeServiceById } from './_requests';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -24,7 +24,7 @@ export const Services = () => {
   const currentServicesRef = useRef<SwiperRef>(null);
 
   const fetchServices = async () => {
-    setCurrentServices(await getAllProjects());
+    setCurrentServices(await getAllServices());
     setLoadingServices(false);
   };
 
@@ -48,9 +48,9 @@ export const Services = () => {
     }
 
     await toast.promise(
-      addNewProject({ title, description, images, htmlContent }),
+      addNewService({ title, description, images, htmlContent }),
       {
-        loading: 'Proje ekleniyor...',
+        loading: 'Hizmet ekleniyor...',
         success: (msg) => msg,
         error: (err) => err.message,
       },
@@ -65,8 +65,8 @@ export const Services = () => {
   };
 
   const handleDeleteService = async (projectId: string) => {
-    await toast.promise(removeProjectById(projectId), {
-      loading: 'Proje siliniyor...',
+    await toast.promise(removeServiceById(projectId), {
+      loading: 'Hizmet siliniyor...',
       success: (msg) => msg,
       error: (err) => err.message,
     });
@@ -80,9 +80,9 @@ export const Services = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Geçmiş Projeler" />
+      <Breadcrumb pageName="Geçmiş Hizmetler" />
       <h2 className="font-bold text-xl text-gray-600 dark:text-white mb-5">
-        Mevcut Projeler
+        Mevcut Hizmetler
       </h2>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
@@ -188,7 +188,7 @@ export const Services = () => {
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
               <h3 className="font-medium text-black dark:text-white">
-                Yeni Proje Ekle
+                Yeni Hizmet Ekle
               </h3>
             </div>
             <form onSubmit={handleAddServiceSubmit}>

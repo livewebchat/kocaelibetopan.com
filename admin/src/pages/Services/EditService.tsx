@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { editProjectById } from './_requests';
+import { editServiceById } from './_requests';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -42,7 +42,7 @@ export const EditService: React.FC<Props> = ({
     e.preventDefault();
 
     await toast.promise(
-      editProjectById({
+      editServiceById({
         id: serviceForEdit.id,
         images: [...existingImages, ...newImages],
         title,
