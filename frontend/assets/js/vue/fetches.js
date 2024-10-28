@@ -14,6 +14,14 @@ const fetchPreviousProjects = async (projects, error) => {
   }
 }
 
+const fetchServices = async (projects, error) => {
+  try {
+    projects.value = await getAllServices()
+  } catch (err) {
+    error.value = err.message
+  }
+}
+
 const fetchContacts = async (contacts, error) => {
   try {
     contacts.value = await getContacts()

@@ -307,18 +307,24 @@ app.get("/services", (req, res) => {
 })
 
 app.post("/services", upload.array("images", 10), (req, res) => {
-  const { title, description, htmlContent } = req.body
+  const { title, description, advantages, htmlContent } = req.body
   const imagePaths = req.files.map((file) => file.filename)
 
-  if (!title || !description || imagePaths.length === 0) {
+  if (!title || !description || !advantages || imagePaths.length === 0) {
     return res.status(400).json({ message: "Missing required fields" })
   }
 
   const query = `
-    INSERT INTO services (title, description, images, htmlContent)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO services (title, description, images, advantages, htmlContent)
+    VALUES (?, ?, ?, ?, ?)
   `
-  const values = [title, description, JSON.stringify(imagePaths), htmlContent]
+  const values = [
+    title,
+    description,
+    JSON.stringify(advantages),
+    JSON.stringify(imagePaths),
+    htmlContent,
+  ]
 
   db.query(query, values, (err, result) => {
     if (err) {
@@ -333,7 +339,8 @@ app.post("/services", upload.array("images", 10), (req, res) => {
 
 app.put("/services/:id", upload.array("images", 10), (req, res) => {
   const serviceId = req.params.id
-  const { title, description, htmlContent, existingImages } = req.body
+  const { title, description, advantages, htmlContent, existingImages } =
+    req.body
   const newImagePaths = req.files.map((file) => file.filename)
 
   let imagePaths = []
@@ -349,12 +356,13 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
 
   const query = `
     UPDATE services 
-    SET title = ?, description = ?, images = ?, htmlContent = ?
+    SET title = ?, description = ?, advantages = ?, images = ?, htmlContent = ?
     WHERE id = ?
   `
   const values = [
     title,
     description,
+    JSON.stringify(advantages),
     JSON.stringify(imagePaths),
     htmlContent,
     serviceId,

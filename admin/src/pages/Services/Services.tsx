@@ -16,6 +16,7 @@ export const Services = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
+  const [advantages, setAdvantages] = useState<string[]>(['', '']);
   const [htmlContent, setHtmlContent] = useState('');
   const [loadingServices, setLoadingServices] = useState<boolean>(true);
   const [currentServices, setCurrentServices] = useState<Service[]>([]);
@@ -48,7 +49,7 @@ export const Services = () => {
     }
 
     await toast.promise(
-      addNewService({ title, description, images, htmlContent }),
+      addNewService({ title, description, advantages, images, htmlContent }),
       {
         loading: 'Hizmet ekleniyor...',
         success: (msg) => msg,
@@ -221,6 +222,39 @@ export const Services = () => {
                       required
                     ></textarea>
                   </div>
+                </div>
+
+                <div className="mb-4.5 flex flex-col gap6">
+                  <label className="mb-2.5 block text-black dark:text-white">
+                    Birinci Avantaj <span className="text-meta-1">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ör. Yangına dayanıklı ve suya karşı dirençli."
+                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 mb-4.5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    value={advantages[0]}
+                    onChange={(e) => {
+                      const newAdvantages = [...advantages];
+                      newAdvantages[0] = e.target.value;
+                      setAdvantages(newAdvantages);
+                    }}
+                    required
+                  />
+                  <label className="mb-2.5 block text-black dark:text-white">
+                    İkinci Avantaj <span className="text-meta-1">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ör. Uzun ömürlü ve çevre dostu malzeme."
+                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    value={advantages[1]}
+                    onChange={(e) => {
+                      const newAdvantages = [...advantages];
+                      newAdvantages[1] = e.target.value;
+                      setAdvantages(newAdvantages);
+                    }}
+                    required
+                  />
                 </div>
 
                 <div className="mb-4.5 flex flex-col gap-6">

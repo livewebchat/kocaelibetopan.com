@@ -27,6 +27,19 @@ const getAllPreviousProjects = async () => {
     throw error
   }
 }
+const getAllServices = async () => {
+  try {
+    const response = await fetch(API_URL + "/services")
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error("Error fetching services:", error)
+    throw error
+  }
+}
 
 const getContacts = async () => {
   try {

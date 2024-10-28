@@ -25,6 +25,7 @@ Promise.all(scripts.map(loadScript))
       setup() {
         const sliders = ref([])
         const projects = ref([])
+        const services = ref([])
         const contacts = ref({})
         const loading = ref(true)
         const error = ref(null)
@@ -49,6 +50,7 @@ Promise.all(scripts.map(loadScript))
             await Promise.all([
               fetchSliders(sliders, error),
               fetchPreviousProjects(projects, error),
+              fetchServices(services, error),
               fetchContacts(contacts, error),
               imagesLoaded(),
             ])
@@ -81,6 +83,7 @@ Promise.all(scripts.map(loadScript))
         return {
           sliders,
           projects,
+          services,
           contacts,
           loading,
           error,
