@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import LogoLongDark from '../../images/logo/logo_long_dark.svg';
+import LogoLong from '../../images/logo/logo_long_text_white.svg';
 
 import { useAuth } from './AuthProvider';
 
@@ -20,8 +22,8 @@ export const SignIn: React.FC = () => {
 
   return (
     <div className="flex flex-wrap justify-center items-center h-[100vh] w-[100vw] bg-white dark:bg-boxdark">
-      <div className="hidden h-full w-full xl:flex justify-center items-center xl:w-1/2">
-        <Link to="/">
+      <div className="w-full px-20 xl:flex justify-center items-center xl:w-1/2 xl:h-full xl:px-0">
+        <Link to="/" className="hidden xl:block">
           <img
             className="hidden dark:block h-20 object-contain"
             src={Logo}
@@ -30,6 +32,18 @@ export const SignIn: React.FC = () => {
           <img
             className="dark:hidden h-20 object-contain"
             src={LogoDark}
+            alt="Kocaeli Betopan"
+          />
+        </Link>
+        <Link to="/" className="block xl:hidden">
+          <img
+            className="hidden dark:block h-20 object-contain"
+            src={LogoLong}
+            alt="Kocaeli Betopan"
+          />
+          <img
+            className="dark:hidden h-20 object-contain"
+            src={LogoLongDark}
             alt="Kocaeli Betopan"
           />
         </Link>
