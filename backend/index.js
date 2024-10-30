@@ -470,7 +470,7 @@ app.post("/signin", (req, res) => {
 
 app.post("/create-user", async (req, res) => {
   const username = "info@kocaelibetopan.com"
-  const password = "adnan7356"
+  const password = "behram6541"
 
   if (!username || !password) {
     return res
