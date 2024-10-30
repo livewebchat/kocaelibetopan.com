@@ -41,14 +41,11 @@ export const App = () => {
 
   return (
     <>
-      {pathname === '/giris-yap' ? (
-        user ? (
-          <Navigate to="/" replace />
-        ) : (
-          <Routes>
-            <Route path="/giris-yap" element={<SignIn />} />
-          </Routes>
-        )
+      {!user ? (
+        <Routes>
+          <Route index element={<Navigate to="/giris-yap" replace />} />
+          <Route path="/giris-yap" element={<SignIn />} />
+        </Routes>
       ) : (
         <DefaultLayout>
           <Routes>

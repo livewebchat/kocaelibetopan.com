@@ -6,7 +6,6 @@ interface AuthContextType {
   user: User | null;
   signin: (username: string, password: string) => Promise<{ success: boolean }>;
   signout: () => void;
-  loading: boolean;
 }
 
 interface Props {
@@ -19,15 +18,12 @@ const API_URL = `${import.meta.env.VITE_APP_API_URL}/signin`;
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const signin = async (
     username: string,
     password: string,
   ): Promise<{ success: boolean }> => {
-    setLoading(true);
-
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -39,23 +35,23 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-
         toast.error(
           errorData.message || 'Giriş başarısız, lütfen tekrar deneyin.',
         );
-        setLoading(false);
         return { success: false };
       }
 
-      const data = await response.json();
-      setLoading(false);
       toast.success('Giriş başarılı, yönlendiriliyorsunuz...');
+      const data = await response.json();
+
       setTimeout(() => {
         setUser({ id: data.userId });
-      }, 2000);
+        navigate('/');
+        toast.dismiss();
+      }, 1000);
+
       return { success: true };
     } catch (err: any) {
-      setLoading(false);
       toast.error('Giriş başarısız, lütfen tekrar deneyin.');
       return { success: false };
     }
@@ -77,7 +73,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
               className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
               onClick={() => {
                 setUser(null);
-                navigate('/');
+                navigate('/giris-yap');
 
                 toast.dismiss(t.id);
               }}
@@ -92,7 +88,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signin, signout, loading }}>
+    <AuthContext.Provider value={{ user, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );

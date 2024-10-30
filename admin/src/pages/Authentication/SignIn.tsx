@@ -12,7 +12,7 @@ export const SignIn: React.FC = () => {
 
   const { signin } = useAuth();
 
-  const handleSignInSubmit = (e: React.FormEvent) => {
+  const handleSignInSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     signin(email, password);

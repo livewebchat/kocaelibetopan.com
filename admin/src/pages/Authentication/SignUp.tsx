@@ -4,7 +4,7 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 
-const SignUp: React.FC = () => {
+export const SignUp: React.FC = () => {
   return (
     <>
       <Breadcrumb pageName="Sign Up" />
@@ -352,5 +352,3 @@ const SignUp: React.FC = () => {
     </>
   );
 };
-
-export default SignUp;
