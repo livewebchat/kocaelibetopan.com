@@ -32,139 +32,140 @@ function App() {
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  return loading ? (
-    <Loader />
-  ) : (
-    <DefaultLayout>
-      <Routes>
-        <Route
-          index
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Dashboard />
-            </>
-          }
-        />
-        <Route
-          path="/slaytlar"
-          element={
-            <>
-              <PageTitle title="Ana Sayfa Slaytları | Kocaeli Betopan" />
-              <HeroSlider />
-            </>
-          }
-        />
-        <Route
-          path="/gecmis-projeler"
-          element={
-            <>
-              <PageTitle title="Geçmiş Projeler | Kocaeli Betopan" />
-              <PreviousProjects />
-            </>
-          }
-        />
-        <Route
-          path="/hizmetler"
-          element={
-            <>
-              <PageTitle title="Hizmetler | Kocaeli Betopan" />
-              <Services />
-            </>
-          }
-        />
-        <Route
-          path="/iletisim-bilgileri"
-          element={
-            <>
-              <PageTitle title="İletişim Bilgileri | Kocaeli Betpoan" />
-              <ContactInformation />
-            </>
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Calendar />
-            </>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Profile />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-elements"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <FormElements />
-            </>
-          }
-        />
-        <Route
-          path="/forms/form-layout"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <FormLayout />
-            </>
-          }
-        />
-        <Route
-          path="/tables"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Tables />
-            </>
-          }
-        />
-        <Route
-          path="/chart"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Chart />
-            </>
-          }
-        />
-        <Route
-          path="/ui/alerts"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Alerts />
-            </>
-          }
-        />
-        <Route
-          path="/ui/buttons"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <Buttons />
-            </>
-          }
-        />
-        <Route
-          path="/auth/signin"
-          element={
-            <>
-              <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
-              <SignIn />
-            </>
-          }
-        />
-      </Routes>
-    </DefaultLayout>
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <>
+      {pathname === '/giris-yap' ? (
+        <Routes>
+          <Route path="/giris-yap" element={<SignIn />} />
+        </Routes>
+      ) : (
+        <DefaultLayout>
+          <Routes>
+            <Route
+              index
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Dashboard />
+                </>
+              }
+            />
+            <Route
+              path="/slaytlar"
+              element={
+                <>
+                  <PageTitle title="Ana Sayfa Slaytları | Kocaeli Betopan" />
+                  <HeroSlider />
+                </>
+              }
+            />
+            <Route
+              path="/gecmis-projeler"
+              element={
+                <>
+                  <PageTitle title="Geçmiş Projeler | Kocaeli Betopan" />
+                  <PreviousProjects />
+                </>
+              }
+            />
+            <Route
+              path="/hizmetler"
+              element={
+                <>
+                  <PageTitle title="Hizmetler | Kocaeli Betopan" />
+                  <Services />
+                </>
+              }
+            />
+            <Route
+              path="/iletisim-bilgileri"
+              element={
+                <>
+                  <PageTitle title="İletişim Bilgileri | Kocaeli Betpoan" />
+                  <ContactInformation />
+                </>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Calendar />
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Profile />
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-elements"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <FormElements />
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-layout"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <FormLayout />
+                </>
+              }
+            />
+            <Route
+              path="/tables"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Tables />
+                </>
+              }
+            />
+            <Route
+              path="/chart"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Chart />
+                </>
+              }
+            />
+            <Route
+              path="/ui/alerts"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Alerts />
+                </>
+              }
+            />
+            <Route
+              path="/ui/buttons"
+              element={
+                <>
+                  <PageTitle title="Yönetim Paneli | Kocaeli Betopan" />
+                  <Buttons />
+                </>
+              }
+            />
+          </Routes>
+        </DefaultLayout>
+      )}
+    </>
   );
 }
 
