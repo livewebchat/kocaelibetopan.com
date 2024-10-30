@@ -5,7 +5,7 @@ interface PageTitleProps {
   title: string;
 }
 
-const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
+export const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -14,5 +14,3 @@ const PageTitle: React.FC<PageTitleProps> = ({ title }) => {
 
   return null;
 };
-
-export default PageTitle;

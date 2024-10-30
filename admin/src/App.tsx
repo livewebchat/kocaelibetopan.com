@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
-import Loader from './common/Loader';
-import PageTitle from './components/PageTitle';
+import { Loader } from './common/Loader';
+import { PageTitle } from './components/PageTitle';
 import { HeroSlider } from './pages/HeroSlider/HeroSlider';
 import { PreviousProjects } from './pages/PreviousProjects/PreviousProjects';
 import { ContactInformation } from './pages/ContactInformation/ContactInformation';
 import { Services } from './pages/Services/Services';
+import { SignIn } from './pages/Authentication/SignIn';
 
-import SignIn from './pages/Authentication/SignIn';
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
 import Dashboard from './pages/Dashboard/Dashboard';
@@ -20,16 +20,19 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 
-function App() {
+import { useAuth } from './pages/Authentication/AuthProvider';
+
+export const App = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -39,9 +42,13 @@ function App() {
   return (
     <>
       {pathname === '/giris-yap' ? (
-        <Routes>
-          <Route path="/giris-yap" element={<SignIn />} />
-        </Routes>
+        user ? (
+          <Navigate to="/" replace />
+        ) : (
+          <Routes>
+            <Route path="/giris-yap" element={<SignIn />} />
+          </Routes>
+        )
       ) : (
         <DefaultLayout>
           <Routes>
@@ -167,6 +174,4 @@ function App() {
       )}
     </>
   );
-}
-
-export default App;
+};
