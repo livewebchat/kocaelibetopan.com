@@ -70,6 +70,10 @@ export const EditService: React.FC<Props> = ({
 
   return (
     <>
+      <div
+        onClick={() => setServiceForEdit(undefined)}
+        className="bg-overlay cursor-pointer absolute inset-0 bg-black-2 bg-opacity-80 block h-full w-full z-[999]"
+      ></div>
       <div className="flex flex-col gap-9 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[1000] w-[90%] max-w-[500px] max-h-[90vh] overflow-y-auto">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">

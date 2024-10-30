@@ -8,13 +8,16 @@ const DropdownUser = () => {
   const { signout } = useAuth();
 
   return (
-    <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
+    <ClickOutside
+      onClick={() => setDropdownOpen(false)}
+      className="relative hidden lg:flex items-center"
+    >
       <Link
         onClick={() => setDropdownOpen(!dropdownOpen)}
         className="flex items-center gap-4"
         to="#"
       >
-        <span className="hidden text-right lg:block">
+        <span className="text-right">
           <span className="block text-sm font-medium text-black dark:text-white">
             Yönetici
           </span>
@@ -22,7 +25,7 @@ const DropdownUser = () => {
         </span>
 
         <svg
-          className="hidden fill-current sm:block"
+          className="fill-current"
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -40,9 +43,7 @@ const DropdownUser = () => {
 
       {/* <!-- Dropdown Start --> */}
       {dropdownOpen && (
-        <div
-          className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark`}
-        >
+        <div className="absolute top-7 right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <button
             onClick={signout}
             className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

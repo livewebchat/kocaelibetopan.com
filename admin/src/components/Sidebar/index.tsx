@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
+import { useAuth } from '../../pages/Authentication/AuthProvider';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -11,6 +12,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
 
+  const { signout } = useAuth();
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
 
@@ -39,6 +41,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   return (
     <aside
@@ -226,7 +232,33 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </li>
             {/* <!-- Menu Item Contacts --> */}
 
-            {/* <!-- Menu Item Contacts --> */}
+            {/* <!-- Menu Item Logout --> */}
+            <li>
+              <button
+                onClick={signout}
+                className="lg:hidden group relative w-full flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="19"
+                  height="19"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M5.25 2.25h-3.5v12h3.5m5.5-9.5l3.5 3.5l-3.5 3.5m-5-3.5h8.5"
+                  />
+                </svg>
+                Çıkış Yap
+              </button>
+            </li>
+            {/* <!-- Menu Item Logout --> */}
+
+            {/* <!-- Menu Item External --> */}
             <li className="mt-auto">
               <NavLink
                 to="https://kocaelibetopan.com/"
@@ -261,7 +293,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </svg>
               </NavLink>
             </li>
-            {/* <!-- Menu Item Contacts --> */}
+            {/* <!-- Menu Item External --> */}
           </ul>
         </nav>
         {/* <!-- Sidebar Menu --> */}
