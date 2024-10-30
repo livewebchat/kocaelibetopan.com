@@ -309,11 +309,15 @@ app.get("/services", (req, res) => {
 
 app.post("/services", upload.array("images", 10), (req, res) => {
   const { title, description, advantages, htmlContent } = req.body
-  const imagePaths = req.files.map((file) => file.filename)
 
   if (!title || !description || !advantages || imagePaths.length === 0) {
     return res.status(400).json({ message: "Missing required fields" })
   }
+
+  let advantagesArray = []
+  advantagesArray = JSON.parse(advantages)
+
+  const imagePaths = req.files.map((file) => file.filename)
 
   const query = `
     INSERT INTO services (title, description, images, advantages, htmlContent)
@@ -323,7 +327,7 @@ app.post("/services", upload.array("images", 10), (req, res) => {
     title,
     description,
     JSON.stringify(imagePaths),
-    JSON.stringify(advantages),
+    JSON.stringify(advantagesArray),
     htmlContent,
   ]
 
@@ -342,9 +346,11 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
   const serviceId = req.params.id
   const { title, description, advantages, htmlContent, existingImages } =
     req.body
-  const newImagePaths = req.files.map((file) => file.filename)
 
-  console.log(req.body.advantages)
+  let advantagesArray = []
+  advantagesArray = JSON.parse(advantages)
+
+  const newImagePaths = req.files.map((file) => file.filename)
 
   let imagePaths = []
   if (existingImages) {
@@ -366,7 +372,7 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
     title,
     description,
     JSON.stringify(imagePaths),
-    JSON.stringify(advantages),
+    JSON.stringify(advantagesArray),
     htmlContent,
     serviceId,
   ]

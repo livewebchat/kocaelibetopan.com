@@ -25,7 +25,7 @@ export const addNewService = async (newService: NewService) => {
   const formData = new FormData();
   formData.append('title', newService.title);
   formData.append('description', newService.description);
-  formData.append('advantages', newService.advantages);
+  formData.append('advantages', JSON.stringify(newService.advantages));
   formData.append('htmlContent', newService.htmlContent);
 
   newService.images.forEach((image: any) => {
@@ -76,7 +76,7 @@ export const editServiceById = async (updatedService: EditedService) => {
   const formData = new FormData();
   formData.append('title', updatedService.title);
   formData.append('description', updatedService.description);
-  formData.append('advantages', updatedService.advantages);
+  formData.append('advantages', JSON.stringify(updatedService.advantages));
   formData.append('htmlContent', updatedService.htmlContent);
 
   updatedService.images.forEach((image: any) => {
