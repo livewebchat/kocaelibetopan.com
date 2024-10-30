@@ -344,6 +344,8 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
     req.body
   const newImagePaths = req.files.map((file) => file.filename)
 
+  console.log(req.body.advantages)
+
   let imagePaths = []
   if (existingImages) {
     try {
