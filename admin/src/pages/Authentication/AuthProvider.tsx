@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthContextType {
   user: User | null;
@@ -19,6 +20,7 @@ const API_URL = `${import.meta.env.VITE_APP_API_URL}/signin`;
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const signin = async (
     username: string,
@@ -50,7 +52,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       toast.success('Giriş başarılı, yönlendiriliyorsunuz...');
       setTimeout(() => {
         setUser({ id: data.userId });
-      }, 1000);
+      }, 2000);
       return { success: true };
     } catch (err: any) {
       setLoading(false);
@@ -60,7 +62,33 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   const signout = () => {
-    setUser(null);
+    toast(
+      (t) => (
+        <div className="flex flex-col gap-4">
+          <span>Çıkış yapılsın mı?</span>
+          <div className="flex gap-2 justify-end">
+            <button
+              className="p-2 bg-gray-600 text-white text-[15px] rounded min-w-25"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Vazgeç
+            </button>
+            <button
+              className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
+              onClick={() => {
+                setUser(null);
+                navigate('/');
+
+                toast.dismiss(t.id);
+              }}
+            >
+              Çıkış yap
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: 10000 },
+    );
   };
 
   return (
