@@ -6,8 +6,6 @@ const cors = require("cors")
 const path = require("path")
 const fs = require("fs")
 
-const heroSliders = require("heroSliders")
-
 const port = process.env.PORT
 
 // MySQL connection
@@ -81,6 +79,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+
+const heroSliders = require("heroSliders")
 
 ///////////////////////////
 //// previous_projects ////
