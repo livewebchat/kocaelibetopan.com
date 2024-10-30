@@ -310,14 +310,14 @@ app.get("/services", (req, res) => {
 app.post("/services", upload.array("images", 10), (req, res) => {
   const { title, description, advantages, htmlContent } = req.body
 
+  const imagePaths = req.files.map((file) => file.filename)
+
   if (!title || !description || !advantages || imagePaths.length === 0) {
     return res.status(400).json({ message: "Missing required fields" })
   }
 
   let advantagesArray = []
   advantagesArray = JSON.parse(advantages)
-
-  const imagePaths = req.files.map((file) => file.filename)
 
   const query = `
     INSERT INTO services (title, description, images, advantages, htmlContent)
