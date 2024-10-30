@@ -1,5 +1,6 @@
 require("dotenv").config()
 const express = require("express")
+const bcrypt = require("bcrypt")
 const multer = require("multer")
 const mysql = require("mysql2")
 const cors = require("cors")
@@ -80,7 +81,124 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 
-const heroSliders = require("heroSliders")
+//////////////////////
+//// hero_sliders ////
+//////////////////////
+
+app.get("/hero_sliders", (req, res) => {
+  const query = "SELECT * FROM hero_sliders"
+  db.query(query, (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else {
+      res.json(results)
+    }
+  })
+})
+
+app.post("/hero_sliders", upload.single("image"), (req, res) => {
+  const { title, description } = req.body
+  const imagePath = `${req.file.filename}`
+
+  if (!title || !description || !req.file) {
+    console.error("Missing required fields:", {
+      title,
+      description,
+      file: req.file,
+    })
+    return res.status(400).json({ message: "Missing required fields" })
+  }
+
+  const query = `
+    INSERT INTO hero_sliders (title, description, path, image)
+    VALUES (?, ?, ?, ?)
+  `
+  const values = [title, description, "", imagePath]
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Error inserting slider:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res
+      .status(201)
+      .json({ message: "Slider added successfully", id: result.insertId })
+  })
+})
+
+app.put("/hero_sliders/:id", upload.single("image"), (req, res) => {
+  const sliderId = req.params.id
+  const { title, description } = req.body
+  let imagePath = null
+
+  if (req.file) {
+    imagePath = req.file.filename
+
+    const getOldImagePathQuery = `SELECT image FROM hero_sliders WHERE id = ?`
+    db.query(getOldImagePathQuery, [sliderId], (err, result) => {
+      if (err) {
+        console.error("Error fetching old image path:", err)
+      } else if (result.length > 0) {
+        const oldImagePath = result[0].image
+        const oldFilePath = path.join(__dirname, "uploads", oldImagePath)
+        fs.unlink(oldFilePath, (err) => {
+          if (err) {
+            console.error("Error deleting old image:", err)
+          }
+        })
+      }
+    })
+  }
+
+  const updateQuery = `
+    UPDATE hero_sliders 
+    SET title = ?, description = ?, image = IFNULL(?, image) 
+    WHERE id = ?
+  `
+  const values = [title, description, imagePath, sliderId]
+
+  db.query(updateQuery, values, (err, result) => {
+    if (err) {
+      console.error("Error updating slider:", err)
+      return res.status(500).json({ error: err.message })
+    }
+    res.json({ message: "Slider updated successfully" })
+  })
+})
+
+app.delete("/hero_sliders/:id", (req, res) => {
+  const sliderId = req.params.id
+
+  const getFilePathQuery = `SELECT image FROM hero_sliders WHERE id = ?`
+  db.query(getFilePathQuery, [sliderId], (err, result) => {
+    if (err) {
+      console.error("Error fetching slider image path:", err)
+      return res.status(500).json({ error: err.message })
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Slider not found" })
+    }
+
+    const imagePath = result[0].image
+    const filePath = path.join(__dirname, "uploads", imagePath)
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error("Error deleting slider image:", err)
+      }
+
+      const deleteQuery = `DELETE FROM hero_sliders WHERE id = ?`
+      db.query(deleteQuery, [sliderId], (err, result) => {
+        if (err) {
+          console.error("Error deleting slider:", err)
+          return res.status(500).json({ error: err.message })
+        }
+
+        res.json({ message: "Slider deleted successfully" })
+      })
+    })
+  })
+})
 
 ///////////////////////////
 //// previous_projects ////
@@ -315,4 +433,65 @@ app.put("/contacts", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running on https://localhost:${port}`)
+})
+
+/////////////////
+//// sign_in ////
+/////////////////
+
+app.post("/signin", (req, res) => {
+  const { username, password } = req.body
+
+  if (!username || !password) {
+    return res.status(400).json({ message: "Bilgiler eksik" })
+  }
+
+  const query = "SELECT * FROM users WHERE username = ?"
+  db.query(query, [username], async (err, results) => {
+    if (err) {
+      console.error("Error fetching user:", err)
+      return res.status(500).json({ error: err.message })
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "Böyle bir kullanıcı yok" })
+    }
+
+    const user = results[0]
+
+    const passwordMatch = await bcrypt.compare(password, user.password)
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Bilgiler hatalı" })
+    }
+
+    res.status(200).json({ message: "Giriş başarılı", userId: user.id })
+  })
+})
+
+app.post("/create-user", async (req, res) => {
+  const username = "info@kocaelibetopan.com"
+  const password = "adnan7356"
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ message: "Username and password are required" })
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const query = "INSERT INTO users (username, password) VALUES (?, ?)"
+    db.query(query, [username, hashedPassword], (err, result) => {
+      if (err) {
+        console.error("Error inserting user:", err)
+        return res.status(500).json({ message: "Error creating user" })
+      }
+
+      res.status(201).json({ message: "User created successfully" })
+    })
+  } catch (err) {
+    console.error("Error creating user:", err)
+    res.status(500).json({ message: "Internal server error" })
+  }
 })
