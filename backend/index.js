@@ -468,7 +468,7 @@ app.post("/signin", (req, res) => {
   })
 })
 
-app.post("/create-user", async (req, res) => {
+app.get("/create-user", async (req, res) => {
   const username = "info@kocaelibetopan.com"
   const password = "behram6541"
 
