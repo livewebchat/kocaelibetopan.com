@@ -54,7 +54,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         return { success: false };
       }
 
-      toast.success('Giriş başarılı, yönlendiriliyorsunuz...');
+      toast.success('Giriş yapıldı, yönlendiriliyorsunuz...');
       const data = await response.json();
 
       setTimeout(() => {

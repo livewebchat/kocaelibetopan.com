@@ -3,14 +3,16 @@ import { NavLink } from 'react-router-dom';
 
 interface CardDataStatsProps {
   to: string;
-  title: string;
-  total: string;
+  target?: string;
+  title?: string;
+  total?: string;
   children: ReactNode;
   className: string;
 }
 
 const CardDataStats: React.FC<CardDataStatsProps> = ({
   to,
+  target,
   title,
   total,
   children,
@@ -19,6 +21,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
   return (
     <NavLink
       to={to}
+      target={target ?? target}
       className="relative rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark hover:border-primary hover:-translate-y-1 transition-all group"
     >
       <div
