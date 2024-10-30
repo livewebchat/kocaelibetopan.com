@@ -468,24 +468,24 @@ app.post("/signin", (req, res) => {
   })
 })
 
-app.get("/create-user", async (req, res) => {
-  const username = "info@kocaelibetopan.com"
-  const password = "berham6541"
+// app.get("/create-user", async (req, res) => {
+//   const username = "info@kocaelibetopan.com"
+//   const password = "berham6541"
 
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10)
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10)
 
-    const query = "INSERT INTO users (username, password) VALUES (?, ?)"
-    db.query(query, [username, hashedPassword], (err, result) => {
-      if (err) {
-        console.error("Error inserting user:", err)
-        return res.status(500).send("Error creating user")
-      }
+//     const query = "INSERT INTO users (username, password) VALUES (?, ?)"
+//     db.query(query, [username, hashedPassword], (err, result) => {
+//       if (err) {
+//         console.error("Error inserting user:", err)
+//         return res.status(500).send("Error creating user")
+//       }
 
-      res.send("User created successfully! You can now remove this endpoint.")
-    })
-  } catch (err) {
-    console.error("Error creating user:", err)
-    res.status(500).send("Internal server error")
-  }
-})
+//       res.send("User created successfully! You can now remove this endpoint.")
+//     })
+//   } catch (err) {
+//     console.error("Error creating user:", err)
+//     res.status(500).send("Internal server error")
+//   }
+// })
