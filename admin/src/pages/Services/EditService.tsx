@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { editServiceById } from './_requests';
@@ -23,7 +23,7 @@ export const EditService: React.FC<Props> = ({
     serviceForEdit.images || [],
   );
   const [advantages, setAdvantages] = useState<string[]>(
-    serviceForEdit.advantages || [''],
+    serviceForEdit.advantages || ['', ''],
   );
   const [newImages, setNewImages] = useState<File[]>([]);
   const [htmlContent, setHtmlContent] = useState(serviceForEdit.htmlContent);
@@ -63,6 +63,10 @@ export const EditService: React.FC<Props> = ({
     fetchServices();
     clearEditServiceForm();
   };
+
+  useEffect(() => {
+    console.log(serviceForEdit.advantages);
+  }, [serviceForEdit]);
 
   return (
     <>

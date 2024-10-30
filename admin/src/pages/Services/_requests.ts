@@ -28,8 +28,6 @@ export const addNewService = async (newService: NewService) => {
   formData.append('advantages', newService.advantages);
   formData.append('htmlContent', newService.htmlContent);
 
-  console.log(newService.advantages); // output: ["1", "2"]
-
   newService.images.forEach((image: any) => {
     formData.append('images', image);
   });
@@ -78,7 +76,7 @@ export const editServiceById = async (updatedService: EditedService) => {
   const formData = new FormData();
   formData.append('title', updatedService.title);
   formData.append('description', updatedService.description);
-  formData.append('advantages', JSON.stringify(updatedService.advantages));
+  formData.append('advantages', updatedService.advantages);
   formData.append('htmlContent', updatedService.htmlContent);
 
   updatedService.images.forEach((image: any) => {

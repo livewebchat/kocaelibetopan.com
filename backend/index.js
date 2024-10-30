@@ -323,7 +323,7 @@ app.post("/services", upload.array("images", 10), (req, res) => {
     title,
     description,
     JSON.stringify(imagePaths),
-    JSON.stringify([advantages]),
+    JSON.stringify(advantages),
     htmlContent,
   ]
 
@@ -363,7 +363,7 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
   const values = [
     title,
     description,
-    JSON.stringify(advantages),
+    advantages,
     JSON.stringify(imagePaths),
     htmlContent,
     serviceId,
