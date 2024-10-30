@@ -25,6 +25,7 @@ const API_URL = `${import.meta.env.VITE_APP_API_URL}/signin`;
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const [submittingForm, setSubmittingForm] = useState<boolean>(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -37,6 +38,12 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     username: string,
     password: string,
   ): Promise<{ success: boolean }> => {
+    if (submittingForm) {
+      return { success: false }; // Return immediately if already submitting
+    }
+
+    setSubmittingForm(true);
+
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -49,8 +56,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(
-          errorData.message || 'Giriş başarısız, lütfen tekrar deneyin.',
+          errorData.message || 'Giriş yapılamadı, lütfen tekrar deneyin.',
         );
+        setSubmittingForm(false);
         return { success: false };
       }
 
@@ -62,11 +70,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         localStorage.setItem('user', JSON.stringify({ id: data.userId }));
         navigate('/');
         toast.dismiss();
+        setSubmittingForm(false);
       }, 1000);
 
       return { success: true };
     } catch (err: any) {
-      toast.error('Giriş başarısız, lütfen tekrar deneyin.');
+      toast.error('Giriş yapılamadı, lütfen tekrar deneyin.');
+      setSubmittingForm(false);
       return { success: false };
     }
   };
