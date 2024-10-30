@@ -350,9 +350,8 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
   let advantagesArray = []
   advantagesArray = JSON.parse(advantages)
 
-  let imagePaths = []
   const newImagePaths = req.files.map((file) => file.filename)
-  imagePaths = imagePaths.concat(newImagePaths)
+  let imagePaths = []
 
   if (existingImages) {
     try {
@@ -361,6 +360,8 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
       return res.status(400).json({ message: "Invalid existing images format" })
     }
   }
+
+  imagePaths = imagePaths.concat(newImagePaths)
 
   const query = `
     UPDATE services 
