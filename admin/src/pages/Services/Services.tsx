@@ -96,7 +96,7 @@ export const Services = () => {
           <Swiper
             spaceBetween={10}
             slidesPerView={2}
-            className="w-full p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
+            className="w-full !p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
             modules={[Navigation, Pagination]}
             pagination={true}
             ref={currentServicesRef}
@@ -242,7 +242,7 @@ export const Services = () => {
                     required
                   />
                 </div>
-                
+
                 <div className="mb-4.5 flex flex-col gap6">
                   <label className="mb-2.5 block text-black dark:text-white">
                     İkinci Avantaj <span className="text-meta-1">*</span>

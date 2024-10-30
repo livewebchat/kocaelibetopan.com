@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +25,13 @@ const API_URL = `${import.meta.env.VITE_APP_API_URL}/signin`;
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const signin = async (
     username: string,
@@ -46,6 +59,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       setTimeout(() => {
         setUser({ id: data.userId });
+        localStorage.setItem('user', JSON.stringify({ id: data.userId }));
         navigate('/');
         toast.dismiss();
       }, 1000);
@@ -73,8 +87,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
               className="p-2 bg-danger text-white text-[15px] rounded min-w-25"
               onClick={() => {
                 setUser(null);
+                localStorage.removeItem('user');
                 navigate('/giris-yap');
-
                 toast.dismiss(t.id);
               }}
             >

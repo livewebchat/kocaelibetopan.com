@@ -32,7 +32,11 @@ export const App = () => {
   }, [pathname]);
 
   useEffect(() => {
-    setLoading(false);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {

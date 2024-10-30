@@ -100,7 +100,7 @@ export const PreviousProjects = () => {
           <Swiper
             spaceBetween={10}
             slidesPerView={2}
-            className="w-full p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
+            className="w-full !p-10 border border-stroke dark:border-strokedark bg-white shadow-default dark:bg-boxdark h-fit"
             modules={[Navigation, Pagination]}
             pagination={true}
             ref={currentPreviousProjectsRef}
