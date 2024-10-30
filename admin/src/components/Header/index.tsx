@@ -23,7 +23,7 @@ const Header = (props: {
               className="hidden dark:block"
               src={LogoIconLight}
               alt="Logo"
-              width="60%"
+              width="80%"
             />
           </Link>
         </div>
