@@ -41,7 +41,7 @@ export const EditService: React.FC<Props> = ({
     setNewImages([...newImages, ...files]);
   };
 
-  const handleEditService = async (e: React.FormEvent) => {
+  const handleEditServiceSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     await toast.promise(
@@ -86,7 +86,7 @@ export const EditService: React.FC<Props> = ({
             </div>
           </div>
           <form
-            onSubmit={handleEditService}
+            onSubmit={handleEditServiceSubmit}
             className="flex flex-col h-full max-h-full overflow-y-auto"
           >
             <div className="p-6.5">

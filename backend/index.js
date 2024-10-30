@@ -323,7 +323,7 @@ app.post("/services", upload.array("images", 10), (req, res) => {
     title,
     description,
     JSON.stringify(imagePaths),
-    advantages,
+    JSON.stringify(advantages),
     htmlContent,
   ]
 
@@ -357,14 +357,14 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
 
   const query = `
     UPDATE services 
-    SET title = ?, description = ?, advantages = ?, images = ?, htmlContent = ?
+    SET title = ?, description = ?, images = ?, advantages = ?, htmlContent = ?
     WHERE id = ?
   `
   const values = [
     title,
     description,
-    advantages,
     JSON.stringify(imagePaths),
+    JSON.stringify(advantages),
     htmlContent,
     serviceId,
   ]
