@@ -249,7 +249,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     clip-rule="evenodd"
                   />
                 </svg>
-                Website
+                Siteyi görüntüle
                 <svg
                   className="absolute right-4 top-1/2 -translate-y-1/2"
                   xmlns="http://www.w3.org/2000/svg"
