@@ -350,10 +350,9 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
   let advantagesArray = []
   advantagesArray = JSON.parse(advantages)
 
+  let imagePaths = []
   const newImagePaths = req.files.map((file) => file.filename)
   imagePaths = imagePaths.concat(newImagePaths)
-
-  let imagePaths = []
   if (existingImages) {
     try {
       imagePaths = JSON.parse(existingImages)
