@@ -353,6 +353,7 @@ app.put("/services/:id", upload.array("images", 10), (req, res) => {
   let imagePaths = []
   const newImagePaths = req.files.map((file) => file.filename)
   imagePaths = imagePaths.concat(newImagePaths)
+
   if (existingImages) {
     try {
       imagePaths = JSON.parse(existingImages)
