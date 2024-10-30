@@ -22,7 +22,7 @@ export const SignIn: React.FC = () => {
 
   return (
     <div className="flex flex-wrap justify-start items-center h-[100vh] w-[100vw] bg-white dark:bg-boxdark">
-      <div className="w-[70%] pl-4 xl:flex justify-start items-center mt-auto mb-10 xl:mt-0 xl:mb-10 xl:justify-center xl:w-1/2 xl:h-full xl:pl-0">
+      <div className="w-[70%] pl-6 xl:flex justify-start items-center mt-auto mb-10 xl:mt-0 xl:mb-10 xl:justify-center xl:w-1/2 xl:h-full xl:pl-0">
         <Link to="/" className="hidden xl:block">
           <img
             className="hidden dark:block h-20 object-contain"
@@ -50,7 +50,7 @@ export const SignIn: React.FC = () => {
       </div>
 
       <div className="w-full border-stroke dark:border-strokedark mb-auto xl:mb-0 xl:w-1/2 xl:border-l-2">
-        <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+        <div className="w-full p-6 sm:p-12.5 xl:p-17.5">
           <h2 className="mb-1.5 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
             Giriş Yap
           </h2>
