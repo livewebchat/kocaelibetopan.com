@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/logo.svg';
-import LogoLongDark from '../../images/logo/logo_long_dark.svg';
+import LogoDark from '../../images/logo/logo_full.svg';
+import Logo from '../../images/logo/logo_full_text_white.svg';
+import LogoLongDark from '../../images/logo/logo_long.svg';
 import LogoLong from '../../images/logo/logo_long_text_white.svg';
 
 import { useAuth } from './AuthProvider';
@@ -21,8 +21,8 @@ export const SignIn: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center items-center h-[100vh] w-[100vw] bg-white dark:bg-boxdark">
-      <div className="w-full px-20 xl:flex justify-center items-center xl:w-1/2 xl:h-full xl:px-0">
+    <div className="flex flex-wrap justify-start items-center h-[100vh] w-[100vw] bg-white dark:bg-boxdark">
+      <div className="w-[70%] pl-4 xl:flex justify-start items-center mt-auto mb-10 xl:mt-0 xl:mb-10 xl:justify-center xl:w-1/2 xl:h-full xl:pl-0">
         <Link to="/" className="hidden xl:block">
           <img
             className="hidden dark:block h-20 object-contain"
@@ -49,7 +49,7 @@ export const SignIn: React.FC = () => {
         </Link>
       </div>
 
-      <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+      <div className="w-full border-stroke dark:border-strokedark mb-auto xl:mb-0 xl:w-1/2 xl:border-l-2">
         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
           <h2 className="mb-1.5 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
             Giriş Yap
