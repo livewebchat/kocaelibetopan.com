@@ -472,12 +472,6 @@ app.get("/create-user", async (req, res) => {
   const username = "info@kocaelibetopan.com"
   const password = "behram6541"
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: "Username and password are required" })
-  }
-
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -485,13 +479,13 @@ app.get("/create-user", async (req, res) => {
     db.query(query, [username, hashedPassword], (err, result) => {
       if (err) {
         console.error("Error inserting user:", err)
-        return res.status(500).json({ message: "Error creating user" })
+        return res.status(500).send("Error creating user")
       }
 
-      res.status(201).json({ message: "User created successfully" })
+      res.send("User created successfully! You can now remove this endpoint.")
     })
   } catch (err) {
     console.error("Error creating user:", err)
-    res.status(500).json({ message: "Internal server error" })
+    res.status(500).send("Internal server error")
   }
 })
