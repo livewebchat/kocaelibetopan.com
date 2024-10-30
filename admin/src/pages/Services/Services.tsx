@@ -82,7 +82,7 @@ export const Services = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Geçmiş Hizmetler" />
+      <Breadcrumb pageName="Hizmetler" />
       <h2 className="font-bold text-xl text-gray-600 dark:text-white mb-5">
         Mevcut Hizmetler
       </h2>
