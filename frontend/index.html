@@ -24,9 +24,9 @@
       rel="stylesheet"
       href="./assets/vendors/swiperjs/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="./assets/css/theme.css" />
-    <link rel="stylesheet" href="./assets/css/utility.css" />
-    <link rel="stylesheet" href="./assets/css/demo/classic.css" />
+    <link rel="stylesheet" href="./assets/css/theme.min.css" />
+    <link rel="stylesheet" href="./assets/css/utility.min.css" />
+    <link rel="stylesheet" href="./assets/css/classic.min.css" />
     <link rel="stylesheet" href="./assets/css/custom.css" />
 
     <!-- Fonts -->
@@ -219,23 +219,18 @@
                         <a href="/"> Ana Sayfa </a>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="#">
+                        <a href="javascript:;">
                           Hizmetlerimiz
                           <span class="link-icon right-icon">
                             <i class="lqd-icn-ess icon-ion-ios-arrow-down"></i>
                           </span>
                         </a>
                         <ul class="nav-item-children">
-                          <li>
-                            <a href="#">Betopan (Fibercement) Cephe</a>
+                          <li v-for="service in services" :key="service.id">
+                            <a :href="'/hizmetlerimiz/' + service.id"
+                              >{{ service.title }}</a
+                            >
                           </li>
-                          <li><a href="#">Alçıpan</a></li>
-                          <li><a href="#">Seramik Cephe</a></li>
-                          <li><a href="#">Sinterflex Cephe</a></li>
-                          <li><a href="#">Kompakt Laminat Cephe</a></li>
-                          <li><a href="#">Terra Cotta Cephe</a></li>
-                          <li><a href="#">Frontek Cephe</a></li>
-                          <li><a href="#">Thermowood Cephe</a></li>
                         </ul>
                       </li>
                       <li>
@@ -553,590 +548,25 @@
                   <div class="col col-12">
                     <div class="swiper steps-slider">
                       <div class="swiper-wrapper -mr-15 -ml-15">
-                        <div class="swiper-slide w-full px-15">
+                        <div
+                          class="swiper-slide w-full px-15"
+                          v-for="service in services"
+                          :key="service.id"
+                        >
                           <div class="carousel-item-inner">
                             <div class="carousel-item-content">
                               <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Betopan (Fibercement) Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Dayanıklı, çevre dostu ve yangına karşı
-                                      dayanıklı, fibercement levhalar ile modern
-                                      ve uzun ömürlü cephe kaplaması.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Yangına dayanıklı ve suya karşı dirençli.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Uzun ömürlü ve çevre dostu malzeme.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
+                                <div class="col col-12 col-lg-6 mb-35">
                                   <figure
                                     class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
                                   >
                                     <img
                                       class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-betopan.jpg"
-                                      alt="Betopan (Fibercement) Cephe"
-                                    />
-                                  </figure>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Seramik Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Estetik ve dayanıklı bir kaplama çözümü
-                                      sunar, dış mekanlarda uzun ömürlü
-                                      performans sağlar.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Hava koşullarına dayanıklıdır.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Kolay bakım gerektirir.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-seramik.jpg"
-                                      alt="Seramik Cephe"
-                                    />
-                                  </figure>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Sinterflex Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Ince ve hafif seramik panellerle modern
-                                      mimari projelere estetik bir dokunuş
-                                      katar.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Çevre dostu ve geri dönüştürülebilir
-                                      malzeme.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Hafif yapısıyla bina üzerine ek yük
-                                      getirmez.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-sinterflex.jpg"
-                                      alt="Sinterflex Cephe"
-                                    />
-                                  </figure>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Kompakt Laminat Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Dayanıklı ve estetik dış cephe kaplama
-                                      malzemesi, çeşitli renk ve desen
-                                      seçenekleri sunar.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      UV ışınlarına ve çizilmelere karşı
-                                      dayanıklıdır.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Modern mimari projelerde tercih
-                                      edilmektedir.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-kompaktlaminat.jpg"
-                                      alt="Kompakt Laminat Cephe"
-                                    />
-                                  </figure>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Terra Cota Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Doğal kilden yapılan, çevre dostu ve
-                                      estetik bir cephe kaplama malzemesidir.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Farklı renk, doku ve boyut seçenekleri.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Uzun ömürlü ve düşük bakım gerektirir.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-terracota.jpg"
-                                      alt="Terra Cota Cephe"
-                                    />
-                                  </figure>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
-                                <div class="col col-12 col-lg-5 mb-35">
-                                  <div class="ld-fancy-heading">
-                                    <h6
-                                      class="ld-fh-element mb-1em font-semibold text-12 text-black"
-                                    >
-                                      Hizmetlerimiz
-                                    </h6>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <h3 class="ld-fh-element mb-0/6em">
-                                      Thermowood Cephe
-                                    </h3>
-                                  </div>
-                                  <div class="ld-fancy-heading">
-                                    <p class="ld-fh-element mb-2em">
-                                      Yüksek enerji verimliliği ve estetik
-                                      tasarım sunan, modern cephe kaplama
-                                      malzemesidir.
-                                    </p>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-0/5em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Enerji tasarrufu sağlayan ısı yalıtımı.
-                                    </h3>
-                                  </div>
-                                  <div
-                                    class="iconbox mb-2em flex-row items-stretch justify-start text-start"
-                                    data-animate-icon="true"
-                                  >
-                                    <div class="iconbox-icon-wrap mr-30">
-                                      <span
-                                        class="iconbox-icon-container text-22 text-primary"
-                                      >
-                                        <i
-                                          class="lqd-icn-ess icon-lqd-check"
-                                        ></i>
-                                      </span>
-                                    </div>
-                                    <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Su geçirmez ve uzun ömürlü malzeme.
-                                    </h3>
-                                  </div>
-                                  <a
-                                    href="service-detail.html"
-                                    class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
-                                  >
-                                    <span
-                                      class="inline-flex py-1/15em px-2/1em items-center"
-                                    >
-                                      <span class="btn-txt" data-text="Detaylar"
-                                        >Detaylar</span
-                                      >
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                      <span class="btn-icon">
-                                        <i
-                                          class="lqd-icn-ess icon-md-arrow-forward"
-                                        ></i>
-                                      </span>
-                                    </span>
-                                  </a>
-                                  <div
-                                    class="w-full h-40 relative hidden module-space"
-                                  ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit our-services-image"
-                                      src="./assets/images/home/hero/hero-thermowood.jpg"
+                                      :src="'https://kocaelibetopan.com/uploads/' + service.images[0]"
                                       alt="Thermowood Cephes"
                                     />
                                   </figure>
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="swiper-slide w-full px-15">
-                          <div class="carousel-item-inner">
-                            <div class="carousel-item-content">
-                              <div class="row items-center">
                                 <div class="col col-12 col-lg-5 mb-35">
                                   <div class="ld-fancy-heading">
                                     <h6
@@ -1147,13 +577,12 @@
                                   </div>
                                   <div class="ld-fancy-heading">
                                     <h3 class="ld-fh-element mb-0/6em">
-                                      Frontek Cephe
+                                      {{ service.title }}
                                     </h3>
                                   </div>
                                   <div class="ld-fancy-heading">
                                     <p class="ld-fh-element mb-2em">
-                                      Modern ve estetik görünümlü, dayanıklı
-                                      cephe kaplama malzemesidir.
+                                      {{ service.description }}
                                     </p>
                                   </div>
                                   <div
@@ -1170,7 +599,7 @@
                                       </span>
                                     </div>
                                     <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      UV ışınlarına karşı dayanıklı.
+                                      {{ service.advantages[0] }}
                                     </h3>
                                   </div>
                                   <div
@@ -1187,7 +616,7 @@
                                       </span>
                                     </div>
                                     <h3 class="text-17 leading-1/5em mb-0/7em">
-                                      Kolay montaj ve bakım imkanı sunar.
+                                      {{ service.advantages[1] }}
                                     </h3>
                                   </div>
                                   <a
@@ -1215,28 +644,12 @@
                                   <div
                                     class="w-full h-40 relative hidden module-space"
                                   ></div>
-                                </div>
-                                <div
-                                  class="col col-12 col-lg-6 offset-lg-1 mb-35"
-                                >
-                                  <figure
-                                    class="max-w-full inline-flex vertical-top m-0 flex-grow-1 rounded-6"
-                                  >
-                                    <img
-                                      class="max-w-full h-auto vertical-top rounded-inherit"
-                                      width="998"
-                                      height="696"
-                                      src="./assets/images/home/hero/hero-frontek.jpg"
-                                      alt="Frontek Cephe"
-                                    />
-                                  </figure>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-
                       <div class="steps-pagination"></div>
                     </div>
                   </div>
@@ -2096,20 +1509,47 @@
           </section>
 
           <div class="absolute right-50 -bottom-150">
-            <svg width="343" height="589" viewBox="0 0 343 589" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              width="343"
+              height="589"
+              viewBox="0 0 343 589"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <g opacity="0.6">
-              <path d="M342.99 589H285.995V109L342.99 133.134V589Z" fill="#334059"/>
-              <path d="M229 589H285.995V109L229 133.134V589Z" fill="#445270"/>
-              <path d="M108.99 589H54.4952V251L108.99 275.134V589Z" fill="#334059"/>
-              <path d="M0 589H54.4952V251L0 275.134V589Z" fill="#445270"/>
-              <path d="M200.99 338H146.495V0L200.99 24.1336V338Z" fill="#334059"/>
-              <path d="M92 338H146.495V0L92 24.1336V338Z" fill="#445270"/>
-              <path d="M254.99 589H200.495V164L254.99 188.134V589Z" fill="#334059"/>
-              <path d="M146 589H200.495V164L146 188.134V589Z" fill="#445270"/>
-              <path d="M150.99 589H96.4952V114L150.99 138.134V589Z" fill="#334059"/>
-              <path d="M42 589H96.4952V114L42 138.134V589Z" fill="#445270"/>
+                <path
+                  d="M342.99 589H285.995V109L342.99 133.134V589Z"
+                  fill="#334059"
+                />
+                <path
+                  d="M229 589H285.995V109L229 133.134V589Z"
+                  fill="#445270"
+                />
+                <path
+                  d="M108.99 589H54.4952V251L108.99 275.134V589Z"
+                  fill="#334059"
+                />
+                <path d="M0 589H54.4952V251L0 275.134V589Z" fill="#445270" />
+                <path
+                  d="M200.99 338H146.495V0L200.99 24.1336V338Z"
+                  fill="#334059"
+                />
+                <path d="M92 338H146.495V0L92 24.1336V338Z" fill="#445270" />
+                <path
+                  d="M254.99 589H200.495V164L254.99 188.134V589Z"
+                  fill="#334059"
+                />
+                <path
+                  d="M146 589H200.495V164L146 188.134V589Z"
+                  fill="#445270"
+                />
+                <path
+                  d="M150.99 589H96.4952V114L150.99 138.134V589Z"
+                  fill="#334059"
+                />
+                <path d="M42 589H96.4952V114L42 138.134V589Z" fill="#445270" />
               </g>
-              </svg>
+            </svg>
           </div>
         </footer>
       </div>

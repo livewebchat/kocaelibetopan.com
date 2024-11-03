@@ -56,15 +56,10 @@
 }
 
 .banner .swiper-slide {
-  cursor: grab;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   height: calc(100vh - 162px);
-}
-
-.banner .swiper-slide:active {
-  cursor: grabbing;
 }
 
 .banner .swiper-slide::before {
@@ -158,4 +153,12 @@
 .lity-custom-show {
   opacity: 1;
   visibility: visible;
+}
+
+.swiper-slide {
+  cursor: grab;
+}
+
+.swiper-slide:active {
+  cursor: grabbing;
 }

@@ -11,6 +11,10 @@ const initializeSwipers = () => {
       nextEl: ".banner-next-button",
       prevEl: ".banner-prev-button",
     },
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: true,
+    },
   })
 
   new Swiper(".case-studies-slider", {
