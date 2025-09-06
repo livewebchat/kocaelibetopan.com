@@ -503,3 +503,19 @@ app.post("/signin", (req, res) => {
     res.status(200).json({ message: "Giriş başarılı", userId: user.id })
   })
 })
+
+// Database migration to add link column to hero_sliders table
+db.query(
+  "ALTER TABLE hero_sliders ADD COLUMN link VARCHAR(500) DEFAULT ''",
+  (err, result) => {
+    if (err && err.code !== "ER_DUP_FIELDNAME") {
+      console.error("Error adding link column to hero_sliders:", err)
+    } else if (!err) {
+      console.log("Successfully added link column to hero_sliders table")
+    }
+  }
+)
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`)
+})
