@@ -471,6 +471,7 @@
                             </p>
                           </div>
                           <div
+                            v-if="contacts.address"
                             class="iconbox text-align-default mb-10 items-start"
                           >
                             <div class="iconbox-icon-wrap flex">
@@ -490,10 +491,12 @@
                               </span>
                             </div>
                             <h3 class="text-15 text-black-60 leading-1/5em">
-                              Körfez, İzmit, Kocaeli
+                              <span>Adres: </span>
+                              <span> {{ contacts.address }} </span>
                             </h3>
                           </div>
                           <div
+                            v-if="contacts.emailAddress"
                             class="iconbox text-align-default mb-10 items-start"
                           >
                             <div class="iconbox-icon-wrap flex">
@@ -515,7 +518,6 @@
                             <h3 class="text-15 text-black-60 leading-1/5em">
                               <span>E-posta: </span>
                               <a
-                                v-if="contacts.emailAddress"
                                 :href="'mailto:' + contacts.emailAddress"
                                 class="text-black-60"
                                 >{{ contacts.emailAddress }}</a
@@ -523,6 +525,7 @@
                             </h3>
                           </div>
                           <div
+                            v-if="contacts.phoneNumber"
                             class="iconbox text-align-default mb-10 items-start"
                           >
                             <div class="iconbox-icon-wrap flex">
@@ -542,9 +545,8 @@
                               </span>
                             </div>
                             <h3 class="text-15 text-black-60 leading-1/5em">
-                              <span></span>Telefon: </span>
+                              <span>Telefon: </span>
                               <a
-                                v-if="contacts.phoneNumber"
                                 :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
                                 class="text-black-60"
                                 >{{ contacts.phoneNumber }}</a

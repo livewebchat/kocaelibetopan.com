@@ -440,10 +440,24 @@ app.get("/contacts", (req, res) => {
 })
 
 app.put("/contacts", (req, res) => {
-  const { phoneNumber, whatsappNumber, emailAddress, instagramLink, address } = req.body
+  const { phoneNumber, whatsappNumber, emailAddress, instagramLink, address } =
+    req.body
 
-  if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink || !address) {
-    return res.status(400).json({ error: "All fields are required." })
+  if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink) {
+    return res
+      .status(400)
+      .json({
+        error: "Phone number, WhatsApp number, and email address are required.",
+      })
+  }
+
+  // Address is optional, but if provided, it should be a string
+  if (
+    address !== undefined &&
+    address !== null &&
+    typeof address !== "string"
+  ) {
+    return res.status(400).json({ error: "Address must be a string." })
   }
 
   const updateQuery = `
@@ -451,7 +465,14 @@ app.put("/contacts", (req, res) => {
     SET phoneNumber = ?, whatsappNumber = ?, emailAddress = ?, instagramLink = ?, address = ?
     WHERE id = ?
   `
-  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink, address, 1]
+  const values = [
+    phoneNumber,
+    whatsappNumber,
+    emailAddress,
+    instagramLink,
+    address || "",
+    1,
+  ]
 
   db.query(updateQuery, values, (err, result) => {
     if (err) {
