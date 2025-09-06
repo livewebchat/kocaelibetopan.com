@@ -27,6 +27,7 @@ const getAllPreviousProjects = async () => {
     throw error
   }
 }
+
 const getAllServices = async () => {
   try {
     const response = await fetch(API_URL + "/services")

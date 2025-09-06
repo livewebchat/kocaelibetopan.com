@@ -162,3 +162,33 @@
 .swiper-slide:active {
   cursor: grabbing;
 }
+
+/* Fix navigation dropdown hover issue */
+.menu-item-has-children {
+  position: relative;
+}
+
+.menu-item-has-children .nav-item-children {
+  top: calc(100% - 5px); /* Create a 5px overlap to bridge the gap */
+}
+
+/* Ensure the dropdown stays visible when hovering over the parent or child */
+.menu-item-has-children:hover .nav-item-children,
+.menu-item-has-children .nav-item-children:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Add a small invisible bridge to prevent mouse leave */
+.menu-item-has-children::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 5px;
+  z-index: 10;
+  pointer-events: auto;
+}

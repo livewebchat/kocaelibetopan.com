@@ -13,6 +13,7 @@ export const HeroSlider = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [link, setLink] = useState('');
 
   const [loadingSliders, setLoadingSliders] = useState<boolean>(true);
   const [currentSliders, setCurrentSliders] = useState<Slider[]>([]);
@@ -29,6 +30,7 @@ export const HeroSlider = () => {
     setTitle('');
     setDescription('');
     setImage(null);
+    setLink('');
   };
 
   const handleAddSliderSubmit = async (e: React.FormEvent) => {
@@ -39,7 +41,7 @@ export const HeroSlider = () => {
       return;
     }
 
-    await toast.promise(addNewSlider({ title, description, image }), {
+    await toast.promise(addNewSlider({ title, description, image, link }), {
       loading: 'Slayt ekleniyor...',
       success: (msg) => msg,
       error: (err) => err.message,
@@ -166,6 +168,11 @@ export const HeroSlider = () => {
                 <p className="mt-2 text-ellipsis line-clamp-3">
                   {slider.description}
                 </p>
+                {slider.link && (
+                  <p className="mt-2 text-sm text-blue-600 dark:text-blue-400 text-ellipsis line-clamp-1">
+                    Link: {slider.link}
+                  </p>
+                )}
               </SwiperSlide>
             ))}
           </Swiper>
@@ -211,6 +218,19 @@ export const HeroSlider = () => {
                       onChange={(e) => setDescription(e.target.value)}
                       required
                     ></textarea>
+                  </div>
+
+                  <div className="w-full">
+                    <label className="mb-2.5 block text-black dark:text-white">
+                      Link
+                    </label>
+                    <input
+                      type="url"
+                      placeholder="Ör. https://example.com veya service-detail.html?id=1"
+                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      value={link}
+                      onChange={(e) => setLink(e.target.value)}
+                    />
                   </div>
                 </div>
 

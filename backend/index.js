@@ -97,7 +97,7 @@ app.get("/hero_sliders", (req, res) => {
 })
 
 app.post("/hero_sliders", upload.single("image"), (req, res) => {
-  const { title, description } = req.body
+  const { title, description, link } = req.body
   const imagePath = `${req.file.filename}`
 
   if (!title || !description || !req.file) {
@@ -110,10 +110,10 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
   }
 
   const query = `
-    INSERT INTO hero_sliders (title, description, path, image)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO hero_sliders (title, description, path, image, link)
+    VALUES (?, ?, ?, ?, ?)
   `
-  const values = [title, description, "", imagePath]
+  const values = [title, description, "", imagePath, link || ""]
 
   db.query(query, values, (err, result) => {
     if (err) {
@@ -128,7 +128,7 @@ app.post("/hero_sliders", upload.single("image"), (req, res) => {
 
 app.put("/hero_sliders/:id", upload.single("image"), (req, res) => {
   const sliderId = req.params.id
-  const { title, description } = req.body
+  const { title, description, link } = req.body
   let imagePath = null
 
   if (req.file) {
@@ -152,10 +152,10 @@ app.put("/hero_sliders/:id", upload.single("image"), (req, res) => {
 
   const updateQuery = `
     UPDATE hero_sliders 
-    SET title = ?, description = ?, image = IFNULL(?, image) 
+    SET title = ?, description = ?, image = IFNULL(?, image), link = ?
     WHERE id = ?
   `
-  const values = [title, description, imagePath, sliderId]
+  const values = [title, description, imagePath, link || "", sliderId]
 
   db.query(updateQuery, values, (err, result) => {
     if (err) {
@@ -211,6 +211,20 @@ app.get("/previous_projects", (req, res) => {
       res.status(500).json({ error: err.message })
     } else {
       res.json(results)
+    }
+  })
+})
+
+app.get("/previous_projects/:id", (req, res) => {
+  const projectId = req.params.id
+  const query = "SELECT * FROM previous_projects WHERE id = ?"
+  db.query(query, [projectId], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else if (results.length === 0) {
+      res.status(404).json({ error: "Project not found" })
+    } else {
+      res.json(results[0])
     }
   })
 })
@@ -303,6 +317,20 @@ app.get("/services", (req, res) => {
       res.status(500).json({ error: err.message })
     } else {
       res.json(results)
+    }
+  })
+})
+
+app.get("/services/:id", (req, res) => {
+  const serviceId = req.params.id
+  const query = "SELECT * FROM services WHERE id = ?"
+  db.query(query, [serviceId], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: err.message })
+    } else if (results.length === 0) {
+      res.status(404).json({ error: "Service not found" })
+    } else {
+      res.json(results[0])
     }
   })
 })

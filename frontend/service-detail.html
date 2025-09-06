@@ -2,32 +2,70 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="Kocaeli Betopan" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="keywords"
+      content=""
+    />
+    <meta
+      name="author"
+      content="Kocaeli Betopan"
+    />
     <meta
       name="description"
       content="Hub is a HTML template with high performance, and award-winning design collection."
     />
-    <meta property="og:title" content="Kocaeli Betopan" />
+    <meta
+      property="og:title"
+      content="Kocaeli Betopan"
+    />
     <meta
       property="og:description"
       content="Hub is a HTML template with high performance, and award-winning design collection."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="./assets/images/common/og-image.jpg" />
+    <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
+      property="og:image"
+      content="./assets/images/common/og-image.jpg"
+    />
 
     <link
       rel="stylesheet"
       href="./assets/vendors/liquid-icon/lqd-essentials/lqd-essentials.min.css"
     />
-    <link rel="stylesheet" href="./assets/css/theme.min.css" />
-    <link rel="stylesheet" href="./assets/css/utility.min.css" />
-    <link rel="stylesheet" href="./assets/css/classic.min.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/css/theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/utility.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/classic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/custom.css"
+    />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap"
       rel="stylesheet"
@@ -78,8 +116,14 @@
                     </span>
                   </div>
                   <h3 class="text-13 font-normal text-gray-500">
-                    <span>Telefon:</span>
-                    <span class="text-black">+90 (538) 782 41 65</span>
+                    <span>Telefon: </span>
+                    <span class="text-black">
+                      <a
+                        v-if="contacts.phoneNumber"
+                        :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                        >{{ contacts.phoneNumber }}</a
+                      >
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -100,8 +144,12 @@
                     </span>
                   </div>
                   <h3 class="text-13 font-normal text-gray-500">
-                    <span>E-posta:</span>
-                    <span class="text-black">info@kocaelibetopan.com</span>
+                    <span>E-posta: </span>
+                    <span class="text-black">
+                      <a :href="'mailto:' + contacts.emailAddress"
+                        >{{ contacts.emailAddress }}</a
+                      >
+                    </span>
                   </h3>
                 </div>
               </div>
@@ -112,7 +160,12 @@
               >
                 <ul class="social-icon text-16">
                   <li>
-                    <a class="text-gray-500" href="#" target="_blank">
+                    <a
+                      class="text-gray-500"
+                      v-if="contacts.instagramLink"
+                      :href="contacts.instagramLink"
+                      target="_blank"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="1em"
@@ -138,7 +191,11 @@
               <div
                 class="header-module module-logo no-rotate navbar-brand-plain py-35"
               >
-                <a class="navbar-brand" href="./index.html" rel="home">
+                <a
+                  class="navbar-brand"
+                  href="./index.html"
+                  rel="home"
+                >
                   <span class="navbar-brand-inner">
                     <img
                       class="max-w-full h-auto vertical-top rounded-inherit"
@@ -177,16 +234,14 @@
                         </span>
                       </a>
                       <ul class="nav-item-children">
-                        <li>
-                          <a href="#">Betopan (Fibercement) Cephe</a>
+                        <li
+                          v-for="service in services"
+                          :key="service.id"
+                        >
+                          <a :href="'service-detail.html?id=' + service.id"
+                            >{{ service.title }}</a
+                          >
                         </li>
-                        <li><a href="#">Alçıpan</a></li>
-                        <li><a href="#">Seramik Cephe</a></li>
-                        <li><a href="#">Sinterflex Cephe</a></li>
-                        <li><a href="#">Kompakt Laminat Cephe</a></li>
-                        <li><a href="#">Terra Cotta Cephe</a></li>
-                        <li><a href="#">Frontek Cephe</a></li>
-                        <li><a href="#">Thermowood Cephe</a></li>
                       </ul>
                     </li>
                     <li>
@@ -201,7 +256,10 @@
               <div
                 class="header-module lqd-show-on-mobile py-10 ml-25 module-search md:ml-0"
               >
-                <div class="ld-module-search flex items-center" role="menubar">
+                <div
+                  class="ld-module-search flex items-center"
+                  role="menubar"
+                >
                   <span
                     class="ld-module-trigger collapsed lqd-module-trigger-txt-left lqd-module-show-icon lqd-module-icon-plain text-18 text-black"
                     role="button"
@@ -267,7 +325,11 @@
                   data-lity="#header-contact-modal"
                 >
                   <span class="inline-flex py-0/85em px-1/5em">
-                    <span class="btn-txt" data-text="Bize Ulaş">Bize Ulaş</span>
+                    <span
+                      class="btn-txt"
+                      data-text="Bize Ulaş"
+                      >Bize Ulaş</span
+                    >
                   </span>
                 </a>
               </div>
@@ -295,7 +357,10 @@
                 </span>
               </span>
             </button>
-            <a class="navbar-brand" href="./index.html">
+            <a
+              class="navbar-brand"
+              href="./index.html"
+            >
               <span class="navbar-brand-inner">
                 <img
                   class="max-w-full h-auto vertical-top rounded-inherit"
@@ -322,13 +387,14 @@
                   <a href="/"> Ana Sayfa </a>
                 </li>
 
-                <li><a href="#">Fibercement Cephe</a></li>
-                <li><a href="#">Seramik Cephe</a></li>
-                <li><a href="#">Sinterflex Cephe</a></li>
-                <li><a href="#">Kompakt Laminat Cephe</a></li>
-                <li><a href="#">Terra Cotta Cephe</a></li>
-                <li><a href="#">Frontek Cephe</a></li>
-                <li><a href="#">Thermowood Cephe</a></li>
+                <li
+                  v-for="service in services"
+                  :key="service.id"
+                >
+                  <a :href="'service-detail.html?id=' + service.id"
+                    >{{ service.title }}</a
+                  >
+                </li>
                 <li>
                   <a href="#">Referans Projeler</a>
                 </li>
@@ -341,7 +407,10 @@
         </div>
       </header>
 
-      <main class="contact z-2 transition-all bg-white" id="lqd-site-content">
+      <main
+        class="contact z-2 transition-all bg-white"
+        id="lqd-site-content"
+      >
         <div id="lqd-contents-wrap">
           <!-- Start Service Detail -->
           <section
@@ -354,126 +423,51 @@
               <div class="row">
                 <div class="col col-12 mb-40 text-center">
                   <div class="ld-fancy-heading">
-                    <h1 class="ld-fh-element mb-0/5em px-15percent lg:px-0">
-                      Betopan (Fibercement) Cephe
+                    <h1
+                      id="service-title"
+                      class="ld-fh-element mb-0/5em px-15percent lg:px-0"
+                    >
+                      Yükleniyor...
                     </h1>
                   </div>
                 </div>
 
                 <div class="col col-12 col-lg-6">
-                  <p>
-                    Betopan, fibercement levhalardan üretilmiş modern bir dış
-                    cephe kaplama malzemesidir. Estetik görünümü, dayanıklılığı
-                    ve çevresel dostu yapısıyla mimaride önemli bir rol
-                    oynamaktadır. İşte betopan dış cephe uygulamasının sağladığı
-                    başlıca avantajlar:
-                  </p>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">
-                      1. Yangına Dayanıklılık
-                    </h5>
-                    <p>
-                      Betopan, yüksek sıcaklıklara karşı dirençli bir malzeme
-                      olması sayesinde, yangın güvenliğini artırır. Bu özellik,
-                      binaların yangın durumlarında daha güvenli hale gelmesini
-                      sağlar ve yangınla ilgili riskleri azaltır.
-                    </p>
+                  <div id="service-content">
+                    <div
+                      class="loading-placeholder"
+                      style="
+                        height: 200px;
+                        background: #f0f0f0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 5px;
+                      "
+                    >
+                      <span>İçerik yükleniyor...</span>
+                    </div>
                   </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">2. Suya Dayanıklılık</h5>
-                    <p>
-                      Suya karşı dirençli olan betopan, dış etkenlerden
-                      etkilenmez ve su hasarını önler. Bu, binaların ömrünü
-                      uzatırken, uzun vadede bakım maliyetlerini de düşürür.
-                    </p>
-                  </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">3. Enerji Verimliliği</h5>
-                    <p>
-                      Betopan, iyi bir ısı yalıtımı sağlar. Bu özellik, iç
-                      mekanlarda sıcaklık dengesini koruyarak enerji tüketimini
-                      azaltır ve ısınma soğutma maliyetlerini minimize eder.
-                    </p>
-                  </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">4. Estetik Çeşitlilik</h5>
-                    <p>
-                      Betopan, farklı renk ve doku seçenekleri sunarak, mimari
-                      estetiği zenginleştirir. Modern yapılar için ideal bir
-                      kaplama seçeneği sunar.
-                    </p>
-                  </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">
-                      5. Hafif ve Kolay Montaj
-                    </h5>
-                    <p>
-                      Betopan levhalar hafif yapıdadır, bu da montaj işlemlerini
-                      kolaylaştırır. Bu özellik, inşaat sürecini hızlandırırken,
-                      işçilik maliyetlerini de azaltır.
-                    </p>
-                  </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">6. Çevre Dostu Malzeme</h5>
-                    <p>
-                      Betopan, doğal ve geri dönüştürülebilir malzemelerle
-                      üretilmiştir. Bu nedenle çevre dostu bir seçenek sunarak,
-                      sürdürülebilir yapılar için ideal bir tercihtir.
-                    </p>
-                  </div>
-
-                  <div class="benefit">
-                    <h5 class="mt-1em font-semibold">
-                      7. Düşük Bakım Gereksinimi
-                    </h5>
-                    <p>
-                      Betopan, minimum bakım gerektiren bir malzeme olmasıyla
-                      uzun ömürlüdür. Bu da zaman ve maliyet tasarrufu sağlar.
-                    </p>
-                  </div>
-
-                  <p>
-                    Sonuç olarak, betopan (fibercement) dış cephe uygulaması,
-                    modern mimarinin vazgeçilmez bir unsuru haline gelmiştir.
-                    Sağladığı çeşitli avantajlar sayesinde hem inşaat sektöründe
-                    hem de kullanıcılar için etkili bir çözüm sunmaktadır.
-                  </p>
                 </div>
 
-                <div class="col col-12 col-lg-6 row flex-col">
+                <div
+                  class="col col-12 col-lg-6"
+                  id="service-images"
+                >
                   <div class="col mb-2em">
-                    <img
-                      src="assets/images/home/hero/hero-betopan.jpg"
-                      alt="Kartepe Villa Dış Cephe Projesi"
-                      class="img-fluid lightbox-trigger"
-                    />
-                  </div>
-                  <div class="col mb-2em">
-                    <img
-                      src="assets/images/home/services/service-betopan-2.jpg"
-                      alt="Kartepe Villa Dış Cephe Projesi"
-                      class="img-fluid lightbox-trigger"
-                    />
-                  </div>
-                  <div class="col mb-2em">
-                    <img
-                      src="assets/images/home/services/service-betopan-3.jpg"
-                      alt="Kartepe Villa Dış Cephe Projesi"
-                      class="img-fluid lightbox-trigger"
-                    />
-                  </div>
-                  <div class="col mb-2em">
-                    <img
-                      src="assets/images/home/services/service-betopan-4.jpg"
-                      alt="Kartepe Villa Dış Cephe Projesi"
-                      class="img-fluid lightbox-trigger"
-                    />
+                    <div
+                      class="loading-placeholder"
+                      style="
+                        height: 400px;
+                        background: #f0f0f0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 5px;
+                      "
+                    >
+                      <span>Resim yükleniyor...</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -482,7 +476,10 @@
           <!-- End Service Detail -->
 
           <!-- Lightbox HTML -->
-          <div id="lightbox" class="lightbox">
+          <div
+            id="lightbox"
+            class="lightbox"
+          >
             <span class="close">&times;</span>
             <img
               class="lightbox-content"
@@ -513,6 +510,7 @@
             .lightbox-content {
               max-width: 90%;
               max-height: 90%;
+              border-radius: 5px;
             }
 
             .close {
@@ -523,34 +521,261 @@
               font-size: 30px;
               cursor: pointer;
             }
+
+            #service-images img {
+              width: 100%;
+              height: 400px;
+              object-fit: cover;
+              border-radius: 5px;
+            }
           </style>
 
-          <!-- Lightbox Script -->
+          <!-- Dynamic Service Detail Script -->
           <script>
-            const lightbox = document.getElementById("lightbox")
-            const lightboxImage = document.getElementById("lightbox-image")
-            const images = document.querySelectorAll(".lightbox-trigger")
+            // Get service ID from URL parameters
+            function getServiceIdFromUrl() {
+              const urlParams = new URLSearchParams(window.location.search)
+              return urlParams.get("id")
+            }
 
-            images.forEach((image) => {
-              image.addEventListener("click", () => {
-                lightbox.style.display = "flex"
-                lightboxImage.src = image.src
-              })
-            })
+            // Fetch service data from API
+            async function fetchServiceData(serviceId) {
+              try {
+                // First try the single service endpoint
+                try {
+                  const response = await fetch(
+                    `https://api.kocaelibetopan.com/services/${serviceId}`
+                  )
+                  if (response.ok) {
+                    return await response.json()
+                  }
+                } catch (e) {
+                  // If single service endpoint fails, fall back to fetching all services
+                }
 
-            document.querySelector(".close").addEventListener("click", () => {
-              lightbox.style.display = "none"
-            })
+                // Fallback: fetch all services and filter by ID
+                const response = await fetch(
+                  `https://api.kocaelibetopan.com/services`
+                )
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`)
+                }
+                const services = await response.json()
 
-            lightbox.addEventListener("click", (event) => {
-              if (event.target === lightbox) {
-                lightbox.style.display = "none"
+                const service = services.find((s) => s.id == serviceId)
+                if (!service) {
+                  throw new Error(`Service with ID ${serviceId} not found`)
+                }
+                return service
+              } catch (error) {
+                console.error("Error fetching service data:", error)
+                throw error
               }
+            }
+
+            // Render service images (single image)
+            function renderServiceImages(images) {
+              const imagesContainer = document.getElementById("service-images")
+              if (!imagesContainer) return
+
+              if (!images || images.length === 0) {
+                imagesContainer.innerHTML =
+                  '<div class="col mb-2em"><p>Bu hizmet için resim bulunmuyor.</p></div>'
+                return
+              }
+
+              const serviceTitle =
+                document.getElementById("service-title").textContent
+              const image = images[0] // Take only the first image
+
+              const imageHtml = `
+                <div class="col mb-2em">
+                  <img
+                    src="https://kocaelibetopan.com/uploads/${image}"
+                    alt="${serviceTitle}"
+                    class="img-fluid lightbox-trigger"
+                  />
+                </div>
+              `
+
+              imagesContainer.innerHTML = imageHtml
+
+              // Add click handler for lightbox
+              const imageElement =
+                imagesContainer.querySelector(".lightbox-trigger")
+              if (imageElement) {
+                imageElement.addEventListener("click", () => {
+                  openLightbox(imageElement.src)
+                })
+              }
+            }
+
+            // Open lightbox
+            function openLightbox(imageSrc) {
+              const lightbox = document.getElementById("lightbox")
+              const lightboxImage = document.getElementById("lightbox-image")
+
+              lightbox.style.display = "flex"
+              lightboxImage.src = imageSrc
+            }
+
+            // Close lightbox
+            function closeLightbox() {
+              const lightbox = document.getElementById("lightbox")
+              lightbox.style.display = "none"
+            }
+
+            // Render service content
+            function renderServiceContent(service) {
+              const contentContainer =
+                document.getElementById("service-content")
+              if (!contentContainer) return
+
+              let contentHtml = ""
+
+              if (service.htmlContent) {
+                // If there's custom HTML content, use it
+                contentHtml = service.htmlContent
+              } else {
+                // Fallback to basic content structure
+                contentHtml = `
+                  <p>${service.description}</p>
+                `
+
+                // Add advantages if available
+                if (service.advantages) {
+                  const advantages =
+                    typeof service.advantages === "string"
+                      ? JSON.parse(service.advantages)
+                      : service.advantages
+
+                  if (advantages && advantages.length > 0) {
+                    contentHtml += '<div class="benefits-section mt-2em">'
+                    advantages.forEach((advantage, index) => {
+                      contentHtml += `
+                        <div class="benefit">
+                          <h5 class="mt-1em font-semibold">
+                            ${index + 1}. ${advantage.title || advantage}
+                          </h5>
+                          <p>${advantage.description || advantage}</p>
+                        </div>
+                      `
+                    })
+                    contentHtml += "</div>"
+                  }
+                }
+              }
+
+              contentContainer.innerHTML = contentHtml
+            }
+
+            // Update page title and meta tags
+            function updatePageMeta(service) {
+              document.title = `${service.title} - Kocaeli Betopan`
+
+              // Update meta description
+              const metaDescription = document.querySelector(
+                'meta[name="description"]'
+              )
+              if (metaDescription) {
+                metaDescription.setAttribute("content", service.description)
+              }
+
+              // Update Open Graph tags
+              const ogTitle = document.querySelector(
+                'meta[property="og:title"]'
+              )
+              if (ogTitle) {
+                ogTitle.setAttribute("content", service.title)
+              }
+
+              const ogDescription = document.querySelector(
+                'meta[property="og:description"]'
+              )
+              if (ogDescription) {
+                ogDescription.setAttribute("content", service.description)
+              }
+            }
+
+            // Show error message
+            function showError(message) {
+              const titleElement = document.getElementById("service-title")
+              const contentElement = document.getElementById("service-content")
+              const imagesElement = document.getElementById("service-images")
+
+              if (titleElement) {
+                titleElement.textContent = "Hata"
+              }
+              if (contentElement) {
+                contentElement.innerHTML = `<p style="color: red;">${message}</p>`
+              }
+              if (imagesElement) {
+                imagesElement.innerHTML = ""
+              }
+            }
+
+            // Initialize the page
+            async function initializeServiceDetail() {
+              const serviceId = getServiceIdFromUrl()
+
+              if (!serviceId) {
+                showError(
+                  "Hizmet ID bulunamadı. Lütfen geçerli bir hizmet linkini kullanın."
+                )
+                return
+              }
+
+              try {
+                const service = await fetchServiceData(serviceId)
+
+                // Update page title
+                document.getElementById("service-title").textContent =
+                  service.title
+
+                // Update page meta tags
+                updatePageMeta(service)
+
+                // Render images
+                const images =
+                  typeof service.images === "string"
+                    ? JSON.parse(service.images)
+                    : service.images
+                renderServiceImages(images)
+
+                // Render content
+                renderServiceContent(service)
+              } catch (error) {
+                console.error("Error initializing service detail:", error)
+                showError(
+                  "Hizmet verileri yüklenirken bir hata oluştu. Lütfen sayfayı yenileyin."
+                )
+              }
+            }
+
+            // Initialize when DOM is loaded
+            document.addEventListener("DOMContentLoaded", () => {
+              initializeServiceDetail()
+
+              // Add lightbox close handlers
+              document
+                .querySelector(".close")
+                .addEventListener("click", closeLightbox)
+
+              document
+                .getElementById("lightbox")
+                .addEventListener("click", (event) => {
+                  if (event.target === event.currentTarget) {
+                    closeLightbox()
+                  }
+                })
             })
           </script>
 
           <!-- Start Why Us -->
-          <section class="lqd-section services pt-75 pb-45" id="hizmetlerimiz">
+          <section
+            class="lqd-section services pt-75 pb-45"
+            id="hizmetlerimiz"
+          >
             <div class="container">
               <div class="row justify-center">
                 <div
@@ -861,7 +1086,9 @@
                     data-lity="#header-contact-modal"
                   >
                     <span class="inline-flex py-1/15em px-2/1em items-center">
-                      <span class="btn-txt" data-text="İletişime Geç"
+                      <span
+                        class="btn-txt"
+                        data-text="İletişime Geç"
                         >İletişime Geç</span
                       >
                       <span class="btn-icon">
@@ -1054,7 +1281,10 @@
         </div>
       </main>
 
-      <div class="lqd-back-to-top fixed" data-back-to-top="true">
+      <div
+        class="lqd-back-to-top fixed"
+        data-back-to-top="true"
+      >
         <a
           href="#wrap"
           class="inline-flex items-center justify-center rounded-full text-18"
@@ -1208,43 +1438,17 @@
                         class="lqd-fancy-menu lqd-custom-menu lqd-menu-td-none ld_custom_menu_62ff6ae926ced"
                       >
                         <ul class="reset-ul link-white-70 link-14">
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Betopan (Fibercement) Cephe</a
+                          <li
+                            v-for="service in services"
+                            :key="service.id"
+                            class="mb-10"
+                          >
+                            <a
+                              class="hover:text-white"
+                              :href="'service-detail.html?id=' + service.id"
                             >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#">Alçıpan</a>
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Seramik Cephe</a
-                            >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Sinterflex Cephe</a
-                            >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Kompakt Laminat Cephe</a
-                            >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Terra Cotta Cephe</a
-                            >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Frontek Cephe</a
-                            >
-                          </li>
-                          <li class="mb-10">
-                            <a class="hover:text-white" href="#"
-                              >Thermowood Cephe</a
-                            >
+                              {{ service.title }}
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -1260,10 +1464,18 @@
                       >
                         <ul class="reset-ul link-white-70 link-14">
                           <li class="mb-10">
-                            <a class="hover:text-white" href="#">Hakkımızda</a>
+                            <a
+                              class="hover:text-white"
+                              href="#"
+                              >Hakkımızda</a
+                            >
                           </li>
                           <li class="mb-10">
-                            <a class="hover:text-white" href="#">İletişim</a>
+                            <a
+                              class="hover:text-white"
+                              href="#"
+                              >İletişim</a
+                            >
                           </li>
                         </ul>
                       </div>
@@ -1361,8 +1573,11 @@
                       </div>
                       <h3 class="text-15 text-black-60 leading-1/5em">
                         <span>E-posta: </span>
-                        <span class="text-black-60"
-                          >info@kocaelibetopan.com</span
+                        <a
+                          v-if="contacts.emailAddress"
+                          :href="'mailto:' + contacts.emailAddress"
+                          class="text-black-60"
+                          >{{ contacts.emailAddress }}</a
                         >
                       </h3>
                     </div>
@@ -1384,7 +1599,12 @@
                         </span>
                       </div>
                       <h3 class="text-15 text-black-60 leading-1/5em">
-                        Telefon: +90 (538) 782 41 65
+                        <a
+                          v-if="contacts.phoneNumber"
+                          :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                          class="text-black-60"
+                          >{{ contacts.phoneNumber }}</a
+                        >
                       </h3>
                     </div>
                   </div>
@@ -1393,7 +1613,11 @@
                   <div
                     class="lqd-contact-form lqd-contact-form-inputs-filled lqd-contact-form-inputs-round lqd-contact-form-button-block lqd-contact-form-button-round pr-12percent"
                   >
-                    <div role="form" class="lqd-cf" lang="en-GB">
+                    <div
+                      role="form"
+                      class="lqd-cf"
+                      lang="en-GB"
+                    >
                       <div class="screen-reader-response">
                         <p
                           role="status"
@@ -1465,9 +1689,21 @@
     <!-- End contact modal -->
 
     <!-- Start Floating WhatsApp Contact Button -->
-    <a href="https://wa.me/905387824165" target="_blank" id="whatsapp_button">
-      <svg viewBox="0 0 189 189" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g opacity="0.4" filter="url(#filter0_f_6_48)">
+    <a
+      v-if="contacts.whatsappNumber"
+      :href="'https://wa.me/' + formatPhoneNumber(contacts.whatsappNumber)"
+      target="_blank"
+      id="whatsapp_button"
+    >
+      <svg
+        viewBox="0 0 189 189"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          opacity="0.4"
+          filter="url(#filter0_f_6_48)"
+        >
           <path
             d="M20.7209 168.5L31.1599 130.386C24.7219 119.232 21.3349 106.578 21.3389 93.614C21.3559 53.058 54.3599 20.064 94.9169 20.064C114.598 20.074 133.071 27.733 146.964 41.636C160.857 55.5389 168.501 74.019 168.494 93.673C168.476 134.226 135.467 167.226 94.9159 167.226H94.8839C82.5709 167.221 70.4719 164.132 59.7249 158.272L20.7209 168.5Z"
             fill="black"
@@ -1497,7 +1733,10 @@
             filterUnits="userSpaceOnUse"
             color-interpolation-filters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood
+              flood-opacity="0"
+              result="BackgroundImageFix"
+            />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -1518,7 +1757,10 @@
             gradientUnits="userSpaceOnUse"
           >
             <stop stop-color="#57D163" />
-            <stop offset="1" stop-color="#23B33A" />
+            <stop
+              offset="1"
+              stop-color="#23B33A"
+            />
           </linearGradient>
         </defs>
       </svg>
@@ -1535,9 +1777,11 @@
     <script src="./assets/vendors/gsap/minified/gsap.min.js"></script>
     <script src="./assets/vendors/gsap/minified/ScrollTrigger.min.js"></script>
     <script src="./assets/vendors/fontfaceobserver.js"></script>
+    <script src="./assets/vendors/swiperjs/swiper-bundle.min.js"></script>
     <script src="./assets/js/liquid-gdpr.min.js"></script>
     <script src="./assets/js/theme.js"></script>
     <script src="./assets/js/liquid-ajax-contact-form.min.js"></script>
+    <script src="./assets/js/vue/vue.js" type="module"></script>
 
     <div
       class="lity"
@@ -1546,8 +1790,17 @@
       tabindex="-1"
       data-modal-type="default"
     >
-      <div class="lity-wrap" data-lity-close role="document">
-        <div class="lity-loader" aria-hidden="true">Yükleniyor...</div>
+      <div
+        class="lity-wrap"
+        data-lity-close
+        role="document"
+      >
+        <div
+          class="lity-loader"
+          aria-hidden="true"
+        >
+          Yükleniyor...
+        </div>
         <div class="lity-container">
           <div class="lity-content"></div>
         </div>

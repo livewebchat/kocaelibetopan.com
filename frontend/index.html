@@ -103,7 +103,7 @@
                 <div class="header-module py-10">
                   <div class="iconbox iconbox-side iconbox-custom items-center">
                     <div class="iconbox-icon-wrap inline-flex">
-                      <span class="iconbox-icon-container text-18 text-black">
+                      <span class="iconbox-icon-container text-16 text-black">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
@@ -117,19 +117,22 @@
                         </svg>
                       </span>
                     </div>
-                    <span class="text-13 font-medium text-gray-500">
-                      <a
-                        v-if="contacts.phoneNumber"
-                        :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
-                        >{{ contacts.phoneNumber }}</a
-                      >
-                    </span>
+                    <h3 class="text-13 font-normal text-gray-500">
+                      <span>Telefon: </span>
+                      <span class="text-black">
+                        <a
+                          v-if="contacts.phoneNumber"
+                          :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                          >{{ contacts.phoneNumber }}</a
+                        >
+                      </span>
+                    </h3>
                   </div>
                 </div>
                 <div class="header-module py-10 ml-25">
                   <div class="iconbox iconbox-side iconbox-custom items-center">
                     <div class="iconbox-icon-wrap inline-flex">
-                      <span class="iconbox-icon-container text-20 text-black">
+                      <span class="iconbox-icon-container text-16 text-black">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
@@ -142,11 +145,14 @@
                         </svg>
                       </span>
                     </div>
-                    <span class="text-13 font-medium text-gray-500">
-                      <a :href="'mailto:' + contacts.emailAddress"
-                        >{{ contacts.emailAddress }}</a
-                      >
-                    </span>
+                    <h3 class="text-13 font-normal text-gray-500">
+                      <span>E-posta: </span>
+                      <span class="text-black">
+                        <a :href="'mailto:' + contacts.emailAddress"
+                          >{{ contacts.emailAddress }}</a
+                        >
+                      </span>
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -154,7 +160,7 @@
                 <div
                   class="header-module no-rotate flex-col justify-center py-10 ml-25"
                 >
-                  <ul class="social-icon text-20">
+                  <ul class="social-icon text-16">
                     <li>
                       <a
                         class="text-black"
@@ -227,7 +233,7 @@
                         </a>
                         <ul class="nav-item-children">
                           <li v-for="service in services" :key="service.id">
-                            <a :href="'/hizmetlerimiz/' + service.id"
+                            <a :href="'service-detail.html?id=' + service.id"
                               >{{ service.title }}</a
                             >
                           </li>
@@ -240,71 +246,6 @@
                         <a href="#">Hakkımızda</a>
                       </li>
                     </ul>
-                  </div>
-                </div>
-                <div
-                  class="header-module lqd-show-on-mobile py-10 ml-25 module-search md:ml-0"
-                >
-                  <div
-                    class="ld-module-search flex items-center"
-                    role="menubar"
-                  >
-                    <span
-                      class="ld-module-trigger collapsed lqd-module-trigger-txt-left lqd-module-show-icon lqd-module-icon-plain text-18 text-black"
-                      role="button"
-                      data-ld-toggle="true"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#search-header"
-                      aria-controls="search-header"
-                      aria-expanded="false"
-                    >
-                      <span class="ld-module-trigger-txt"></span>
-                      <span class="ld-module-trigger-icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          height="1em"
-                          viewBox="0 0 512 512"
-                        >
-                          <path
-                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                    <div
-                      role="search"
-                      class="ld-module-dropdown collapse absolute"
-                      id="search-header"
-                      aria-expanded="false"
-                    >
-                      <div class="ld-search-form-container">
-                        <form
-                          role="search"
-                          method="get"
-                          action="#"
-                          class="ld-search-form relative leading-1em"
-                        >
-                          <input
-                            type="search"
-                            placeholder="Arama yapın"
-                            value=""
-                            name="s"
-                          />
-                          <span
-                            role="search"
-                            class="input-icon absolute"
-                            data-ld-toggle="true"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#search-header"
-                            aria-controls="search-header"
-                            aria-expanded="false"
-                          >
-                            <i class="lqd-icn-ess icon-ld-search"></i>
-                          </span>
-                        </form>
-                      </div>
-                    </div>
                   </div>
                 </div>
                 <div class="header-module module-button py-10 ml-25">
@@ -370,13 +311,9 @@
                     <a href="/"> Ana Sayfa </a>
                   </li>
 
-                  <li><a href="#">Fibercement Cephe</a></li>
-                  <li><a href="#">Seramik Cephe</a></li>
-                  <li><a href="#">Sinterflex Cephe</a></li>
-                  <li><a href="#">Kompakt Laminat Cephe</a></li>
-                  <li><a href="#">Terra Cotta Cephe</a></li>
-                  <li><a href="#">Frontek Cephe</a></li>
-                  <li><a href="#">Thermowood Cephe</a></li>
+                  <li v-for="service in services" :key="service.id">
+                    <a :href="'service-detail.html?id=' + service.id">{{ service.title }}</a>
+                  </li>
                   <li>
                     <a href="#">Referans Projeler</a>
                   </li>
@@ -429,7 +366,7 @@
                             <div class="d-flex gap-15 items-center">
                               <div class="lg:pr-0">
                                 <a
-                                  href="service-detail.html"
+                                  :href="slider.link || '#'"
                                   class="btn font-bold text-13 btn-solid text-white bg-primary uppercase border-thin btn-hover-swp leading-1/5em px-0/6em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
                                   data-localscroll="true"
                                 >
@@ -510,7 +447,7 @@
                               class="carousel-item-content w-full relative flex flex-col text-center flex-grow-1"
                             >
                               <a
-                                href="project-detail.html"
+                                :href="'project-detail.html?id=' + project.id"
                                 class="link-overlay"
                               ></a>
                               <div class="w-full flex items-center mb-35">
@@ -620,7 +557,7 @@
                                     </h3>
                                   </div>
                                   <a
-                                    href="service-detail.html"
+                                    :href="'service-detail.html?id=' + service.id"
                                     class="btn font-bold text-13 btn-solid text-white bg-primary uppercase rounded-4 border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:bg-black hover:text-white"
                                   >
                                     <span
@@ -1404,7 +1341,7 @@
                         </h3>
                         <a
                           v-if="contacts.instagramLink"
-                          :href="'https://instagram.com/:' + contacts.instagramLink"
+                          :href="contacts.instagramLink"
                           class="text-16 text-white"
                         >
                           @kocaelibetopan
@@ -1426,43 +1363,13 @@
                           class="lqd-fancy-menu lqd-custom-menu lqd-menu-td-none ld_custom_menu_62ff6ae926ced"
                         >
                           <ul class="reset-ul link-white-70 link-14">
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Betopan (Fibercement) Cephe</a
+                            <li v-for="service in services" :key="service.id" class="mb-10">
+                              <a 
+                                class="hover:text-white" 
+                                :href="'service-detail.html?id=' + service.id"
                               >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#">Alçıpan</a>
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Seramik Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Sinterflex Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Kompakt Laminat Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Terra Cotta Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Frontek Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Thermowood Cephe</a
-                              >
+                                {{ service.title }}
+                              </a>
                             </li>
                           </ul>
                         </div>

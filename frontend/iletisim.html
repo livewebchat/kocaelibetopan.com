@@ -114,7 +114,11 @@
                     <h3 class="text-13 font-normal text-gray-500">
                       <span>Telefon: </span>
                       <span class="text-black">
-                        <a href="tel:905387824165">+90 (538) 782 41 65</a>
+                        <a
+                          v-if="contacts.phoneNumber"
+                          :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                          >{{ contacts.phoneNumber }}</a
+                        >
                       </span>
                     </h3>
                   </div>
@@ -138,8 +142,8 @@
                     <h3 class="text-13 font-normal text-gray-500">
                       <span>E-posta: </span>
                       <span class="text-black">
-                        <a href="mailto:info@kocaelibetopan.com"
-                          >info@kocaelibetopan.com</a
+                        <a :href="'mailto:' + contacts.emailAddress"
+                          >{{ contacts.emailAddress }}</a
                         >
                       </span>
                     </h3>
@@ -152,7 +156,12 @@
                 >
                   <ul class="social-icon text-16">
                     <li>
-                      <a class="text-gray-500" href="#" target="_blank">
+                      <a
+                        class="text-gray-500"
+                        v-if="contacts.instagramLink"
+                        :href="contacts.instagramLink"
+                        target="_blank"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
@@ -217,16 +226,11 @@
                           </span>
                         </a>
                         <ul class="nav-item-children">
-                          <li>
-                            <a href="#">Betopan (Fibercement) Cephe</a>
+                          <li v-for="service in services" :key="service.id">
+                            <a :href="'service-detail.html?id=' + service.id"
+                              >{{ service.title }}</a
+                            >
                           </li>
-                          <li><a href="#">Alçıpan</a></li>
-                          <li><a href="#">Seramik Cephe</a></li>
-                          <li><a href="#">Sinterflex Cephe</a></li>
-                          <li><a href="#">Kompakt Laminat Cephe</a></li>
-                          <li><a href="#">Terra Cotta Cephe</a></li>
-                          <li><a href="#">Frontek Cephe</a></li>
-                          <li><a href="#">Thermowood Cephe</a></li>
                         </ul>
                       </li>
                       <li>
@@ -367,13 +371,9 @@
                     <a href="/"> Ana Sayfa </a>
                   </li>
 
-                  <li><a href="#">Fibercement Cephe</a></li>
-                  <li><a href="#">Seramik Cephe</a></li>
-                  <li><a href="#">Sinterflex Cephe</a></li>
-                  <li><a href="#">Kompakt Laminat Cephe</a></li>
-                  <li><a href="#">Terra Cotta Cephe</a></li>
-                  <li><a href="#">Frontek Cephe</a></li>
-                  <li><a href="#">Thermowood Cephe</a></li>
+                  <li v-for="service in services" :key="service.id">
+                    <a :href="'service-detail.html?id=' + service.id">{{ service.title }}</a>
+                  </li>
                   <li>
                     <a href="#">Referans Projeler</a>
                   </li>
@@ -913,8 +913,11 @@
                           Bize telefon edin
                         </h3>
                         <p>
-                          <span class="text-16 text-white"
-                            >+90 (538) 782 41 65</span
+                          <a
+                            v-if="contacts.phoneNumber"
+                            :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                            class="text-16 text-white"
+                            >{{ contacts.phoneNumber }}</a
                           >
                         </p>
                       </div>
@@ -943,8 +946,11 @@
                           Bize e-mail gönderin
                         </h3>
                         <p>
-                          <span class="text-16 text-white"
-                            >info@kocaelibetopan.com</span
+                          <a
+                            v-if="contacts.emailAddress"
+                            :href="'mailto:' + contacts.emailAddress"
+                            class="text-16 text-white"
+                            >{{ contacts.emailAddress }}</a
                           >
                         </p>
                       </div>
@@ -964,43 +970,13 @@
                           class="lqd-fancy-menu lqd-custom-menu lqd-menu-td-none ld_custom_menu_62ff6ae926ced"
                         >
                           <ul class="reset-ul link-white-70 link-14">
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Betopan (Fibercement) Cephe</a
+                            <li v-for="service in services" :key="service.id" class="mb-10">
+                              <a 
+                                class="hover:text-white" 
+                                :href="'service-detail.html?id=' + service.id"
                               >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#">Alçıpan</a>
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Seramik Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Sinterflex Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Kompakt Laminat Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Terra Cotta Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Frontek Cephe</a
-                              >
-                            </li>
-                            <li class="mb-10">
-                              <a class="hover:text-white" href="#"
-                                >Thermowood Cephe</a
-                              >
+                                {{ service.title }}
+                              </a>
                             </li>
                           </ul>
                         </div>
@@ -1049,7 +1025,12 @@
       </div>
 
       <!-- Start Floating WhatsApp Contact Button -->
-      <a href="https://wa.me/905387824165" target="_blank" id="whatsapp_button">
+      <a
+        v-if="contacts.whatsappNumber"
+        :href="'https://wa.me/' + formatPhoneNumber(contacts.whatsappNumber)"
+        target="_blank"
+        id="whatsapp_button"
+      >
         <svg
           viewBox="0 0 189 189"
           fill="none"

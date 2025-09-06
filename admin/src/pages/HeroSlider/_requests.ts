@@ -23,6 +23,7 @@ export const addNewSlider = async (newSlider: NewSlider) => {
   formData.append('title', newSlider.title);
   formData.append('description', newSlider.description);
   formData.append('image', newSlider.image);
+  formData.append('link', newSlider.link);
 
   try {
     const response = await fetch(API_URL, {
@@ -68,6 +69,7 @@ export const editSliderById = async (newSliderData: EditedSlider) => {
   const formData = new FormData();
   formData.append('title', newSliderData.title);
   formData.append('description', newSliderData.description);
+  formData.append('link', newSliderData.link);
 
   if (newSliderData.image) {
     formData.append('image', newSliderData.image);

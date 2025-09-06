@@ -3,12 +3,14 @@ type Slider = {
   title: string;
   description: string;
   image: string;
+  link: string;
 };
 
 type NewSlider = {
   title: string;
   description: string;
   image: any;
+  link: string;
 };
 
 type EditedSlider = {
@@ -16,4 +18,5 @@ type EditedSlider = {
   title: string;
   description: string;
   image: any;
+  link: string;
 };
