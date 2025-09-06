@@ -10,12 +10,14 @@ export const ContactInformation = () => {
     whatsappNumber: '',
     emailAddress: '',
     instagramLink: '',
+    address: '',
   });
   const [currentContacts, setCurrentContacts] = useState<Contacts>({
     phoneNumber: '',
     whatsappNumber: '',
     emailAddress: '',
     instagramLink: '',
+    address: '',
   });
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [changedBackend, setChangedBackend] = useState(false);
@@ -247,6 +249,45 @@ export const ContactInformation = () => {
                         required
                       />
                     </div>
+                  </div>
+                </div>
+
+                <div className="mb-5.5">
+                  <label
+                    className="mb-3 block text-sm font-medium text-black dark:text-white"
+                    htmlFor="address"
+                  >
+                    Adres <span className="text-danger">*</span>
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-4.5 top-4">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 0 1 0-5a2.5 2.5 0 0 1 0 5"
+                        />
+                      </svg>
+                    </span>
+                    <textarea
+                      className="w-full rounded border border-stroke bg-gray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                      name="address"
+                      id="address"
+                      rows={4}
+                      placeholder="Tam Adres"
+                      value={currentContacts.address}
+                      onChange={(e) =>
+                        setCurrentContacts((prevContacts) => ({
+                          ...(prevContacts || currentContacts),
+                          address: e.target.value,
+                        }))
+                      }
+                      required
+                    />
                   </div>
                 </div>
 

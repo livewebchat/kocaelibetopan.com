@@ -21,7 +21,7 @@ Promise.all(scripts.map(loadScript))
       "./vue.esm-browser.prod.js"
     )
 
-    createApp({
+    const app = createApp({
       setup() {
         const sliders = ref([])
         const projects = ref([])
@@ -46,8 +46,15 @@ Promise.all(scripts.map(loadScript))
         }
 
         onMounted(async () => {
+          // Set a maximum timeout for loading
+          const timeoutId = setTimeout(() => {
+            console.warn("Loading timeout reached, showing app anyway")
+            loading.value = false
+          }, 5000) // 5 second timeout
+
           try {
-            await Promise.all([
+            // Use Promise.allSettled instead of Promise.all to continue even if some fail
+            const results = await Promise.allSettled([
               fetchSliders(sliders, error),
               fetchPreviousProjects(projects, error),
               fetchServices(services, error),
@@ -55,19 +62,32 @@ Promise.all(scripts.map(loadScript))
               imagesLoaded(),
             ])
 
+            // Log any failures but don't block the app
+            results.forEach((result, index) => {
+              if (result.status === "rejected") {
+                console.warn(`API call ${index} failed:`, result.reason)
+              }
+            })
+
             initializeSwipers()
           } catch (err) {
+            console.error("Vue app initialization error:", err)
             error.value = err.message
           } finally {
+            clearTimeout(timeoutId)
             loading.value = false
           }
         })
+
+        console.log("loading")
 
         watch(loading, (isLoading) => {
           const mainPreloader = document.getElementById("main-preloader")
           const appContainer = document.getElementById("app")
 
           if (!isLoading) {
+            console.log("loaded")
+
             setTimeout(() => {
               mainPreloader.addEventListener("transitionend", () => {
                 mainPreloader.style.display = "none"
@@ -90,7 +110,11 @@ Promise.all(scripts.map(loadScript))
           formatPhoneNumber,
         }
       },
-    }).mount("#app")
+    })
+
+    // Expose Vue app globally for project detail script
+    window.Vue = app
+    window.VueApp = app.mount("#app")
   })
   .catch((error) => {
     console.error("Error loading scripts:", error)

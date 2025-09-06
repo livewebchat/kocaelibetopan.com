@@ -22,10 +22,7 @@ function handleMySQLDisconnect() {
 
   db.connect((err) => {
     if (err) {
-      console.error("Error connecting to MySQL:", err.stack)
       setTimeout(handleMySQLDisconnect, 2000)
-    } else {
-      console.log("Connected to MySQL")
     }
   })
 
@@ -71,7 +68,6 @@ const corsOptions = {
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true)
     } else {
-      console.log("CORS error:", origin)
       callback(new Error("Not allowed by CORS"))
     }
   },
@@ -444,18 +440,18 @@ app.get("/contacts", (req, res) => {
 })
 
 app.put("/contacts", (req, res) => {
-  const { phoneNumber, whatsappNumber, emailAddress, instagramLink } = req.body
+  const { phoneNumber, whatsappNumber, emailAddress, instagramLink, address } = req.body
 
-  if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink) {
+  if (!phoneNumber || !whatsappNumber || !emailAddress || !instagramLink || !address) {
     return res.status(400).json({ error: "All fields are required." })
   }
 
   const updateQuery = `
     UPDATE contacts 
-    SET phoneNumber = ?, whatsappNumber = ?, emailAddress = ?, instagramLink = ?
+    SET phoneNumber = ?, whatsappNumber = ?, emailAddress = ?, instagramLink = ?, address = ?
     WHERE id = ?
   `
-  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink, 1]
+  const values = [phoneNumber, whatsappNumber, emailAddress, instagramLink, address, 1]
 
   db.query(updateQuery, values, (err, result) => {
     if (err) {

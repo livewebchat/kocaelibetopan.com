@@ -9,7 +9,6 @@ const getAllSliders = async () => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error("Error fetching sliders:", error)
     throw error
   }
 }
@@ -23,7 +22,6 @@ const getAllPreviousProjects = async () => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error("Error fetching projects:", error)
     throw error
   }
 }
@@ -37,7 +35,6 @@ const getAllServices = async () => {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error("Error fetching services:", error)
     throw error
   }
 }
@@ -51,7 +48,6 @@ const getContacts = async () => {
     const data = await response.json()
     return data[0]
   } catch (error) {
-    console.error("Error fetching contacts:", error)
     throw error
   }
 }

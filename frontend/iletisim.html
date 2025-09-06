@@ -2,14 +2,38 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="Kocaeli Betopan" />
-    <meta name="description" content="" />
-    <meta property="og:title" content="Kocaeli Betopan" />
-    <meta property="og:description" content="" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="./assets/images/common/og-image.jpg" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="keywords"
+      content=""
+    />
+    <meta
+      name="author"
+      content="Kocaeli Betopan"
+    />
+    <meta
+      name="description"
+      content=""
+    />
+    <meta
+      property="og:title"
+      content="Kocaeli Betopan"
+    />
+    <meta
+      property="og:description"
+      content=""
+    />
+    <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
+      property="og:image"
+      content="./assets/images/common/og-image.jpg"
+    />
 
     <link
       rel="stylesheet"
@@ -19,14 +43,33 @@
       rel="stylesheet"
       href="./assets/vendors/swiperjs/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="./assets/css/theme.min.css" />
-    <link rel="stylesheet" href="./assets/css/utility.min.css" />
-    <link rel="stylesheet" href="./assets/css/classic.min.css" />
-    <link rel="stylesheet" href="./assets/css/custom.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/css/theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/utility.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/classic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/css/custom.css"
+    />
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap"
       rel="stylesheet"
@@ -187,7 +230,11 @@
                 <div
                   class="header-module module-logo no-rotate navbar-brand-plain py-35"
                 >
-                  <a class="navbar-brand" href="./index.html" rel="home">
+                  <a
+                    class="navbar-brand"
+                    href="./index.html"
+                    rel="home"
+                  >
                     <span class="navbar-brand-inner">
                       <img
                         class="max-w-full h-auto vertical-top rounded-inherit"
@@ -226,7 +273,10 @@
                           </span>
                         </a>
                         <ul class="nav-item-children">
-                          <li v-for="service in services" :key="service.id">
+                          <li
+                            v-for="service in services"
+                            :key="service.id"
+                          >
                             <a :href="'service-detail.html?id=' + service.id"
                               >{{ service.title }}</a
                             >
@@ -309,12 +359,13 @@
                 </div>
                 <div class="header-module module-button py-10 ml-25">
                   <a
-                    href="#header-contact-modal"
+                    href="iletisim.html"
                     class="btn font-bold btn-solid text-white bg-primary uppercase border-none text-11 leading-1/5em tracking-0/1em rounded-4"
-                    data-lity="#header-contact-modal"
                   >
                     <span class="inline-flex py-0/85em px-1/5em">
-                      <span class="btn-txt" data-text="Bize Ulaş"
+                      <span
+                        class="btn-txt"
+                        data-text="Bize Ulaş"
                         >Bize Ulaş</span
                       >
                     </span>
@@ -344,7 +395,10 @@
                   </span>
                 </span>
               </button>
-              <a class="navbar-brand" href="./index.html">
+              <a
+                class="navbar-brand"
+                href="./index.html"
+              >
                 <span class="navbar-brand-inner">
                   <img
                     class="max-w-full h-auto vertical-top rounded-inherit"
@@ -371,8 +425,13 @@
                     <a href="/"> Ana Sayfa </a>
                   </li>
 
-                  <li v-for="service in services" :key="service.id">
-                    <a :href="'service-detail.html?id=' + service.id">{{ service.title }}</a>
+                  <li
+                    v-for="service in services"
+                    :key="service.id"
+                  >
+                    <a :href="'service-detail.html?id=' + service.id"
+                      >{{ service.title }}</a
+                    >
                   </li>
                   <li>
                     <a href="#">Referans Projeler</a>
@@ -386,7 +445,10 @@
           </div>
         </header>
 
-        <main class="contact z-2 transition-all bg-white" id="lqd-site-content">
+        <main
+          class="contact z-2 transition-all bg-white"
+          id="lqd-site-content"
+        >
           <div id="lqd-contents-wrap">
             <!-- Start Contact Us -->
             <section class="lqd-section py-100">
@@ -452,8 +514,11 @@
                             </div>
                             <h3 class="text-15 text-black-60 leading-1/5em">
                               <span>E-posta: </span>
-                              <span class="text-black-60"
-                                >info@kocaelibetopan.com</span
+                              <a
+                                v-if="contacts.emailAddress"
+                                :href="'mailto:' + contacts.emailAddress"
+                                class="text-black-60"
+                                >{{ contacts.emailAddress }}</a
                               >
                             </h3>
                           </div>
@@ -477,7 +542,13 @@
                               </span>
                             </div>
                             <h3 class="text-15 text-black-60 leading-1/5em">
-                              Telefon: +90 (538) 782 41 65
+                              <span></span>Telefon: </span>
+                              <a
+                                v-if="contacts.phoneNumber"
+                                :href="'tel:' + formatPhoneNumber(contacts.phoneNumber)"
+                                class="text-black-60"
+                                >{{ contacts.phoneNumber }}</a
+                              >
                             </h3>
                           </div>
                         </div>
@@ -486,7 +557,11 @@
                         <div
                           class="lqd-contact-form lqd-contact-form-inputs-filled lqd-contact-form-inputs-round lqd-contact-form-button-block lqd-contact-form-button-round pr-12percent"
                         >
-                          <div role="form" class="lqd-cf" lang="en-GB">
+                          <div
+                            role="form"
+                            class="lqd-cf"
+                            lang="en-GB"
+                          >
                             <div class="screen-reader-response">
                               <p
                                 role="status"
@@ -614,11 +689,13 @@
                       </p>
                     </div>
                     <a
-                      href="#header-contact-modal"
+                      href="iletisim.html"
                       class="btn font-bold text-13 btn-solid text-white bg-primary uppercase border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:text-white"
                     >
                       <span class="inline-flex py-1/15em px-2/1em items-center">
-                        <span class="btn-txt" data-text="İletişime Geç"
+                        <span
+                          class="btn-txt"
+                          data-text="İletişime Geç"
                           >İletişime Geç</span
                         >
                         <span class="btn-icon">
@@ -810,7 +887,10 @@
           </div>
         </main>
 
-        <div class="lqd-back-to-top fixed" data-back-to-top="true">
+        <div
+          class="lqd-back-to-top fixed"
+          data-back-to-top="true"
+        >
           <a
             href="#wrap"
             class="inline-flex items-center justify-center rounded-full text-18"
@@ -970,9 +1050,13 @@
                           class="lqd-fancy-menu lqd-custom-menu lqd-menu-td-none ld_custom_menu_62ff6ae926ced"
                         >
                           <ul class="reset-ul link-white-70 link-14">
-                            <li v-for="service in services" :key="service.id" class="mb-10">
-                              <a 
-                                class="hover:text-white" 
+                            <li
+                              v-for="service in services"
+                              :key="service.id"
+                              class="mb-10"
+                            >
+                              <a
+                                class="hover:text-white"
                                 :href="'service-detail.html?id=' + service.id"
                               >
                                 {{ service.title }}
@@ -992,12 +1076,18 @@
                         >
                           <ul class="reset-ul link-white-70 link-14">
                             <li class="mb-10">
-                              <a class="hover:text-white" href="#"
+                              <a
+                                class="hover:text-white"
+                                href="#"
                                 >Hakkımızda</a
                               >
                             </li>
                             <li class="mb-10">
-                              <a class="hover:text-white" href="#">İletişim</a>
+                              <a
+                                class="hover:text-white"
+                                href="#"
+                                >İletişim</a
+                              >
                             </li>
                           </ul>
                         </div>
@@ -1036,7 +1126,10 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g opacity="0.4" filter="url(#filter0_f_6_48)">
+          <g
+            opacity="0.4"
+            filter="url(#filter0_f_6_48)"
+          >
             <path
               d="M20.7209 168.5L31.1599 130.386C24.7219 119.232 21.3349 106.578 21.3389 93.614C21.3559 53.058 54.3599 20.064 94.9169 20.064C114.598 20.074 133.071 27.733 146.964 41.636C160.857 55.5389 168.501 74.019 168.494 93.673C168.476 134.226 135.467 167.226 94.9159 167.226H94.8839C82.5709 167.221 70.4719 164.132 59.7249 158.272L20.7209 168.5Z"
               fill="black"
@@ -1066,7 +1159,10 @@
               filterUnits="userSpaceOnUse"
               color-interpolation-filters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood
+                flood-opacity="0"
+                result="BackgroundImageFix"
+              />
               <feBlend
                 mode="normal"
                 in="SourceGraphic"
@@ -1087,7 +1183,10 @@
               gradientUnits="userSpaceOnUse"
             >
               <stop stop-color="#57D163" />
-              <stop offset="1" stop-color="#23B33A" />
+              <stop
+                offset="1"
+                stop-color="#23B33A"
+              />
             </linearGradient>
           </defs>
         </svg>
@@ -1109,6 +1208,9 @@
     <script src="./assets/js/theme.js"></script>
     <script src="./assets/js/liquid-ajax-contact-form.min.js"></script>
     <script src="./assets/vendors/swiperjs/swiper-bundle.min.js"></script>
-    <script src="./assets/js/vue/vue.js" type="module"></script>
+    <script
+      src="./assets/js/vue/vue.js"
+      type="module"
+    ></script>
   </body>
 </html>

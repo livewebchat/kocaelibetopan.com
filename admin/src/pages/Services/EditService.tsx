@@ -64,10 +64,6 @@ export const EditService: React.FC<Props> = ({
     clearEditServiceForm();
   };
 
-  useEffect(() => {
-    console.log(serviceForEdit.advantages);
-  }, [serviceForEdit]);
-
   return (
     <>
       <div

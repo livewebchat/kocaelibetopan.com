@@ -3,4 +3,5 @@ type Contacts = {
   whatsappNumber: string;
   emailAddress: string;
   instagramLink: string;
+  address: string;
 };

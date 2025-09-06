@@ -1929,7 +1929,6 @@ jQuery(document).ready(function ($) {
         typeof undefined === typeof this.targetImage ||
         null === this.targetImage
       ) {
-        console.error("There should be an image to get the source from it.")
         return false
       }
       this.setBgImage()
@@ -11900,7 +11899,6 @@ jQuery(document).ready(function ($) {
       const $firstTrigger = this.DOM.$triggers.eq(0)
       this.DOM.$fullscreenProjectParent &&
         this.DOM.$fullscreenProjectParent.on("show.bs.collapse", () => {
-          console.log(this.DOM.$targets)
           $firstTarget.add($firstTrigger).addClass(classname)
           $firstTarget.add($firstTrigger).removeClass(offClassname)
           $firstTarget.add($firstTrigger).css("pointer-events", "none")
@@ -13399,7 +13397,6 @@ jQuery(document).ready(function ($) {
       if (this.$activeItem.length && this.options.translateNav) {
         this.activeItemWidth = this.$activeItem.outerWidth()
         this.activeItemHeight = this.$activeItem.outerHeight()
-        console.log(this.$activeItem.position().left + this.activeItemWidth)
         this.activeItemPosLeft = !this.isRTL
           ? this.$activeItem.position().left
           : this.$tabNav.width() -
@@ -14022,7 +14019,6 @@ jQuery(document).ready(function ($) {
           },
           undefined,
           (error) => {
-            console.error("An error happened.", error)
             reject(error)
           }
         )

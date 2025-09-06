@@ -24,7 +24,8 @@ const fetchServices = async (services, error) => {
 
 const fetchContacts = async (contacts, error) => {
   try {
-    contacts.value = await getContacts()
+    const contactsData = await getContacts()
+    contacts.value = contactsData
   } catch (err) {
     error.value = err.message
   }
