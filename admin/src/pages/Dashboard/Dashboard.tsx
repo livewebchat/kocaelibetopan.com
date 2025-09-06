@@ -93,8 +93,8 @@ const Dashboard: React.FC = () => {
 
         <Card
           to="/iletisim-mesajlari"
-          description="İletişim mesajları"
-          title="Bize ulaşın'dan gelen mesajlar"
+          description="Bize ulaşın'dan gelen mesajlar"
+          title="İletişim Mesajları"
           className="text-primary dark:text-white"
         >
           <svg

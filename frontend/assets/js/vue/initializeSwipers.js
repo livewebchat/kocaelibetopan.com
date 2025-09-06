@@ -18,10 +18,21 @@ const initializeSwipers = () => {
   })
 
   new Swiper(".case-studies-slider", {
-    slidesPerView: 3,
+    slidesPerView: 1,
+    centeredSlides: true,
+    spaceBetween: 20,
+    loop: true, // Enable infinite loop
     pagination: {
       el: ".case-studies-pagination",
       clickable: true,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 3,
+        centeredSlides: false,
+        spaceBetween: 30,
+        loop: false,
+      },
     },
   })
 

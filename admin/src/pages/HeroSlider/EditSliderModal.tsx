@@ -103,7 +103,7 @@ export const EditSliderModal: React.FC<Props> = ({
                   </label>
                   <input
                     type="url"
-                    placeholder="Ör. https://example.com veya service-detail.html?id=1"
+                    placeholder="Ör. https://example.com veya hizmet-detayi?id=1"
                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     value={link}
                     onChange={(e) => setLink(e.target.value)}

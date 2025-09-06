@@ -232,7 +232,7 @@
                 >
                   <a
                     class="navbar-brand"
-                    href="./index.html"
+                    href="/"
                     rel="home"
                   >
                     <span class="navbar-brand-inner">
@@ -266,7 +266,7 @@
                         <a href="/"> Ana Sayfa </a>
                       </li>
                       <li class="menu-item-has-children">
-                        <a href="#">
+                        <a href="javascript:;">
                           Hizmetlerimiz
                           <span class="link-icon right-icon">
                             <i class="lqd-icn-ess icon-ion-ios-arrow-down"></i>
@@ -277,14 +277,14 @@
                             v-for="service in services"
                             :key="service.id"
                           >
-                            <a :href="'service-detail.html?id=' + service.id"
+                            <a :href="'hizmet-detayi?id=' + service.id"
                               >{{ service.title }}</a
                             >
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <a href="#">Referans Projeler</a>
+                        <a href="referans-projeler">Referans Projeler</a>
                       </li>
                       <li>
                         <a href="#">Hakkımızda</a>
@@ -294,7 +294,7 @@
                 </div>
                 <div class="header-module module-button py-10 ml-25">
                   <a
-                    href="iletisim.html"
+                    href="iletisim"
                     class="btn font-bold btn-solid text-white bg-primary uppercase border-none text-11 leading-1/5em tracking-0/1em rounded-4"
                   >
                     <span class="inline-flex py-0/85em px-1/5em">
@@ -332,7 +332,7 @@
               </button>
               <a
                 class="navbar-brand"
-                href="./index.html"
+                href="/"
               >
                 <span class="navbar-brand-inner">
                   <img
@@ -364,12 +364,12 @@
                     v-for="service in services"
                     :key="service.id"
                   >
-                    <a :href="'service-detail.html?id=' + service.id"
+                    <a :href="'hizmet-detayi?id=' + service.id"
                       >{{ service.title }}</a
                     >
                   </li>
                   <li>
-                    <a href="#">Referans Projeler</a>
+                    <a href="referans-projeler">Referans Projeler</a>
                   </li>
                   <li>
                     <a href="#">Hakkımızda</a>
@@ -781,7 +781,7 @@
                       </p>
                     </div>
                     <a
-                      href="iletisim.html"
+                      href="iletisim"
                       class="btn font-bold text-13 btn-solid text-white bg-primary uppercase border-thin btn-hover-swp leading-1/5em tracking-0/1em rounded-4 hover:text-white"
                     >
                       <span class="inline-flex py-1/15em px-2/1em items-center">
@@ -1027,11 +1027,14 @@
                         kazandırır.
                       </p>
                     </div>
-                    <ul class="social-icon social-icon-border-none text-24">
+                    <ul
+                      :v-if="contacts.instagramLink"
+                      class="social-icon social-icon-border-none text-24"
+                    >
                       <li>
                         <a
                           class="text-white-70 text-24 hover:text-white"
-                          href="#"
+                          :href="contacts.instagramLink"
                           target="_blank"
                         >
                           <svg
@@ -1146,7 +1149,7 @@
                             >
                               <a
                                 class="hover:text-white"
-                                :href="'service-detail.html?id=' + service.id"
+                                :href="'hizmet-detayi?id=' + service.id"
                               >
                                 {{ service.title }}
                               </a>
