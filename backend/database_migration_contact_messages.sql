@@ -21,5 +21,4 @@ CREATE INDEX idx_created_at ON contact_messages(created_at);
 CREATE INDEX idx_email ON contact_messages(email);
 
 -- Insert sample data (optional)
--- INSERT INTO contact_messages (name, email, phone, message) VALUES 
--- ('Test User', 'test@example.com', '+90 555 123 4567', 'This is a test message');
+INSERT INTO contact_messages (name, email, phone, message) VALUES ('Test User', 'test@example.com', '+90 555 123 4567', 'This is a test message');

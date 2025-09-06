@@ -316,7 +316,7 @@ const ContactMessages = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => handleStatusUpdate(selectedMessage.id, 'read')}
-                  className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                  className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark hover:bg-opacity-90"
                 >
                   Okundu Olarak İşaretle
                 </button>
@@ -324,7 +324,7 @@ const ContactMessages = () => {
                   onClick={() =>
                     handleStatusUpdate(selectedMessage.id, 'replied')
                   }
-                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-opacity-90"
                 >
                   Yanıtlandı
                 </button>
@@ -332,7 +332,7 @@ const ContactMessages = () => {
                   onClick={() =>
                     handleStatusUpdate(selectedMessage.id, 'closed')
                   }
-                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-opacity-90"
                 >
                   Kapat
                 </button>
