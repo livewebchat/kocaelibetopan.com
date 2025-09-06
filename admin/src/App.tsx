@@ -8,6 +8,7 @@ import { PreviousProjects } from './pages/PreviousProjects/PreviousProjects';
 import { ContactInformation } from './pages/ContactInformation/ContactInformation';
 import { Services } from './pages/Services/Services';
 import { SignIn } from './pages/Authentication/SignIn';
+import ContactMessages from './pages/ContactMessages/ContactMessages';
 
 import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
@@ -95,6 +96,15 @@ export const App = () => {
                 <>
                   <PageTitle title="İletişim Bilgileri | Kocaeli Betpoan" />
                   <ContactInformation />
+                </>
+              }
+            />
+            <Route
+              path="/iletisim-mesajlari"
+              element={
+                <>
+                  <PageTitle title="İletişim Mesajları | Kocaeli Betopan" />
+                  <ContactMessages />
                 </>
               }
             />

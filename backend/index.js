@@ -484,6 +484,132 @@ app.put("/contacts", (req, res) => {
   })
 })
 
+//////////////////////////
+//// Contact Messages ////
+//////////////////////////
+
+// Submit contact form
+app.post("/contact-messages", (req, res) => {
+  const { name, email, phone, message } = req.body
+
+  // Validate required fields
+  if (!name || !email || !message) {
+    return res.status(400).json({ 
+      error: "Name, email, and message are required." 
+    })
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ 
+      error: "Please provide a valid email address." 
+    })
+  }
+
+  const insertQuery = `
+    INSERT INTO contact_messages (name, email, phone, message) 
+    VALUES (?, ?, ?, ?)
+  `
+  const values = [name, email, phone || null, message]
+
+  db.query(insertQuery, values, (err, result) => {
+    if (err) {
+      console.error("Error submitting contact message:", err)
+      return res.status(500).json({ error: "Failed to submit message. Please try again." })
+    }
+
+    res.json({ 
+      message: "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.",
+      id: result.insertId 
+    })
+  })
+})
+
+// Get all contact messages (admin only)
+app.get("/contact-messages", (req, res) => {
+  const query = `
+    SELECT id, name, email, phone, message, status, created_at, updated_at, admin_notes, replied_at, replied_by
+    FROM contact_messages 
+    ORDER BY created_at DESC
+  `
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching contact messages:", err)
+      return res.status(500).json({ error: "Failed to fetch messages" })
+    }
+
+    res.json(results)
+  })
+})
+
+// Get single contact message (admin only)
+app.get("/contact-messages/:id", (req, res) => {
+  const { id } = req.params
+  const query = "SELECT * FROM contact_messages WHERE id = ?"
+
+  db.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error fetching contact message:", err)
+      return res.status(500).json({ error: "Failed to fetch message" })
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Message not found" })
+    }
+
+    res.json(results[0])
+  })
+})
+
+// Update contact message status (admin only)
+app.put("/contact-messages/:id", (req, res) => {
+  const { id } = req.params
+  const { status, admin_notes, replied_by } = req.body
+
+  const updateQuery = `
+    UPDATE contact_messages 
+    SET status = ?, admin_notes = ?, replied_by = ?, 
+        replied_at = CASE WHEN status != 'replied' AND ? = 'replied' THEN NOW() ELSE replied_at END,
+        updated_at = NOW()
+    WHERE id = ?
+  `
+  const values = [status, admin_notes, replied_by, status, id]
+
+  db.query(updateQuery, values, (err, result) => {
+    if (err) {
+      console.error("Error updating contact message:", err)
+      return res.status(500).json({ error: "Failed to update message" })
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Message not found" })
+    }
+
+    res.json({ message: "Message updated successfully" })
+  })
+})
+
+// Delete contact message (admin only)
+app.delete("/contact-messages/:id", (req, res) => {
+  const { id } = req.params
+  const query = "DELETE FROM contact_messages WHERE id = ?"
+
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.error("Error deleting contact message:", err)
+      return res.status(500).json({ error: "Failed to delete message" })
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Message not found" })
+    }
+
+    res.json({ message: "Message deleted successfully" })
+  })
+})
+
 /////////////////
 //// sign_in ////
 /////////////////

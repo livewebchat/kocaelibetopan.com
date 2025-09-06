@@ -572,8 +572,7 @@
                               ></p>
                             </div>
                             <form
-                              action="./assets/php/mailer.php"
-                              method="post"
+                              id="contact-form"
                               class="lqd-cf-form"
                               novalidate="novalidate"
                               data-status="init"
@@ -1214,5 +1213,80 @@
       src="./assets/js/vue/vue.js"
       type="module"
     ></script>
+
+    <!-- Contact Form JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.getElementById('contact-form');
+        const responseOutput = document.querySelector('.lqd-cf-response-output');
+        
+        if (contactForm) {
+          contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = {
+              name: formData.get('name'),
+              email: formData.get('email'),
+              phone: formData.get('phone'),
+              message: formData.get('message')
+            };
+            
+            // Validate required fields
+            if (!data.name || !data.email || !data.message) {
+              showResponse('Lütfen tüm zorunlu alanları doldurun.', 'error');
+              return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+              showResponse('Lütfen geçerli bir e-posta adresi girin.', 'error');
+              return;
+            }
+            
+            // Show loading state
+            showResponse('Mesajınız gönderiliyor...', 'loading');
+            
+            try {
+              const response = await fetch('https://api.kocaelibetopan.com/contact-messages', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+              });
+              
+              const result = await response.json();
+              
+              if (response.ok) {
+                showResponse(result.message, 'success');
+                contactForm.reset();
+              } else {
+                showResponse(result.error || 'Bir hata oluştu. Lütfen tekrar deneyin.', 'error');
+              }
+            } catch (error) {
+              console.error('Contact form error:', error);
+              showResponse('Bağlantı hatası. Lütfen tekrar deneyin.', 'error');
+            }
+          });
+        }
+        
+        function showResponse(message, type) {
+          if (responseOutput) {
+            responseOutput.innerHTML = `<p class="lqd-cf-response-${type}">${message}</p>`;
+            responseOutput.style.display = 'block';
+            
+            // Auto-hide after 5 seconds for success messages
+            if (type === 'success') {
+              setTimeout(() => {
+                responseOutput.style.display = 'none';
+              }, 5000);
+            }
+          }
+        }
+      });
+    </script>
   </body>
 </html>
