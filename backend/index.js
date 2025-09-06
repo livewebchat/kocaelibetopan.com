@@ -7,7 +7,7 @@ const cors = require("cors")
 const path = require("path")
 const fs = require("fs")
 
-const port = process.env.PORT
+const port = process.env.PORT || 5000
 
 // MySQL connection
 let db
@@ -467,10 +467,6 @@ app.put("/contacts", (req, res) => {
   })
 })
 
-app.listen(port, () => {
-  console.log(`Server running on https://localhost:${port}`)
-})
-
 /////////////////
 //// sign_in ////
 /////////////////
@@ -504,18 +500,8 @@ app.post("/signin", (req, res) => {
   })
 })
 
-// Database migration to add link column to hero_sliders table
-db.query(
-  "ALTER TABLE hero_sliders ADD COLUMN link VARCHAR(500) DEFAULT ''",
-  (err, result) => {
-    if (err && err.code !== "ER_DUP_FIELDNAME") {
-      console.error("Error adding link column to hero_sliders:", err)
-    } else if (!err) {
-      console.log("Successfully added link column to hero_sliders table")
-    }
-  }
-)
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
-})
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running on https://localhost:${port}`)
+  })
+}
