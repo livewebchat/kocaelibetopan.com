@@ -612,6 +612,72 @@ app.delete("/contact-messages/:id", (req, res) => {
   })
 })
 
+///////////////////
+//// about_page ////
+///////////////////
+
+// Get about page content
+app.get("/about", (req, res) => {
+  const query = "SELECT * FROM about_page ORDER BY id DESC LIMIT 1"
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error fetching about page:", err)
+      res.status(500).json({ error: err.message })
+    } else {
+      if (results.length === 0) {
+        // Return default content if no record exists
+        res.json({
+          id: null,
+          title: "Hakkımızda",
+          content: "<p>Hakkımızda içeriği henüz eklenmemiş.</p>"
+        })
+      } else {
+        res.json(results[0])
+      }
+    }
+  })
+})
+
+// Update about page content
+app.put("/about", (req, res) => {
+  const { title, content } = req.body
+
+  if (!title || !content) {
+    return res.status(400).json({ message: "Başlık ve içerik gerekli" })
+  }
+
+  // First check if about page exists
+  const checkQuery = "SELECT * FROM about_page ORDER BY id DESC LIMIT 1"
+  db.query(checkQuery, (err, results) => {
+    if (err) {
+      console.error("Error checking about page:", err)
+      return res.status(500).json({ error: err.message })
+    }
+
+    if (results.length === 0) {
+      // Insert new record
+      const insertQuery = "INSERT INTO about_page (title, content) VALUES (?, ?)"
+      db.query(insertQuery, [title, content], (err, result) => {
+        if (err) {
+          console.error("Error inserting about page:", err)
+          return res.status(500).json({ error: err.message })
+        }
+        res.json({ message: "Hakkımızda sayfası başarıyla oluşturuldu", id: result.insertId })
+      })
+    } else {
+      // Update existing record
+      const updateQuery = "UPDATE about_page SET title = ?, content = ? WHERE id = ?"
+      db.query(updateQuery, [title, content, results[0].id], (err, result) => {
+        if (err) {
+          console.error("Error updating about page:", err)
+          return res.status(500).json({ error: err.message })
+        }
+        res.json({ message: "Hakkımızda sayfası başarıyla güncellendi" })
+      })
+    }
+  })
+})
+
 /////////////////
 //// sign_in ////
 /////////////////

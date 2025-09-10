@@ -7,6 +7,7 @@ import { HeroSlider } from './pages/HeroSlider/HeroSlider';
 import { PreviousProjects } from './pages/PreviousProjects/PreviousProjects';
 import { ContactInformation } from './pages/ContactInformation/ContactInformation';
 import { Services } from './pages/Services/Services';
+import { About } from './pages/About/About';
 import { SignIn } from './pages/Authentication/SignIn';
 import ContactMessages from './pages/ContactMessages/ContactMessages';
 
@@ -105,6 +106,15 @@ export const App = () => {
                 <>
                   <PageTitle title="İletişim Mesajları | Kocaeli Betopan" />
                   <ContactMessages />
+                </>
+              }
+            />
+            <Route
+              path="/hakkimizda"
+              element={
+                <>
+                  <PageTitle title="Hakkımızda | Kocaeli Betopan" />
+                  <About />
                 </>
               }
             />

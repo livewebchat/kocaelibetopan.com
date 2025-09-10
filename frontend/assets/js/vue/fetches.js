@@ -30,3 +30,12 @@ const fetchContacts = async (contacts, error) => {
     error.value = err.message
   }
 }
+
+const fetchAboutPage = async (aboutPage, error) => {
+  try {
+    const aboutData = await getAboutPage()
+    aboutPage.value = aboutData
+  } catch (err) {
+    error.value = err.message
+  }
+}

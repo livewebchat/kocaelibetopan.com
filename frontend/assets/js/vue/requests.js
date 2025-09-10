@@ -51,3 +51,16 @@ const getContacts = async () => {
     throw error
   }
 }
+
+const getAboutPage = async () => {
+  try {
+    const response = await fetch(API_URL + "/about")
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    throw error
+  }
+}

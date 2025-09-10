@@ -27,6 +27,7 @@ Promise.all(scripts.map(loadScript))
         const projects = ref([])
         const services = ref([])
         const contacts = ref({})
+        const aboutPage = ref({})
         const loading = ref(true)
         const error = ref(null)
 
@@ -59,6 +60,7 @@ Promise.all(scripts.map(loadScript))
               fetchPreviousProjects(projects, error),
               fetchServices(services, error),
               fetchContacts(contacts, error),
+              fetchAboutPage(aboutPage, error),
               imagesLoaded(),
             ])
 
@@ -105,6 +107,7 @@ Promise.all(scripts.map(loadScript))
           projects,
           services,
           contacts,
+          aboutPage,
           loading,
           error,
           formatPhoneNumber,
